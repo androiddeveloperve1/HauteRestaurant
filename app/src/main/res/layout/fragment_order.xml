@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.fragments.FragmentOrders.Presenter" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/toolbar_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_90_px"
+            android:background="@drawable/toolbar_drop_shadow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/black_bg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_5_px"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+        <ImageView
+            android:id="@+id/toolbar_humburgur"
+            android:layout_width="@dimen/_30_px"
+            android:layout_height="@dimen/_35_px"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/_5_px"
+            android:layout_marginTop="@dimen/_10_px"
+            android:onClick="@{(v)->click.onMenuClick(v)}"
+            android:padding="@dimen/_5_px"
+            android:src="@drawable/ic_humburgur"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+
+        <ImageView
+            android:id="@+id/toolbar_image"
+            android:layout_width="@dimen/_35_px"
+            android:layout_height="@dimen/_35_px"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/_35_px"
+            android:layout_marginTop="@dimen/_10_px"
+            android:background="@drawable/ic_logo_haute"
+            app:layout_constraintLeft_toRightOf="@+id/toolbar_humburgur"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontStyleName="@{`Roboto_Bold.ttf`}"
+            android:text='RestaurantName'
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14_px"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_image"
+            app:layout_constraintLeft_toRightOf="@+id/toolbar_image"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_image" />
+
+        <LinearLayout
+            android:id="@+id/ll_tab_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20_px"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_title">
+
+            <RelativeLayout
+                android:id="@+id/rl_order_request"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:onClick="@{(v)->click.newRequestOrder(v)}">
+
+                <TextView
+                    android:id="@+id/tv_order_request"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/_10_px"
+                    android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                    android:text='Orders request'
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12_px" />
+
+                <ImageView
+                    android:layout_width="@dimen/_5_px"
+                    android:layout_height="@dimen/_5_px"
+                    android:layout_toRightOf="@+id/tv_order_request"
+                    android:background="@drawable/circle_bg" />
+
+                <View
+                    android:id="@+id/line_order_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1_px"
+                    android:layout_below="@+id/tv_order_request"
+                    android:background="@color/black" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_ongoing_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:onClick="@{(v)->click.onGoingOrder(v)}">
+
+                <TextView
+                    android:id="@+id/tv_ongoing"
+                    android:layout_width="match_parent"
+                    android:layout_centerInParent="true"
+                    android:layout_height="wrap_content"
+                    android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/_10_px"
+                    android:text='Ongoing'
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/_12_px" />
+
+                <View
+                    android:id="@+id/line_ongoing"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1_px"
+                    android:layout_below="@+id/tv_ongoing"
+                    android:background="@color/black"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_ready_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:onClick="@{(v)->click.readyOrder(v)}">
+
+                <TextView
+                    android:id="@+id/tv_ready"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/_10_px"
+                    android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                    android:gravity="center"
+                    android:text='Ready for pickup'
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/_12_px" />
+
+                <View
+                    android:id="@+id/line_ready_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1_px"
+                    android:layout_below="@+id/tv_ready"
+                    android:background="@color/black"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_tab_bar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

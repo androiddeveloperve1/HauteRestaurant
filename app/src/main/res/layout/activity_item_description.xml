@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.activities.ItemDescriptionActivity.Click" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activities.ItemDescriptionActivity">
+
+        <ImageView
+            android:id="@+id/img_item"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_150_px"
+            android:background="@drawable/dummy"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#05000000"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="@dimen/_40_px"
+                android:layout_height="@dimen/_40_px"
+                android:layout_alignParentLeft="true"
+                android:onClick="@{(v)->click.onBack(v)}"
+                android:padding="@dimen/_10_px"
+                android:src="@drawable/ic_back_white" />
+
+            <ImageView
+                android:id="@+id/iv_three_dot"
+                android:layout_width="@dimen/_40_px"
+                android:layout_height="@dimen/_40_px"
+                android:layout_alignParentRight="true"
+                android:onClick="@{(v)->click.onPopupClick(v)}"
+                android:padding="@dimen/_10_px"
+                android:src="@drawable/ic_three_dot_white" />
+
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/_10_px"
+            android:layout_marginTop="@dimen/_130_px"
+            android:layout_marginRight="@dimen/_10_px"
+            android:layout_marginBottom="@dimen/_5_px"
+            app:cardCornerRadius="@dimen/_5_px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_food_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginTop="@dimen/_15_px"
+                        android:ellipsize="end"
+                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                        android:maxLines="1"
+                        android:text="VEG"
+                        android:textColor="@color/greencolor"
+                        android:textSize="@dimen/_13_px"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_item_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:ellipsize="end"
+                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                        android:maxLines="1"
+                        android:text="Burger combo"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13_px"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_food_type" />
+
+                    <TextView
+                        android:id="@+id/tv_availablity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginRight="@dimen/_5_px"
+                        android:background="@drawable/available_bg"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:paddingLeft="@dimen/_10_px"
+                        android:paddingTop="@dimen/_5_px"
+                        android:paddingRight="@dimen/_10_px"
+                        android:paddingBottom="@dimen/_5_px"
+                        android:text="Available"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11_px"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_item_name" />
+
+                    <TextView
+                        android:id="@+id/tv_rs"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5_px"
+                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                        android:text="$12.00"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14_px"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
+
+                    <TextView
+                        android:id="@+id/tv_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:paddingBottom="@dimen/_5_px"
+                        android:text="Vfdsfndsfn;klsdlkdsnaasfd;sfdsklfdlsfjksdlahjkdsglaj;salghjksdlghaskdlghjkdslghjksdghjksdhglkjsghklsjdaghlsdkgjhsldakghsdjklghsdjkfghdsjkhgjdlgkfdkgh;fdlgkh;fdjkfdlfjkhdlskfdhjklfdhgfjkldshkfjdghfjdgh;fdkghfkdjhlfjkdghlfdkgh;fdluj;kghfdf;jklghfdkljrpoturhsd'sk'flkgj ;f.bnfdjk;gf.jds;gklas;gkslfdfsndfnlsdnasdnksnjksnjksdnasjkdvnkasnsskkanvsjkdvnsnvajksdnvjknad;gklas;gkalg;skdg;askg;kEG"
+                        android:textColor="@color/gray_text"
+                        android:textSize="@dimen/_11_px"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                        app:layout_constraintRight_toRightOf="@id/tv_availablity"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_rs" />
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_1_px"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:background="@color/gray"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+                    <TextView
+                        android:id="@+id/tv_today_sell_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:ellipsize="end"
+                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                        android:maxLines="1"
+                        android:text="Today's sell count"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12_px"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                    <TextView
+                        android:id="@+id/tv_today_sell_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:ellipsize="end"
+                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                        android:maxLines="1"
+                        android:text="45"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13_px"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_today_sell_text" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                        android:maxLines="1"
+                        android:text="Units"
+                        android:layout_marginLeft="@dimen/_5_px"
+                        android:textColor="@color/gray_text"
+                        android:textSize="@dimen/_8_px"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_today_sell_count"
+                        app:layout_constraintLeft_toRightOf="@+id/tv_today_sell_count" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </ScrollView>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.activities.EditItemActivity.Click" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:padding="@dimen/_5_px"
+        tools:context=".activities.EditItemActivity">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="@dimen/_25_px"
+            android:layout_height="@dimen/_25_px"
+            android:onClick="@{(v)->click.onClose(v)}"
+            android:padding="@dimen/_5_px"
+            android:src="@drawable/cancel_black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="@dimen/_10_px"
+            android:fontStyleName="@{`Roboto_Bold.ttf`}"
+            android:text="Edit"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14_px"
+            app:layout_constraintBottom_toBottomOf="@+id/img_close"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_close" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_close">
+
+            <ImageView
+                android:id="@+id/img_pic"
+                android:layout_width="@dimen/_135_px"
+                android:layout_height="@dimen/_135_px"
+                android:padding="@dimen/_10_px"
+                android:scaleType="fitXY"
+                android:src="@drawable/dummy"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/img_capture"
+                android:layout_width="@dimen/_25_px"
+                android:layout_height="@dimen/_25_px"
+                android:onClick="@{(v)->click.onImageCapture(v)}"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintBottom_toBottomOf="@+id/img_pic"
+                app:layout_constraintRight_toRightOf="@+id/img_pic" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:cardCornerRadius="@dimen/_5_px"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_capture">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fillViewport="true"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_capture">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_10_px">
+
+                        <TextView
+                            android:id="@+id/tv_product_type_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Product type"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/img_veg_nonveg_switch"
+                            android:layout_width="@dimen/_70_px"
+                            android:layout_height="@dimen/_20_px"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:tag="@string/veg"
+                            android:background="@drawable/ic_toggle_veg"
+                            android:onClick="@{(v)->click.ontoogleVegNonVeg(v)}"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_type_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_type_text" />
+
+                        <TextView
+                            android:id="@+id/tv_product_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Product name"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/img_veg_nonveg_switch" />
+
+                        <EditText
+                            android:id="@+id/et_product_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:text="saldhjfhdsljfdsjfsjdkfh"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_name_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_name_text" />
+
+                        <TextView
+                            android:id="@+id/tv_product_avail_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Availablity"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/et_product_name" />
+
+                        <ImageView
+                            android:id="@+id/tv_product_avail_switch"
+                            android:layout_width="@dimen/_70_px"
+                            android:layout_height="@dimen/_20_px"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:tag="@string/available"
+                            android:background="@drawable/ic_toggle_available"
+                            android:onClick="@{(v)->click.availbale(v)}"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_type_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_avail_text" />
+
+
+                        <TextView
+                            android:id="@+id/tv_product_price_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Product price in doller"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_avail_switch" />
+
+                        <TextView
+                            android:id="@+id/tv_doller_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="$"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_price_text" />
+
+                        <EditText
+                            android:id="@+id/et_product_price"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:inputType="number"
+                            android:text="12.00"
+                            app:layout_constraintLeft_toRightOf="@+id/tv_doller_mark"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_price_text" />
+
+
+                        <TextView
+                            android:id="@+id/tv_product_desc_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Product description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/et_product_price" />
+
+
+                        <EditText
+                            android:id="@+id/tv_desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:paddingBottom="@dimen/_5_px"
+                            android:text="Vfdsfndsfn;klsdlkdsnaasfd;sfdsklfdlsfjksdlahjkdsglaj;salghjksdlghaskdlghjkdslghjksdghjksdhglkjsghklsjdaghlsdkgjhsldakghsdjklghsdjkfghdsjkhgjdlgkfdkgh;fdlgkh;fdjkfdlfjkhdlskfdhjklfdhgfjkldshkfjdghfjdgh;fdkghfkdjhlfjkdghlfdkgh;fdluj;kghfdf;jklghfdkljrpoturhsd'sk'flkgj ;f.bnfdjk;gf.jds;gklas;gkslfdfsndfnlsdnasdnksnjksnjksdnasjkdvnkasnsskkanvsjkdvnsnvajksdnvjknad;gklas;gkalg;skdg;askg;kEG"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_11_px"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_desc_text"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_desc_text" />
+
+
+                        <TextView
+                            android:id="@+id/tv_product_attribute_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="what is product attribute"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_drop_down"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:layout_marginRight="@dimen/_10_px"
+                            android:background="@drawable/edittext_bg"
+                            android:padding="@dimen/_5_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_attribute_text">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_20_px"
+                                android:entries="@array/attribute" />
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/tv_save"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@drawable/button_green"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:onClick="@{(v)->click.save(v)}"
+                            android:text="SAVE"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ll_drop_down" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.core.widget.NestedScrollView>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

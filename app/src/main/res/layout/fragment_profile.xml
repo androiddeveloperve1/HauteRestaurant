@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.fragments.ProfileFragment.MyClick" />
+
+
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48_px">
+
+            <View
+                android:id="@+id/toolbar_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48_px"
+                android:background="@drawable/toolbar_drop_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/_5_px"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+
+            <ImageView
+                android:id="@+id/toolbar_manu"
+                android:layout_width="@dimen/_30_px"
+                android:layout_height="@dimen/_35_px"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5_px"
+                android:padding="@dimen/_5_px"
+                android:src="@drawable/ic_humburgur"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_10_px"
+                android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                android:text="Profile"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14_px"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_manu" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/_10_px">
+
+                <TextView
+                    android:id="@+id/tv_profile_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                    android:text="Profile details"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/_11_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_profile_text">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5_px"
+                        android:layout_marginTop="@dimen/_60_px"
+                        android:layout_marginRight="@dimen/_5_px"
+                        android:background="@drawable/card_bg"
+                        android:padding="@dimen/_10_px"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <ImageView
+                            android:id="@+id/iv_edit"
+                            android:layout_width="@dimen/_20_px"
+                            android:layout_height="@dimen/_20_px"
+                            android:layout_centerHorizontal="true"
+                            android:onClick="@{(v)->click.editRestaurant(v)}"
+                            android:padding="@dimen/_3_px"
+                            android:src="@drawable/ic_edit"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_reatsurant_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Restaurant Name"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_reatsurant_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Name of the Restaurant"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_name_text" />
+
+
+                        <TextView
+                            android:id="@+id/tv_reatsurant_address_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Address"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_name" />
+
+                        <TextView
+                            android:id="@+id/tv_reatsurant_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Noida NSEZ"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_address_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_address_text" />
+
+
+                        <TextView
+                            android:id="@+id/tv_zip_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Zip Code"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_address" />
+
+                        <TextView
+                            android:id="@+id/tv_zip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="123456"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_zip_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_zip_text" />
+
+
+                        <TextView
+                            android:id="@+id/tv_delivery_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Max Delivery Time"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_zip" />
+
+                        <TextView
+                            android:id="@+id/tv_delivery_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="8:30 pm"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_delivery_text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_delivery_text" />
+
+                        <TextView
+                            android:id="@+id/tv_delivery_range__text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Delivery Range"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_delivery_time" />
+
+                        <TextView
+                            android:id="@+id/tv_delivery_range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="05 Km"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_delivery_range__text"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_delivery_range__text" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_profile"
+                        android:layout_width="@dimen/_90_px"
+                        android:layout_height="@dimen/_90_px"
+                        android:padding="@dimen/_10_px"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/dummy"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cl_service"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5_px"
+                        app:cardCornerRadius="4dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_profile">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_5_px">
+
+                            <TextView
+                                android:id="@+id/tv_service_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="Service Days &amp; hours"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_11_px"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/iv_edit_service"
+                                android:layout_width="@dimen/_20_px"
+                                android:layout_height="@dimen/_20_px"
+                                android:layout_centerHorizontal="true"
+                                android:onClick="@{(v)->click.editServices(v)}"
+                                android:padding="@dimen/_3_px"
+                                android:src="@drawable/ic_edit"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <LinearLayout
+                                android:id="@+id/ll_service_day"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5_px"
+                                android:orientation="vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14_px"
+                                app:layout_constraintLeft_toLeftOf="@id/tv_service_text"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_service_text">
+
+
+                                <include
+                                    android:id="@+id/include_layout"
+                                    layout="@layout/day_hours_layout" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5_px"
+                                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                    android:text="Service hours"
+                                    android:textColor="@color/gray_text"
+                                    android:textSize="@dimen/_12_px"
+                                    app:layout_constraintLeft_toLeftOf="@id/tv_delivery_text"
+                                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_text" />
+
+                                <androidx.viewpager.widget.ViewPager
+                                    android:id="@+id/view_pager"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_40_px"
+                                    android:layout_marginTop="@dimen/_5_px" />
+
+
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/accountCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5_px"
+                        app:cardCornerRadius="4dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cl_service">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10_px">
+
+
+                            <TextView
+                                android:id="@+id/tv_account_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="Payment account details"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_11_px"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_suport_text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="To change in payment account details please contact support"
+                                android:textColor="@color/gray_text"
+                                android:textSize="@dimen/_12_px"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tv_account_text" />
+
+
+                            <TextView
+                                android:id="@+id/tv_acc_name__text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="Account by the name"
+                                android:textColor="@color/gray_text"
+                                android:textSize="@dimen/_12_px"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_suport_text" />
+
+                            <TextView
+                                android:id="@+id/tv_acc_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="Restaurant Name"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14_px"
+                                app:layout_constraintLeft_toLeftOf="@id/tv_acc_name__text"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_acc_name__text" />
+
+                            <TextView
+                                android:id="@+id/tv_acc_no__text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="Account number"
+                                android:textColor="@color/gray_text"
+                                android:textSize="@dimen/_12_px"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_acc_name" />
+
+                            <TextView
+                                android:id="@+id/tv_acc_number"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="09798786789787"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14_px"
+                                app:layout_constraintLeft_toLeftOf="@id/tv_acc_no__text"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_acc_no__text" />
+
+
+                            <TextView
+                                android:id="@+id/tv_swift__text"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="Swift code"
+                                android:textColor="@color/gray_text"
+                                android:textSize="@dimen/_12_px"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_acc_number" />
+
+                            <TextView
+                                android:id="@+id/tv_swift"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5_px"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:text="ABC1234"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14_px"
+                                app:layout_constraintLeft_toLeftOf="@id/tv_swift__text"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_swift__text" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/logoutCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5_px"
+                        app:cardCornerRadius="4dp"
+                        app:cardUseCompatPadding="false"
+                        app:layout_constraintTop_toBottomOf="@id/accountCard">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v)->click.logout(v)}"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_20_px"
+                                android:layout_height="@dimen/_20_px"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_20_px"
+                                android:src="@drawable/ic_log_out" />
+
+                            <TextView
+                                android:id="@+id/tv_logout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                                android:gravity="center"
+                                android:padding="@dimen/_5_px"
+                                android:text="Log me out from this device"
+                                android:textColor="@color/gray_text"
+                                android:textSize="@dimen/_14_px" />
+                        </RelativeLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

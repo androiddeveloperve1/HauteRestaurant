@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="green_button">#40801e</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray_text">#9b9b9b</color>
+    <color name="gray">#e2e2e2</color>
+    <color name="colorBlackTransparent">#80000000</color>
+    <color name="greencolor">#58a62b</color>
+    <color name="yellow">#eb872b</color>
+    <color name="transarent">#00FFFFFF</color>
+    <color name="black_trans">#80000000</color>
+
+</resources>

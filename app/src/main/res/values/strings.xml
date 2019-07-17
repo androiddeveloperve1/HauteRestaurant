@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">MyLibertaRestaurant</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="check_box_tag_yes">yes</string>
+    <string name="check_box_tag_no">No</string>
+
+    <string name="veg">Veg</string>
+    <string name="non_veg">Non veg</string>
+    <string name="available">available</string>
+    <string name="un_available">unavailable</string>
+
+
+    <string name="permission_require">For access the application functionality you have to enable the required permission. otherwise application functionality will not work.
+ Are you sure want to enable permission?</string>
+
+    <string-array name="services_available">
+        <item>Yes</item>
+        <item>No</item>
+
+    </string-array>
+
+    <string-array name="attribute">
+        <item>Attribute 1</item>
+        <item>Attribute 2</item>
+        <item>Attribute 3</item>
+        <item>Attribute 4</item>
+
+    </string-array>
+
+
+</resources>

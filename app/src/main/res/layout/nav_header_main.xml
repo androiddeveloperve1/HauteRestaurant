@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:padding="@dimen/_10_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_restaurant"
+                android:layout_width="@dimen/_60_px"
+                android:layout_height="@dimen/_60_px"
+                android:layout_marginTop="@dimen/_10_px"
+                android:background="@drawable/ic_logo_haute"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:text="GodZilla Restaurant"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14_px"
+                app:layout_constraintLeft_toLeftOf="@id/img_restaurant"
+                app:layout_constraintTop_toBottomOf="@id/img_restaurant" />
+
+            <ImageView
+                android:id="@+id/iv_on_off_line"
+                android:layout_width="@dimen/_33_px"
+                android:layout_height="@dimen/_18_px"
+                android:layout_marginTop="@dimen/_5_px"
+                android:src="@drawable/ic_offline_toggle"
+                app:layout_constraintLeft_toLeftOf="@id/img_restaurant"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_restaurant" />
+
+
+            <TextView
+                android:id="@+id/tv_on_off_line"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5_px"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:text="offline"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/_12_px"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_on_off_line"
+                app:layout_constraintLeft_toRightOf="@id/iv_on_off_line"
+                app:layout_constraintTop_toTopOf="@+id/iv_on_off_line" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_15_px"
+            android:paddingTop="@dimen/_15_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_view">
+
+            <ImageView
+                android:id="@+id/iv_order"
+                android:layout_width="@dimen/_22_px"
+                android:layout_height="@dimen/_22_px"
+                android:background="@drawable/ic_new_order_on"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:paddingLeft="@dimen/_27_px"
+                android:text="Orders"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13_px"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_order"
+                app:layout_constraintLeft_toRightOf="@id/iv_order"
+                app:layout_constraintTop_toTopOf="@id/iv_order" />
+
+
+            <ImageView
+                android:id="@+id/iv_inventory"
+                android:layout_width="@dimen/_22_px"
+                android:layout_height="@dimen/_22_px"
+                android:layout_marginTop="@dimen/_15_px"
+                android:background="@drawable/ic_manage_order_off"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_order" />
+
+            <TextView
+                android:id="@+id/tv_inventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:paddingLeft="@dimen/_27_px"
+                android:text="Manage Inventory"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/_13_px"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_inventory"
+                app:layout_constraintLeft_toRightOf="@id/iv_inventory"
+                app:layout_constraintTop_toTopOf="@id/iv_inventory" />
+
+            <ImageView
+                android:id="@+id/iv_earn"
+                android:layout_width="@dimen/_22_px"
+                android:layout_height="@dimen/_22_px"
+                android:layout_marginTop="@dimen/_15_px"
+                android:background="@drawable/ic_earning_off"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_inventory" />
+
+            <TextView
+                android:id="@+id/tv_earn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:paddingLeft="@dimen/_27_px"
+                android:text="Earning &amp; History"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/_13_px"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_earn"
+                app:layout_constraintLeft_toRightOf="@id/iv_earn"
+                app:layout_constraintTop_toTopOf="@id/iv_earn" />
+
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="@dimen/_22_px"
+                android:layout_height="@dimen/_22_px"
+                android:layout_marginTop="@dimen/_15_px"
+                android:background="@drawable/ic_my_profile_off"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_earn" />
+
+            <TextView
+                android:id="@+id/tv_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:paddingLeft="@dimen/_27_px"
+                android:text="My Profile"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/_13_px"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+                app:layout_constraintLeft_toRightOf="@id/iv_profile"
+                app:layout_constraintTop_toTopOf="@id/iv_profile" />
+
+            <ImageView
+                android:id="@+id/iv_help"
+                android:layout_width="@dimen/_22_px"
+                android:layout_height="@dimen/_22_px"
+                android:layout_marginTop="@dimen/_15_px"
+                android:background="@drawable/ic_support_off"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile" />
+
+            <TextView
+                android:id="@+id/tv_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Black.ttf`}"
+                android:paddingLeft="@dimen/_27_px"
+                android:text="Help &amp; Support"
+                android:textColor="@color/gray_text"
+                android:textSize="@dimen/_13_px"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_help"
+                app:layout_constraintLeft_toRightOf="@id/iv_help"
+                app:layout_constraintTop_toTopOf="@id/iv_help" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
