@@ -7,6 +7,8 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.mylibertarestaurant.R;
+import com.app.mylibertarestaurant.model.RestaurantDetailModel;
+import com.app.mylibertarestaurant.prefes.MySharedPreference;
 
 public class SplashActivity extends AppCompatActivity {
     ActivityRunnable runnable;
@@ -23,8 +25,21 @@ public class SplashActivity extends AppCompatActivity {
     private class ActivityRunnable implements Runnable {
         @Override
         public void run() {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-            finish();
+            RestaurantDetailModel model = MySharedPreference.getInstance(SplashActivity.this).getUser();
+            if (model != null) {
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+                /*if (model.getIs_mobile_verify().equals("1")) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(SplashActivity.this, EnterOtpActivity.class));
+                    finish();
+                }*/
+            } else {
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                finish();
+            }
         }
     }
 }

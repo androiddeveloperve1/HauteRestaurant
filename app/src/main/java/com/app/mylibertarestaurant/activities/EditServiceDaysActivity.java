@@ -6,12 +6,11 @@ import androidx.databinding.DataBindingUtil;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ActivityEditServiceDaysBinding;
 
-public class EditServiceDaysActivity extends AppCompatActivity {
+public class EditServiceDaysActivity extends AppCompatActivity  {
     ActivityEditServiceDaysBinding binder;
     private TimePickerDialog timeDialog;
 
@@ -19,8 +18,8 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_edit_service_days);
-        binder.setClick(new Click());
         initClick();
+        binder.setClick(new Click());
     }
 
     void initClick() {
@@ -35,14 +34,6 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     }
 
 
-    void pickTime(TextView tv) {
-        String time[] = tv.getText().toString().split(":");
-        timeDialog = new TimePickerDialog(EditServiceDaysActivity.this, (timePicker, i, i1) -> {
-            tv.setText(String.format("%02d:%02d", i, i1));
-        }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), true);
-        timeDialog.show();
-    }
-
     void clickMon() {
         binder.llMon.tvServiceDay.setText("Monday");
         binder.llMon.imgCheckbox.setOnClickListener((v) -> {
@@ -54,18 +45,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                 binder.llMon.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-        binder.llMon.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llMon.tvOpenTime1);
-        });
-        binder.llMon.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llMon.tvOpenTime2);
-        });
-        binder.llMon.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llMon.tvCloseTime1);
-        });
-        binder.llMon.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llMon.tvCloseTime2);
-        });
+
 
     }
 
@@ -80,18 +60,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                 binder.llTue.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-        binder.llTue.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llTue.tvOpenTime1);
-        });
-        binder.llTue.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llTue.tvOpenTime2);
-        });
-        binder.llTue.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llTue.tvCloseTime1);
-        });
-        binder.llTue.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llTue.tvCloseTime2);
-        });
+
 
     }
 
@@ -106,18 +75,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                 binder.llWed.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-        binder.llWed.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llWed.tvOpenTime1);
-        });
-        binder.llWed.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llWed.tvOpenTime2);
-        });
-        binder.llWed.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llWed.tvCloseTime1);
-        });
-        binder.llWed.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llWed.tvCloseTime2);
-        });
+
 
     }
 
@@ -132,18 +90,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                 binder.llThu.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-        binder.llThu.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llThu.tvOpenTime1);
-        });
-        binder.llThu.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llThu.tvOpenTime2);
-        });
-        binder.llThu.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llThu.tvCloseTime1);
-        });
-        binder.llThu.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llThu.tvCloseTime2);
-        });
+
 
     }
 
@@ -158,18 +105,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                 binder.llFri.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-        binder.llFri.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llFri.tvOpenTime1);
-        });
-        binder.llFri.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llFri.tvOpenTime2);
-        });
-        binder.llFri.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llFri.tvCloseTime1);
-        });
-        binder.llFri.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llFri.tvCloseTime2);
-        });
+
 
     }
 
@@ -185,18 +121,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
             }
 
         });
-        binder.llSat.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llSat.tvOpenTime1);
-        });
-        binder.llSat.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llSat.tvOpenTime2);
-        });
-        binder.llSat.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llSat.tvCloseTime1);
-        });
-        binder.llSat.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llSat.tvCloseTime2);
-        });
+
 
     }
 
@@ -211,19 +136,10 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                 binder.llSun.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-        binder.llSun.tvOpenTime1.setOnClickListener((v) -> {
-            pickTime(binder.llSun.tvOpenTime1);
-        });
-        binder.llSun.tvOpenTime2.setOnClickListener((v) -> {
-            pickTime(binder.llSun.tvOpenTime2);
-        });
-        binder.llSun.tvCloseTime1.setOnClickListener((v) -> {
-            pickTime(binder.llSun.tvCloseTime1);
-        });
-        binder.llSun.tvCloseTime2.setOnClickListener((v) -> {
-            pickTime(binder.llSun.tvCloseTime2);
-        });
+
     }
+
+
 
     public class Click {
         public void close(View v) {

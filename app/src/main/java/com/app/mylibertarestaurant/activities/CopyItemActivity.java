@@ -1,23 +1,21 @@
 package com.app.mylibertarestaurant.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.databinding.DataBindingUtil;
+
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.databinding.ActivityEditItemBinding;
+import com.app.mylibertarestaurant.databinding.ActivityCopyItemBinding;
 
-public class EditItemActivity extends ImageUploadingActivity {
-    private ActivityEditItemBinding binder;
-
+public class CopyItemActivity extends ImageUploadingActivity {
+    ActivityCopyItemBinding binder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binder = DataBindingUtil.setContentView(this, R.layout.activity_edit_item);
+        binder = DataBindingUtil.setContentView(this, R.layout.activity_copy_item);
         binder.setClick(new Click());
     }
 
@@ -47,7 +45,6 @@ public class EditItemActivity extends ImageUploadingActivity {
         }
 
         public void ontoogleVegNonVeg(View v) {
-
             if (v.getTag().equals(getResources().getString(R.string.veg))) {
                 v.setTag(getResources().getString(R.string.non_veg));
                 v.setBackgroundResource(R.drawable.ic_toggle_on_veg);
@@ -55,10 +52,7 @@ public class EditItemActivity extends ImageUploadingActivity {
                 v.setTag(getResources().getString(R.string.veg));
                 v.setBackgroundResource(R.drawable.ic_toggle_veg);
             }
-
-
         }
-
         public void save(View v) {
         }
 

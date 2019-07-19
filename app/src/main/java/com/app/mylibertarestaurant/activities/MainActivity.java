@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentOrders = new FragmentOrders();
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
-        inventoryFragment=new InventoryFragment();
+        inventoryFragment = new InventoryFragment();
         initView();
 
 
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             drawer.openDrawer(GravityCompat.START);
         }
     }
+
     void backAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Alert");
@@ -110,113 +111,93 @@ public class MainActivity extends AppCompatActivity {
         final ImageView iv_profile = navView.findViewById(R.id.iv_profile);
         final ImageView iv_help = navView.findViewById(R.id.iv_help);
 
-        iv_on_off_line.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isReatsurantOnline) {
-                    tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
-                    tv_on_off_line.setText("Offline");
-                    iv_on_off_line.setImageResource(R.drawable.ic_offline_toggle);
-                    isReatsurantOnline = false;
-                } else {
-                    tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
-                    tv_on_off_line.setText("Online");
-                    iv_on_off_line.setImageResource(R.drawable.ic_online_toggle);
-                    isReatsurantOnline = true;
-                }
-
+        iv_on_off_line.setOnClickListener((v)->{
+            if (isReatsurantOnline) {
+                tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
+                tv_on_off_line.setText("Offline");
+                iv_on_off_line.setImageResource(R.drawable.ic_offline_toggle);
+                isReatsurantOnline = false;
+            } else {
+                tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
+                tv_on_off_line.setText("Online");
+                iv_on_off_line.setImageResource(R.drawable.ic_online_toggle);
+                isReatsurantOnline = true;
             }
         });
 
 
-        tv_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_order.setTextColor(getResources().getColor(R.color.black));
-                tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_help.setTextColor(getResources().getColor(R.color.gray_text));
+        tv_order.setOnClickListener((v)->{
+            tv_order.setTextColor(getResources().getColor(R.color.black));
+            tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_help.setTextColor(getResources().getColor(R.color.gray_text));
 
-                iv_order.setImageResource(R.drawable.ic_new_order_on);
-                iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
-                iv_earn.setImageResource(R.drawable.ic_earning_off);
-                iv_profile.setImageResource(R.drawable.ic_my_profile_off);
-                iv_help.setImageResource(R.drawable.ic_support_off);
-                FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
-                drawer.closeDrawer(GravityCompat.START);
-
-            }
+            iv_order.setImageResource(R.drawable.ic_new_order_on);
+            iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
+            iv_earn.setImageResource(R.drawable.ic_earning_off);
+            iv_profile.setImageResource(R.drawable.ic_my_profile_off);
+            iv_help.setImageResource(R.drawable.ic_support_off);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
+            drawer.closeDrawer(GravityCompat.START);
         });
-        tv_inventory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_order.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_inventory.setTextColor(getResources().getColor(R.color.black));
-                tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_help.setTextColor(getResources().getColor(R.color.gray_text));
-                iv_order.setImageResource(R.drawable.ic_new_order_off);
-                iv_inventory.setImageResource(R.drawable.ic_manage_order_on);
-                iv_earn.setImageResource(R.drawable.ic_earning_off);
-                iv_profile.setImageResource(R.drawable.ic_my_profile_off);
-                iv_help.setImageResource(R.drawable.ic_support_off);
-                FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, inventoryFragment);
-                drawer.closeDrawer(GravityCompat.START);
-            }
+        tv_inventory.setOnClickListener((v)->{
+            tv_order.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_inventory.setTextColor(getResources().getColor(R.color.black));
+            tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_help.setTextColor(getResources().getColor(R.color.gray_text));
+            iv_order.setImageResource(R.drawable.ic_new_order_off);
+            iv_inventory.setImageResource(R.drawable.ic_manage_order_on);
+            iv_earn.setImageResource(R.drawable.ic_earning_off);
+            iv_profile.setImageResource(R.drawable.ic_my_profile_off);
+            iv_help.setImageResource(R.drawable.ic_support_off);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, inventoryFragment);
+            drawer.closeDrawer(GravityCompat.START);
         });
 
-        tv_earn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_order.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_earn.setTextColor(getResources().getColor(R.color.black));
-                tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_help.setTextColor(getResources().getColor(R.color.gray_text));
-                iv_order.setImageResource(R.drawable.ic_new_order_off);
-                iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
-                iv_earn.setImageResource(R.drawable.ic_earning_on);
-                iv_profile.setImageResource(R.drawable.ic_my_profile_off);
-                iv_help.setImageResource(R.drawable.ic_support_off);
-                FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, earningFragment);
-                drawer.closeDrawer(GravityCompat.START);
-            }
+        tv_earn.setOnClickListener((v)->{
+            tv_order.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_earn.setTextColor(getResources().getColor(R.color.black));
+            tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_help.setTextColor(getResources().getColor(R.color.gray_text));
+            iv_order.setImageResource(R.drawable.ic_new_order_off);
+            iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
+            iv_earn.setImageResource(R.drawable.ic_earning_on);
+            iv_profile.setImageResource(R.drawable.ic_my_profile_off);
+            iv_help.setImageResource(R.drawable.ic_support_off);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, earningFragment);
+            drawer.closeDrawer(GravityCompat.START);
         });
 
-        tv_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_order.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_profile.setTextColor(getResources().getColor(R.color.black));
-                tv_help.setTextColor(getResources().getColor(R.color.gray_text));
-                iv_order.setImageResource(R.drawable.ic_new_order_off);
-                iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
-                iv_earn.setImageResource(R.drawable.ic_earning_off);
-                iv_profile.setImageResource(R.drawable.ic_my_profile_on);
-                iv_help.setImageResource(R.drawable.ic_support_off);
-                drawer.closeDrawer(GravityCompat.START);
-                FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, profileFragment);
-            }
+        tv_profile.setOnClickListener((v) -> {
+            tv_order.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_profile.setTextColor(getResources().getColor(R.color.black));
+            tv_help.setTextColor(getResources().getColor(R.color.gray_text));
+            iv_order.setImageResource(R.drawable.ic_new_order_off);
+            iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
+            iv_earn.setImageResource(R.drawable.ic_earning_off);
+            iv_profile.setImageResource(R.drawable.ic_my_profile_on);
+            iv_help.setImageResource(R.drawable.ic_support_off);
+            drawer.closeDrawer(GravityCompat.START);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, profileFragment);
         });
 
-        tv_help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tv_order.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
-                tv_help.setTextColor(getResources().getColor(R.color.black));
-                iv_order.setImageResource(R.drawable.ic_new_order_off);
-                iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
-                iv_earn.setImageResource(R.drawable.ic_earning_off);
-                iv_profile.setImageResource(R.drawable.ic_my_profile_off);
-                iv_help.setImageResource(R.drawable.ic_support_on);
-                drawer.closeDrawer(GravityCompat.START);
-            }
+        tv_help.setOnClickListener((v) -> {
+            tv_order.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_profile.setTextColor(getResources().getColor(R.color.gray_text));
+            tv_help.setTextColor(getResources().getColor(R.color.black));
+            iv_order.setImageResource(R.drawable.ic_new_order_off);
+            iv_inventory.setImageResource(R.drawable.ic_manage_order_off);
+            iv_earn.setImageResource(R.drawable.ic_earning_off);
+            iv_profile.setImageResource(R.drawable.ic_my_profile_off);
+            iv_help.setImageResource(R.drawable.ic_support_on);
+            drawer.closeDrawer(GravityCompat.START);
         });
         FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
     }

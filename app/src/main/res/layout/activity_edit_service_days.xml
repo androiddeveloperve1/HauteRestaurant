@@ -7,6 +7,7 @@
             name="click"
             type="com.app.mylibertarestaurant.activities.EditServiceDaysActivity.Click" />
 
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -90,10 +91,10 @@
                 android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:paddingBottom="@dimen/_10_px"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_10_px">
+                    android:layout_marginLeft="@dimen/_10_px"
+                    android:paddingBottom="@dimen/_10_px">
 
 
                     <TextView
@@ -165,6 +166,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_mon" />
@@ -175,6 +177,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_tue" />
@@ -185,6 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_wed" />
@@ -195,6 +199,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_thu" />
@@ -205,6 +210,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_fri" />
@@ -215,6 +221,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_sat" />
@@ -222,15 +229,15 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="SAVE"
                         android:layout_margin="@dimen/_10_px"
-                        android:textSize="@dimen/_14_px"
-                        android:textColor="@color/white"
-                        android:gravity="center"
                         android:background="@drawable/button_green"
+                        android:gravity="center"
+                        android:text="SAVE"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14_px"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ll_sun"/>
+                        app:layout_constraintTop_toBottomOf="@+id/ll_sun" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

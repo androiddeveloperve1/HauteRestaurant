@@ -23,7 +23,6 @@ import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 
 public class EarningFragment extends Fragment {
     FragmentTodayEarningBinding binder;
-
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_today_earning, container, false);
         binder.rvItems.setLayoutManager(new LinearLayoutManager(getActivity()));

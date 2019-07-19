@@ -42,8 +42,11 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                         startActivity(new Intent(ItemDescriptionActivity.this, EditItemActivity.class));
                         break;
                     case R.id.copy:
+                        startActivity(new Intent(ItemDescriptionActivity.this, CopyItemActivity.class));
+
                         break;
                     case R.id.delete:
+                        finish();
                         break;
                 }
                 return false;

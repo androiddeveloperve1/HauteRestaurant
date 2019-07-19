@@ -1,6 +1,9 @@
 package com.app.mylibertarestaurant.utils;
 
+import android.app.TimePickerDialog;
+import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
@@ -34,5 +37,21 @@ public class BindingAdapters {
             textView.setTextColor(textView.getContext().getResources().getColor(R.color.white));
         }
     }
+
+    @BindingAdapter("android:timePicker")
+    public static void pickTime(TextView tv, Integer in) {
+        tv.setOnClickListener((v) -> {
+            String time[] = tv.getText().toString().split(":");
+            TimePickerDialog timeDialog = new TimePickerDialog(tv.getContext(), (timePicker, i, i1) -> {
+                tv.setText(String.format("%02d:%02d", i, i1));
+            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), true);
+            timeDialog.show();
+        });
+
+    }
+
+
+
+
 
 }
