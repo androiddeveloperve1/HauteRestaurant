@@ -12,6 +12,9 @@ import com.app.mylibertarestaurant.BR;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemTodayEarningBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
+import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+
+import java.util.ArrayList;
 
 /**
  * Create By Rahul Mangal
@@ -20,9 +23,11 @@ import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 
 public class EarnAdapter extends RecyclerView.Adapter<EarnAdapter.MyViewHolder> {
     RecycleItemClickListener listenr;
+    private ArrayList<OrderDetailsModel> list;
 
-    public EarnAdapter(RecycleItemClickListener listenr) {
+    public EarnAdapter(ArrayList<OrderDetailsModel> list, RecycleItemClickListener listenr) {
         this.listenr = listenr;
+        this.list = list;
     }
 
     @NonNull
@@ -36,13 +41,13 @@ public class EarnAdapter extends RecyclerView.Adapter<EarnAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull EarnAdapter.MyViewHolder holder, int i) {
-        // holder.bind(list.get(i));
-        holder.bind(new Object());
+
+        holder.bind(list.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return list.size();
     }
 
 
@@ -54,8 +59,8 @@ public class EarnAdapter extends RecyclerView.Adapter<EarnAdapter.MyViewHolder> 
             this.binding = databinding;
         }
 
-        public void bind(Object data) {
-            // this.binding.setVariable(BR.data, data);
+        public void bind(OrderDetailsModel data) {
+            this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();
         }

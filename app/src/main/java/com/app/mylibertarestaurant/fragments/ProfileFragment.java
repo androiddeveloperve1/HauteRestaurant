@@ -20,6 +20,7 @@ import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.adapter.MyPagerAdapter;
 import com.app.mylibertarestaurant.adapter.TimeAdapter;
 import com.app.mylibertarestaurant.databinding.FragmentProfileBinding;
+import com.app.mylibertarestaurant.prefes.MySharedPreference;
 
 /**
  * Create By Rahul Mangal
@@ -331,6 +332,8 @@ public class ProfileFragment extends Fragment {
         }
 
         public void logout(View v) {
+
+            MySharedPreference.getInstance(getActivity()).clearMyPreference();
             getActivity().finish();
         }
     }

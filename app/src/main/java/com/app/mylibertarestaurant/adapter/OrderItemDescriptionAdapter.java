@@ -10,6 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.OrderItemDescriptionBinding;
+import com.app.mylibertarestaurant.model.items.OrderItemModel;
+
+import java.util.ArrayList;
+
+import static com.app.mylibertarestaurant.BR.model;
 
 /**
  * Create By Rahul Mangal
@@ -17,8 +22,10 @@ import com.app.mylibertarestaurant.databinding.OrderItemDescriptionBinding;
  */
 
 public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemDescriptionAdapter.MyViewHolder> {
+    private ArrayList<OrderItemModel> order;
 
-    public OrderItemDescriptionAdapter() {
+    public OrderItemDescriptionAdapter(ArrayList<OrderItemModel> order) {
+        this.order = order;
     }
 
     @NonNull
@@ -31,12 +38,12 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
 
     @Override
     public void onBindViewHolder(@NonNull OrderItemDescriptionAdapter.MyViewHolder holder, int i) {
-        holder.bind(new Object());
+        holder.bind(order.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return order.size();
     }
 
 
@@ -48,7 +55,8 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
             this.binding = databinding;
         }
 
-        public void bind(Object data) {
+        public void bind(OrderItemModel data) {
+            this.binding.setVariable(model,data);
             this.binding.executePendingBindings();
         }
 

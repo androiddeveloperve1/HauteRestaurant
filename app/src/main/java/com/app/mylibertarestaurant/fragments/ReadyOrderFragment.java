@@ -17,6 +17,11 @@ import com.app.mylibertarestaurant.adapter.RequestOrderItemAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.FragmentReadyOrderBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
+import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 
 /**
  * Create By Rahul Mangal
@@ -25,18 +30,37 @@ import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 
 public class ReadyOrderFragment extends Fragment {
     private FragmentReadyOrderBinding binder;
+    private ArrayList<OrderDetailsModel> order;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_ready_order, container, false);
         binder.rvItems.setLayoutManager(new LinearLayoutManager(getActivity()));
-        binder.setAdp(new RequestOrderItemAdapter(new RecycleItemClickListener() {
-            @Override
-            public void onItemClickedWithTag(int position, Object data, int tag) {
-                Intent mIntent = new Intent(getActivity(), OrderDecriptionActivity.class);
-                mIntent.putExtra("tag", tag);
-                startActivity(mIntent);
-            }
-        }, Constants.FROM_READY_REQUEST_TAG));
+        order = new Gson().fromJson(getArguments().getString("data"), new TypeToken<ArrayList<OrderDetailsModel>>() {
+        }.getType());
+
+
+        if (order != null && order.size() > 0) {
+            binder.tvNoData.setVisibility(View.GONE);
+            binder.rvItems.setVisibility(View.VISIBLE);
+
+            binder.setAdp(new RequestOrderItemAdapter(order, new RecycleItemClickListener<OrderDetailsModel>() {
+
+                @Override
+                public void onItemClickedWithTag(int position, OrderDetailsModel data, int tag) {
+                    Intent mIntent = new Intent(getActivity(), OrderDecriptionActivity.class);
+                    mIntent.putExtra("tag", tag);
+                    mIntent.putExtra("data", new Gson().toJson(data));
+                    startActivity(mIntent);
+                }
+            }, Constants.FROM_READY_REQUEST_TAG));
+
+        } else {
+
+            binder.tvNoData.setVisibility(View.VISIBLE);
+            binder.rvItems.setVisibility(View.GONE);
+        }
+
+
         View view = binder.getRoot();
         return view;
     }

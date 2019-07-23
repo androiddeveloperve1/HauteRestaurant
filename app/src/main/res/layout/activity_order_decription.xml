@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="com.app.mylibertarestaurant.utils.AppUtils" />
+
         <variable
             name="clickHandle"
             type="com.app.mylibertarestaurant.activities.OrderDecriptionActivity.Click" />
@@ -11,6 +13,10 @@
         <variable
             name="adapt"
             type="com.app.mylibertarestaurant.adapter.OrderItemDescriptionAdapter" />
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.items.OrderDetailsModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -99,9 +105,9 @@
                     android:layout_marginLeft="@dimen/_10_px"
                     android:layout_marginTop="@dimen/_5_px"
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="10:56 am"
+                    android:text='@{AppUtils.getHumanReadableTimeFromUTCString(model.createdAt)}'
                     android:textColor="@color/gray_text"
-                    android:textSize="@dimen/_10_px"
+                    android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cl_otp" />
 
@@ -112,22 +118,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5_px"
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="Rahul Kumar"
+                    android:text='@{model.user_id.fname+" "+model.user_id.lname}'
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12_px"
+                    android:textSize="@dimen/_13_px"
                     app:layout_constraintLeft_toLeftOf="@id/tv_time"
                     app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
 
                 <TextView
                     android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5_px"
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="10:56 am"
+                    android:text='@{model.user_id.orderaddress}'
                     android:textColor="@color/gray_text"
-                    android:textSize="@dimen/_10_px"
+                    app:layout_constraintRight_toLeftOf="@+id/img_paid"
+                    android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="@id/tv_user_name"
                     app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
@@ -170,7 +177,7 @@
                         android:fontStyleName="@{`Roboto_Regular.ttf`}"
                         android:text="Item"
                         android:textColor="@color/gray_text"
-                        android:textSize="@dimen/_11_px" />
+                        android:textSize="@dimen/_12_px" />
 
                     <TextView
                         android:id="@+id/tv_item_qty"
@@ -182,7 +189,7 @@
                         android:gravity="center"
                         android:text="QTY"
                         android:textColor="@color/gray_text"
-                        android:textSize="@dimen/_11_px" />
+                        android:textSize="@dimen/_12_px" />
 
                     <TextView
                         android:id="@+id/tv_item_price"
@@ -194,7 +201,7 @@
                         android:gravity="right"
                         android:text="Selling Price"
                         android:textColor="@color/gray_text"
-                        android:textSize="@dimen/_11_px" />
+                        android:textSize="@dimen/_12_px" />
 
                 </LinearLayout>
 
@@ -225,9 +232,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10_px"
-                   android:paddingBottom="@dimen/_10_px"
                     android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                    android:text="$100.00"
+                    android:paddingBottom="@dimen/_10_px"
+                    android:text='@{"$ "+model.amount}'
                     android:textColor="@color/black"
                     android:textSize="@dimen/_15_px"
                     app:layout_constraintRight_toRightOf="@id/img_paid"
@@ -236,9 +243,9 @@
                 <LinearLayout
                     android:id="@+id/ll_order_request"
                     android:layout_width="0dp"
-                    android:paddingBottom="@dimen/_10_px"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:paddingBottom="@dimen/_10_px"
                     app:layout_constraintLeft_toLeftOf="@id/tv_time"
                     app:layout_constraintRight_toRightOf="@id/img_paid"
                     app:layout_constraintTop_toBottomOf="@+id/tv_total_price">
@@ -275,18 +282,18 @@
                     android:id="@+id/tv_pickup_ready"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                   android:layout_marginBottom="@dimen/_10_px"
                     android:layout_marginTop="@dimen/_15_px"
+                    android:layout_marginBottom="@dimen/_10_px"
                     android:background="@drawable/button_green"
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:onClick="@{(v)->clickHandle.readyForPickup(v)}"
                     android:text="READY FOR PICKUP"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_time"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_time"
                     app:layout_constraintRight_toRightOf="@id/img_paid"
                     app:layout_constraintTop_toBottomOf="@id/tv_total_price" />
 

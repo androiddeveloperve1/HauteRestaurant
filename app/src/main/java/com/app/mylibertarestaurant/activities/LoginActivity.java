@@ -1,14 +1,10 @@
 package com.app.mylibertarestaurant.activities;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,10 +63,11 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
+                            MySharedPreference.getInstance(LoginActivity.this).setUser(response.getData());
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
-                           /* if (response.getIs_profile_complete().equals("1")) {
-                                MySharedPreference.getInstance(LoginActivity.this).setUser(response.getData());
+                           /*if (response.getIs_profile_complete().equals("1")) {
+
                                 if (response.getData().getIs_mobile_verify().equals("1")) {
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     finish();
@@ -115,6 +112,10 @@ public class LoginActivity extends AppCompatActivity {
 
         public void contactNow(View v) {
 
+        }
+
+        public void forgot(View v) {
+            startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
         }
 
 

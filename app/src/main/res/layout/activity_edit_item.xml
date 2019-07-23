@@ -106,8 +106,8 @@
 
                         <ImageView
                             android:id="@+id/img_veg_nonveg_switch"
-                            android:layout_width="@dimen/_70_px"
-                            android:layout_height="@dimen/_20_px"
+                            android:layout_width="@dimen/_90_px"
+                            android:layout_height="@dimen/_30_px"
                             android:layout_marginTop="@dimen/_5_px"
                             android:tag="@string/veg"
                             android:background="@drawable/ic_toggle_veg"
@@ -151,8 +151,8 @@
 
                         <ImageView
                             android:id="@+id/tv_product_avail_switch"
-                            android:layout_width="@dimen/_70_px"
-                            android:layout_height="@dimen/_20_px"
+                            android:layout_width="@dimen/_100_px"
+                            android:layout_height="@dimen/_30_px"
                             android:layout_marginTop="@dimen/_5_px"
                             android:tag="@string/available"
                             android:background="@drawable/ic_toggle_available"
@@ -254,8 +254,9 @@
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_attribute_text">
 
                             <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spnr_attribute"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_20_px"
+                                android:layout_height="wrap_content"
                                 android:entries="@array/attribute" />
                         </LinearLayout>
 

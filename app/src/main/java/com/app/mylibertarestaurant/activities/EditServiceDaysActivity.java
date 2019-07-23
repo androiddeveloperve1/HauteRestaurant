@@ -136,7 +136,6 @@ public class EditServiceDaysActivity extends AppCompatActivity  {
                 binder.llSun.imgCheckbox.setImageResource(R.drawable.ic_check_box_off);
             }
         });
-
     }
 
 

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.items.OrderItemModel" />
 
 
     </data>
@@ -17,9 +22,9 @@
             android:layout_marginTop="@dimen/_5_px"
             android:layout_weight=".5"
             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-            android:text="Naan"
+            android:text='@{model.item_id.name}'
             android:textColor="@color/black"
-            android:textSize="@dimen/_12_px" />
+            android:textSize="@dimen/_13_px" />
 
         <TextView
             android:id="@+id/tv_item_qty"
@@ -29,9 +34,9 @@
             android:layout_weight=".2"
             android:fontStyleName="@{`Roboto_Regular.ttf`}"
             android:gravity="center"
-            android:text="10"
+            android:text='@{model.quantity}'
             android:textColor="@color/black"
-            android:textSize="@dimen/_12_px" />
+            android:textSize="@dimen/_13_px" />
 
         <TextView
             android:id="@+id/tv_item_price"
@@ -41,9 +46,9 @@
             android:layout_weight=".3"
             android:fontStyleName="@{`Roboto_Regular.ttf`}"
             android:gravity="right"
-            android:text="$12"
+            android:text='@{"$ "+model.price}'
             android:textColor="@color/black"
-            android:textSize="@dimen/_12_px" />
+            android:textSize="@dimen/_13_px" />
 
     </LinearLayout>
 </layout>

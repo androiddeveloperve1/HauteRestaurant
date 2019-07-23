@@ -16,22 +16,30 @@ import com.app.mylibertarestaurant.fragments.EarningFragment;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
 import com.app.mylibertarestaurant.fragments.InventoryFragment;
 import com.app.mylibertarestaurant.fragments.ProfileFragment;
+import com.app.mylibertarestaurant.model.RestaurantDetailModel;
+import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.FragmentTransactionUtils;
-import com.app.mylibertarestaurant.utils.StatusbarUtils;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private boolean isReatsurantOnline = false;
-
     private DrawerLayout drawer;
-
     private NavigationView nav_view;
     private FragmentOrders fragmentOrders;
     private ProfileFragment profileFragment;
     private EarningFragment earningFragment;
     private InventoryFragment inventoryFragment;
+    private RestaurantDetailModel restaurantDetailModel;
 
+    private ArrayList<OrderDetailsModel> newOrderRequest = new ArrayList<>();
+    private ArrayList<OrderDetailsModel> onGoingOrder = new ArrayList<>();
+    private ArrayList<OrderDetailsModel> readyForPickupOrder = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
         inventoryFragment = new InventoryFragment();
+        restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
         initView();
 
 
@@ -96,9 +105,10 @@ public class MainActivity extends AppCompatActivity {
         View navView = nav_view.getHeaderView(0);
 
         final ImageView iv_on_off_line = navView.findViewById(R.id.iv_on_off_line);
+        final ImageView img_restaurant = navView.findViewById(R.id.img_restaurant);
         final TextView tv_on_off_line = navView.findViewById(R.id.tv_on_off_line);
-
-
+        final TextView tv_name_restaurant = navView.findViewById(R.id.tv_name_restaurant);
+        Picasso.with(MainActivity.this).load(restaurantDetailModel.getAvatar()).placeholder(R.drawable.rect_border).into(img_restaurant);
         final TextView tv_order = navView.findViewById(R.id.tv_order);
         final TextView tv_inventory = navView.findViewById(R.id.tv_inventory);
         final TextView tv_earn = navView.findViewById(R.id.tv_earn);
@@ -110,8 +120,9 @@ public class MainActivity extends AppCompatActivity {
         final ImageView iv_earn = navView.findViewById(R.id.iv_earn);
         final ImageView iv_profile = navView.findViewById(R.id.iv_profile);
         final ImageView iv_help = navView.findViewById(R.id.iv_help);
+        tv_name_restaurant.setText(restaurantDetailModel.getFname() + restaurantDetailModel.getLname());
 
-        iv_on_off_line.setOnClickListener((v)->{
+        iv_on_off_line.setOnClickListener((v) -> {
             if (isReatsurantOnline) {
                 tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
                 tv_on_off_line.setText("Offline");
@@ -126,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        tv_order.setOnClickListener((v)->{
+        tv_order.setOnClickListener((v) -> {
             tv_order.setTextColor(getResources().getColor(R.color.black));
             tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
             tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
@@ -141,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
             drawer.closeDrawer(GravityCompat.START);
         });
-        tv_inventory.setOnClickListener((v)->{
+        tv_inventory.setOnClickListener((v) -> {
             tv_order.setTextColor(getResources().getColor(R.color.gray_text));
             tv_inventory.setTextColor(getResources().getColor(R.color.black));
             tv_earn.setTextColor(getResources().getColor(R.color.gray_text));
@@ -156,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         });
 
-        tv_earn.setOnClickListener((v)->{
+        tv_earn.setOnClickListener((v) -> {
             tv_order.setTextColor(getResources().getColor(R.color.gray_text));
             tv_inventory.setTextColor(getResources().getColor(R.color.gray_text));
             tv_earn.setTextColor(getResources().getColor(R.color.black));

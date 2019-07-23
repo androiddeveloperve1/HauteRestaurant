@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.app.mylibertarestaurant.utils.AppUtils" />
+
         <variable
             name="itemClickListener"
             type="com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener" />
@@ -15,6 +17,10 @@
             name="tag"
             type="Integer" />
 
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.items.OrderDetailsModel" />
+
 
     </data>
 
@@ -22,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5_px"
-        android:onClick="@{(v)->itemClickListener.onItemClickedWithTag(position,null,tag)}"
+        android:onClick="@{(v)->itemClickListener.onItemClickedWithTag(position,model,tag)}"
         app:cardCornerRadius="@dimen/_5_px">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
                 android:padding="@dimen/_5_px"
-                android:text="Order ID : #Im42334998"
+                android:text='@{"Order ID: "+model.order_no}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12_px"
                 android:topCornerBg="@{tag}"
@@ -51,7 +57,7 @@
                 android:layout_marginLeft="@dimen/_10_px"
                 android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:text="10:56 am"
+                android:text='@{AppUtils.getHumanReadableTimeFromUTCString(model.createdAt)}'
                 android:textColor="@color/gray_text"
                 android:textSize="@dimen/_10_px"
                 app:layout_constraintLeft_toLeftOf="@id/tv_order_id"
@@ -64,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:text="Rahul Kumar"
+                android:text='@{model.user_id.fname+" "+model.user_id.lname}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12_px"
                 app:layout_constraintLeft_toLeftOf="@id/tv_time"
@@ -73,14 +79,17 @@
 
             <TextView
                 android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5_px"
+                android:ellipsize="end"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:text="10:56 am"
+                android:singleLine="true"
+                android:text='@{model.user_id.orderaddress}'
                 android:textColor="@color/gray_text"
                 android:textSize="@dimen/_10_px"
                 app:layout_constraintLeft_toLeftOf="@id/tv_user_name"
+                app:layout_constraintRight_toLeftOf="@+id/tv_total_price"
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
             <TextView
@@ -89,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_10_px"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text="$100.00"
+                android:text='@{"$ "+model.amount}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15_px"
                 app:layout_constraintBottom_toBottomOf="@id/tv_address"
@@ -136,14 +145,17 @@
 
             <TextView
                 android:id="@+id/tv_items"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:paddingBottom="@dimen/_10_px"
-                android:text="Item A, Items B....."
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text='@{AppUtils.getItemListInAppendMode(model.order)}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15_px"
+                app:layout_constraintRight_toLeftOf="@+id/tv_qty"
                 app:layout_constraintLeft_toLeftOf="@id/tv_time"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_text" />
 
@@ -155,7 +167,7 @@
                 android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:paddingBottom="@dimen/_10_px"
-                android:text="10"
+                android:text='@{""+model.order.size()}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/_15_px"
                 app:layout_constraintLeft_toLeftOf="@id/tv_qty_text"
