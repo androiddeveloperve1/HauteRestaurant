@@ -156,4 +156,39 @@ public class OrderDecriptionActivity extends AppCompatActivity {
         }
 
     }
+
+    private void readyForPickup() {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(OrderDecriptionActivity.this);
+        ((MyApplication) getApplication()).getConfiguration().inject(OrderDecriptionActivity.this);
+        apiInterface.rejectOrder(orderDetailsModel.get_id())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(OrderDecriptionActivity.this, throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel response) {
+                        progressDialog.dismiss();
+                        Log.e("@@@@@@@@@@", ""+ new Gson().toJson(response));
+                        if (response.getStatus().equals("200")) {
+                            Intent mIntent = new Intent();
+                            mIntent.setAction(Constants.BROADCAST_ORDER_CANCEL);
+                            LocalBroadcastManager.getInstance(OrderDecriptionActivity.this).sendBroadcast(mIntent);
+                            onBackPressed();
+                        } else {
+                            ResponseDialog.showErrorDialog(OrderDecriptionActivity.this, response.getMessage());
+                        }
+
+                    }
+                });
+    }
 }

@@ -16,8 +16,6 @@ public class ApiResponseModel<T> extends BaseObservable {
 
     @SerializedName("Status")
     private String status;
-    private String is_profile_complete;
-
 
 
     private T data;
@@ -53,13 +51,5 @@ public class ApiResponseModel<T> extends BaseObservable {
         this.data = data;
         this.notifyPropertyChanged(BR.data);
     }
-@Bindable
-    public String getIs_profile_complete() {
-        return is_profile_complete;
-    }
 
-    public void setIs_profile_complete(String is_profile_complete) {
-        this.is_profile_complete = is_profile_complete;
-        this.notifyPropertyChanged(BR.is_profile_complete);
-    }
 }

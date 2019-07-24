@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.app.mylibertarestaurant.BR;
+import com.app.mylibertarestaurant.model.items.RestaurantDetail;
 
 /**
  * Create By Rahul Mangal
@@ -24,6 +25,8 @@ public class RestaurantDetailModel extends BaseObservable {
     private String otp;
     private String user_type;
     private String[] delivery_address;
+
+    private RestaurantDetail restaurants;
 
     @Bindable
     public String get_id() {
@@ -68,6 +71,10 @@ public class RestaurantDetailModel extends BaseObservable {
     @Bindable
     public String[] getDelivery_address() {
         return delivery_address;
+    }
+@Bindable
+    public RestaurantDetail getRestaurants() {
+        return restaurants;
     }
 
     public void set_id(String _id) {
@@ -123,5 +130,10 @@ public class RestaurantDetailModel extends BaseObservable {
     public void setDelivery_address(String[] delivery_address) {
         this.delivery_address = delivery_address;
         this.notifyPropertyChanged(BR.delivery_address);
+    }
+
+    public void setRestaurants(RestaurantDetail restaurants) {
+        this.restaurants = restaurants;
+        this.notifyPropertyChanged(BR.restaurants);
     }
 }

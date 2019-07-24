@@ -20,7 +20,7 @@
             android:id="@+id/img_item"
             android:layout_width="0dp"
             android:layout_height="@dimen/_150_px"
-            android:background="@drawable/dummy"
+            android:background="@drawable/placeholder_rect"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

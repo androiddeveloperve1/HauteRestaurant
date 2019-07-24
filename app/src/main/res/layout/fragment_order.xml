@@ -48,7 +48,7 @@
             app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/toolbar_image"
             android:layout_width="@dimen/_35_px"
             android:layout_height="@dimen/_35_px"
@@ -65,6 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontStyleName="@{`Roboto_Bold.ttf`}"
+            android:layout_marginLeft="@dimen/_10_px"
             android:text='RestaurantName'
             android:textColor="@color/black"
             android:textSize="@dimen/_14_px"
@@ -128,11 +129,11 @@
                 <TextView
                     android:id="@+id/tv_ongoing"
                     android:layout_width="match_parent"
-                    android:layout_centerInParent="true"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/_10_px"
                     android:fontStyleName="@{`Roboto_Bold.ttf`}"
                     android:gravity="center"
-                    android:layout_marginBottom="@dimen/_10_px"
                     android:text='Ongoing'
                     android:textColor="@color/gray_text"
                     android:textSize="@dimen/_12_px" />

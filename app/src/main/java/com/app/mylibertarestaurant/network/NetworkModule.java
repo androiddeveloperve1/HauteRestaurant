@@ -70,8 +70,9 @@ public class NetworkModule {
                         Response response = chain.proceed(d);
 
                         if (response.code() == 401) {
+
+
                             MySharedPreference.getInstance(applicationContext).clearMyPreference();
-                            Toast.makeText(applicationContext, "Session Expired", Toast.LENGTH_SHORT).show();
                             Intent mIntent = new Intent(applicationContext, LoginActivity.class);
                             mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             applicationContext.startActivity(mIntent);

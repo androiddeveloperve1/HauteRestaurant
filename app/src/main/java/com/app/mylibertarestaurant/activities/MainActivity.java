@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.activities;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -16,19 +17,27 @@ import com.app.mylibertarestaurant.fragments.EarningFragment;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
 import com.app.mylibertarestaurant.fragments.InventoryFragment;
 import com.app.mylibertarestaurant.fragments.ProfileFragment;
+import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
-import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.FragmentTransactionUtils;
+import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    private boolean isReatsurantOnline = false;
+    @Inject
+    APIInterface apiInterface;
     private DrawerLayout drawer;
     private NavigationView nav_view;
     private FragmentOrders fragmentOrders;
@@ -36,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
     private EarningFragment earningFragment;
     private InventoryFragment inventoryFragment;
     private RestaurantDetailModel restaurantDetailModel;
-
-    private ArrayList<OrderDetailsModel> newOrderRequest = new ArrayList<>();
-    private ArrayList<OrderDetailsModel> onGoingOrder = new ArrayList<>();
-    private ArrayList<OrderDetailsModel> readyForPickupOrder = new ArrayList<>();
+    private TextView tv_name_restaurant;
+    private ImageView iv_on_off_line;
+    private TextView tv_on_off_line;
+    private ImageView img_restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
         inventoryFragment = new InventoryFragment();
-        restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
         initView();
 
 
@@ -100,15 +108,31 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
+        tv_name_restaurant.setText(restaurantDetailModel.getRestaurants().getName());
+        Picasso.with(MainActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).placeholder(R.drawable.placeholder_squre).into(img_restaurant);
+        if (restaurantDetailModel.getRestaurants().getIs_online().equals("true")) {
+            tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
+            tv_on_off_line.setText("Online");
+            iv_on_off_line.setImageResource(R.drawable.ic_online_toggle);
+        } else {
+            tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
+            tv_on_off_line.setText("Offline");
+            iv_on_off_line.setImageResource(R.drawable.ic_offline_toggle);
+        }
+    }
 
     void navigationIteminitializer() {
         View navView = nav_view.getHeaderView(0);
 
-        final ImageView iv_on_off_line = navView.findViewById(R.id.iv_on_off_line);
-        final ImageView img_restaurant = navView.findViewById(R.id.img_restaurant);
-        final TextView tv_on_off_line = navView.findViewById(R.id.tv_on_off_line);
-        final TextView tv_name_restaurant = navView.findViewById(R.id.tv_name_restaurant);
-        Picasso.with(MainActivity.this).load(restaurantDetailModel.getAvatar()).placeholder(R.drawable.rect_border).into(img_restaurant);
+        iv_on_off_line = navView.findViewById(R.id.iv_on_off_line);
+        img_restaurant = navView.findViewById(R.id.img_restaurant);
+        tv_on_off_line = navView.findViewById(R.id.tv_on_off_line);
+        tv_name_restaurant = navView.findViewById(R.id.tv_name_restaurant);
+
         final TextView tv_order = navView.findViewById(R.id.tv_order);
         final TextView tv_inventory = navView.findViewById(R.id.tv_inventory);
         final TextView tv_earn = navView.findViewById(R.id.tv_earn);
@@ -120,19 +144,19 @@ public class MainActivity extends AppCompatActivity {
         final ImageView iv_earn = navView.findViewById(R.id.iv_earn);
         final ImageView iv_profile = navView.findViewById(R.id.iv_profile);
         final ImageView iv_help = navView.findViewById(R.id.iv_help);
-        tv_name_restaurant.setText(restaurantDetailModel.getFname() + restaurantDetailModel.getLname());
+
 
         iv_on_off_line.setOnClickListener((v) -> {
-            if (isReatsurantOnline) {
+            if (restaurantDetailModel.getRestaurants().getIs_online().equals("true")) {
                 tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
                 tv_on_off_line.setText("Offline");
                 iv_on_off_line.setImageResource(R.drawable.ic_offline_toggle);
-                isReatsurantOnline = false;
+                updateStatus(false);
             } else {
                 tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
                 tv_on_off_line.setText("Online");
                 iv_on_off_line.setImageResource(R.drawable.ic_online_toggle);
-                isReatsurantOnline = true;
+                updateStatus(true);
             }
         });
 
@@ -211,6 +235,41 @@ public class MainActivity extends AppCompatActivity {
             drawer.closeDrawer(GravityCompat.START);
         });
         FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
+    }
+
+
+    private void updateStatus(boolean status) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("restaurantId", restaurantDetailModel.get_id());
+        map.put("status", "" + status);
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(MainActivity.this);
+        ((MyApplication) getApplication()).getConfiguration().inject(MainActivity.this);
+        apiInterface.updateOnlineOfflineStatus(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(MainActivity.this, throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel response) {
+                        progressDialog.dismiss();
+                        if (response.getStatus().equals("200")) {
+                            restaurantDetailModel.getRestaurants().setIs_online("" + status);
+                            MySharedPreference.getInstance(MainActivity.this).setUser(restaurantDetailModel);
+                        } else {
+                            ResponseDialog.showErrorDialog(MainActivity.this, response.getMessage());
+                        }
+
+                    }
+                });
     }
 
 }

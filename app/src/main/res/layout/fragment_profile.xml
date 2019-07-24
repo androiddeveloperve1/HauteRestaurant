@@ -251,13 +251,13 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <ImageView
+
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/iv_profile"
                         android:layout_width="@dimen/_90_px"
                         android:layout_height="@dimen/_90_px"
-                        android:padding="@dimen/_10_px"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/dummy"
+                        android:src="@drawable/placeholder_squre"
+                        app:civ_border_color="@color/black"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

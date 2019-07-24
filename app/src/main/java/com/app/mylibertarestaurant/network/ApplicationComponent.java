@@ -1,13 +1,17 @@
 package com.app.mylibertarestaurant.network;
 
 
+import com.app.mylibertarestaurant.activities.CopyItemActivity;
 import com.app.mylibertarestaurant.activities.EditItemActivity;
+import com.app.mylibertarestaurant.activities.EditProfileActivity;
 import com.app.mylibertarestaurant.activities.ForgotPasswordActivity;
+import com.app.mylibertarestaurant.activities.ItemDescriptionActivity;
 import com.app.mylibertarestaurant.activities.LoginActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.activities.OrderDecriptionActivity;
 import com.app.mylibertarestaurant.fragments.EarningFragment;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
+import com.app.mylibertarestaurant.fragments.ProfileFragment;
 
 import javax.inject.Singleton;
 
@@ -27,6 +31,10 @@ public interface ApplicationComponent {
     void inject(FragmentOrders model);
     void inject(EarningFragment model);
     void inject(EditItemActivity model);
+    void inject(CopyItemActivity model);
+    void inject(ItemDescriptionActivity model);
+    void inject(EditProfileActivity model);
+    void inject(ProfileFragment model);
 
 
 }

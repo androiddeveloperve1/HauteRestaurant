@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.fragments;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -17,10 +18,27 @@ import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.activities.EditProfileActivity;
 import com.app.mylibertarestaurant.activities.EditServiceDaysActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
+import com.app.mylibertarestaurant.activities.MyApplication;
 import com.app.mylibertarestaurant.adapter.MyPagerAdapter;
 import com.app.mylibertarestaurant.adapter.TimeAdapter;
 import com.app.mylibertarestaurant.databinding.FragmentProfileBinding;
+import com.app.mylibertarestaurant.model.ApiResponseModel;
+import com.app.mylibertarestaurant.model.RestaurantDetailModel;
+import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+import com.app.mylibertarestaurant.model.items.RestaurantDetail;
+import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
+import com.app.mylibertarestaurant.utils.ResponseDialog;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Create By Rahul Mangal
@@ -28,11 +46,15 @@ import com.app.mylibertarestaurant.prefes.MySharedPreference;
  */
 
 public class ProfileFragment extends Fragment {
+    RestaurantDetailModel restaurantDetailModel;
+    @Inject
+    APIInterface apiInterface;
     private FragmentProfileBinding binder;
     private Resources mResources;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
+        restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
         binder.toolbarManu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,6 +64,9 @@ public class ProfileFragment extends Fragment {
         });
         binder.setClick(new MyClick());
         mResources = getActivity().getResources();
+
+        getProfile();
+
         binder.viewPager.setAdapter(new TimeAdapter(getActivity()));
         binder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -322,9 +347,55 @@ public class ProfileFragment extends Fragment {
         binder.includeLayout.lineSat.setVisibility(View.VISIBLE);
     }
 
+    private void getProfile() {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
+        ((MyApplication) getActivity().getApplication()).getConfiguration().inject(ProfileFragment.this);
+        apiInterface.getDetail()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel<RestaurantDetail>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(getActivity(), throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel<RestaurantDetail> response) {
+                        progressDialog.dismiss();
+                        Log.e("@@----@@@@", "" + new Gson().toJson(response.getData()));
+                        if (response.getStatus().equals("200")) {
+                            restaurantDetailModel.setRestaurants(response.getData());
+                            MySharedPreference.getInstance(getActivity()).setUser(restaurantDetailModel);
+                            showInView();
+                        } else {
+                            ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
+                        }
+
+                    }
+                });
+    }
+
+    void showInView() {
+        binder.tvReatsurantName.setText(restaurantDetailModel.getRestaurants().getName());
+        binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
+        binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
+        binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime());
+        binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Km.");
+        Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
+
+    }
+
+
+
     public class MyClick {
         public void editRestaurant(View v) {
-            startActivity(new Intent(getActivity(), EditProfileActivity.class));
+            Intent mintent=new Intent(getActivity(), EditProfileActivity.class);
+            startActivityForResult(mintent,100);
         }
 
         public void editServices(View v) {
@@ -336,5 +407,12 @@ public class ProfileFragment extends Fragment {
             MySharedPreference.getInstance(getActivity()).clearMyPreference();
             getActivity().finish();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
     }
 }

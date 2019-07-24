@@ -1,25 +1,21 @@
 package com.app.mylibertarestaurant.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+
+import androidx.databinding.DataBindingUtil;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.AttributeAdapter;
+import com.app.mylibertarestaurant.adapter.CategoryAdapter;
 import com.app.mylibertarestaurant.databinding.ActivityEditItemBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.AttributeModel;
-import com.app.mylibertarestaurant.model.RestaurantDetailModel;
+import com.app.mylibertarestaurant.model.CategoryModel;
 import com.app.mylibertarestaurant.network.APIInterface;
-import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +38,7 @@ public class EditItemActivity extends ImageUploadingActivity {
 
         binder.setClick(new Click());
         getAttribute();
+        getCategory();
     }
 
     @Override
@@ -69,13 +66,72 @@ public class EditItemActivity extends ImageUploadingActivity {
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<AttributeModel>> response) {
                         progressDialog.dismiss();
-                        Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             binder.spnrAttribute.setAdapter(new AttributeAdapter(response.getData()));
                         } else {
                             ResponseDialog.showErrorDialog(EditItemActivity.this, response.getMessage());
                         }
 
+                    }
+                });
+    }
+
+    private void getCategory() {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(EditItemActivity.this);
+        ((MyApplication) getApplication()).getConfiguration().inject(EditItemActivity.this);
+        apiInterface.getCategory()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel<ArrayList<CategoryModel>>>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(EditItemActivity.this, throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel<ArrayList<CategoryModel>> response) {
+                        progressDialog.dismiss();
+                        if (response.getStatus().equals("200")) {
+                            binder.spnrCategory.setAdapter(new CategoryAdapter(response.getData()));
+                        } else {
+                            ResponseDialog.showErrorDialog(EditItemActivity.this, response.getMessage());
+                        }
+
+                    }
+                });
+    }
+
+    private void updateFoodItem(HashMap map) {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(EditItemActivity.this);
+        ((MyApplication) getApplication()).getConfiguration().inject(EditItemActivity.this);
+        apiInterface.editFoodItem(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(EditItemActivity.this, throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel response) {
+                        progressDialog.dismiss();
+                        if (response.getStatus().equals("200")) {
+
+                        } else {
+                            ResponseDialog.showErrorDialog(EditItemActivity.this, response.getMessage());
+                        }
                     }
                 });
     }

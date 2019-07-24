@@ -71,9 +71,7 @@ public class FragmentOrders extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_order, container, false);
         binder.setClick(new Presenter());
-        restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
-        binder.toolbarTitle.setText(restaurantDetailModel.getFname() + " " + restaurantDetailModel.getLname());
-        Picasso.with(getActivity()).load(restaurantDetailModel.getAvatar()).placeholder(R.drawable.rect_border).into(binder.toolbarImage);
+
         getOrder(0);
         registerRecieverNow();
         View view = binder.getRoot();
@@ -99,6 +97,14 @@ public class FragmentOrders extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
+        binder.toolbarTitle.setText(restaurantDetailModel.getRestaurants().getName());
+        Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).placeholder(R.drawable.placeholder_squre).into(binder.toolbarImage);
     }
 
     void requestOrderSelect() {
