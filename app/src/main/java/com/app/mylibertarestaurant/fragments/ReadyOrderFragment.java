@@ -31,6 +31,7 @@ import java.util.ArrayList;
 public class ReadyOrderFragment extends Fragment {
     private FragmentReadyOrderBinding binder;
     private ArrayList<OrderDetailsModel> order;
+    static ReadyOrderFragment orderRequestFragment;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_ready_order, container, false);
@@ -62,6 +63,15 @@ public class ReadyOrderFragment extends Fragment {
 
 
         View view = binder.getRoot();
+        orderRequestFragment = this;
         return view;
+    }
+
+    public static ReadyOrderFragment getInstance()
+    {
+        if(orderRequestFragment == null)
+            orderRequestFragment = new ReadyOrderFragment();
+        return orderRequestFragment;
+
     }
 }

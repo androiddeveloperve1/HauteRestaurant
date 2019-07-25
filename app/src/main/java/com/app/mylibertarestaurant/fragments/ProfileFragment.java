@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -367,7 +368,6 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onNext(ApiResponseModel<RestaurantDetail> response) {
                         progressDialog.dismiss();
-                        Log.e("@@----@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             restaurantDetailModel.setRestaurants(response.getData());
                             MySharedPreference.getInstance(getActivity()).setUser(restaurantDetailModel);
@@ -387,15 +387,22 @@ public class ProfileFragment extends Fragment {
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime());
         binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Km.");
         Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            restaurantDetailModel= MySharedPreference.getInstance(getActivity()).getUser();
+            showInView();
+        }
 
     }
 
-
-
     public class MyClick {
         public void editRestaurant(View v) {
-            Intent mintent=new Intent(getActivity(), EditProfileActivity.class);
-            startActivityForResult(mintent,100);
+            Intent mintent = new Intent(getActivity(), EditProfileActivity.class);
+            startActivityForResult(mintent, 100);
         }
 
         public void editServices(View v) {
@@ -407,12 +414,5 @@ public class ProfileFragment extends Fragment {
             MySharedPreference.getInstance(getActivity()).clearMyPreference();
             getActivity().finish();
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
     }
 }

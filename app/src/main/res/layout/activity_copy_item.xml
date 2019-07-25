@@ -50,13 +50,11 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_close">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_pic"
                 android:layout_width="@dimen/_135_px"
                 android:layout_height="@dimen/_135_px"
-                android:padding="@dimen/_10_px"
                 android:src="@drawable/placeholder_squre"
-                android:scaleType="fitXY"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -93,58 +91,27 @@
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_10_px">
 
-                        <TextView
-                            android:id="@+id/tv_product_category_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10_px"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Category"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <LinearLayout
-                            android:id="@+id/ll_drop_down_category"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:layout_marginRight="@dimen/_10_px"
-                            android:background="@drawable/edittext_bg"
-                            android:padding="@dimen/_5_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_category_text">
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spnr_category"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:entries="@array/attribute" />
-                        </LinearLayout>
-
 
                         <TextView
                             android:id="@+id/tv_product_type_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
                             android:text="Product type"
                             android:textColor="@color/gray_text"
                             android:textSize="@dimen/_10_px"
-                            android:layout_marginTop="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ll_drop_down_category" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/img_veg_nonveg_switch"
                             android:layout_width="@dimen/_90_px"
                             android:layout_height="@dimen/_25_px"
                             android:layout_marginTop="@dimen/_5_px"
-                            android:tag="@string/veg"
                             android:background="@drawable/ic_toggle_veg"
                             android:onClick="@{(v)->click.ontoogleVegNonVeg(v)}"
+                            android:tag="@string/veg"
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_type_text"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_type_text" />
 
@@ -187,9 +154,9 @@
                             android:layout_width="@dimen/_90_px"
                             android:layout_height="@dimen/_25_px"
                             android:layout_marginTop="@dimen/_5_px"
-                            android:tag="@string/available"
                             android:background="@drawable/ic_toggle_available"
                             android:onClick="@{(v)->click.availbale(v)}"
+                            android:tag="@string/available"
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_type_text"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_avail_text" />
 
@@ -226,8 +193,8 @@
                             android:layout_marginLeft="@dimen/_10_px"
                             android:layout_marginTop="@dimen/_5_px"
                             android:background="@drawable/edit_text_bg"
+                            android:hint="price"
                             android:inputType="number"
-                            android:text="12.00"
                             app:layout_constraintLeft_toRightOf="@+id/tv_doller_mark"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_price_text" />
@@ -249,12 +216,13 @@
                         <EditText
                             android:id="@+id/tv_desc"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_100_px"
                             android:layout_marginTop="@dimen/_5_px"
                             android:background="@drawable/edit_text_bg"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="top"
+                            android:hint="Description"
                             android:paddingBottom="@dimen/_5_px"
-                            android:text="Vfdsfndsfn;klsdlkdsnaasfd;sfdsklfdlsfjksdlahjkdsglaj;salghjksdlghaskdlghjkdslghjksdghjksdhglkjsghklsjdaghlsdkgjhsldakghsdjklghsdjkfghdsjkhgjdlgkfdkgh;fdlgkh;fdjkfdlfjkhdlskfdhjklfdhgfjkldshkfjdghfjdgh;fdkghfkdjhlfjkdghlfdkgh;fdluj;kghfdf;jklghfdkljrpoturhsd'sk'flkgj ;f.bnfdjk;gf.jds;gklas;gkslfdfsndfnlsdnasdnksnjksnjksdnasjkdvnkasnsskkanvsjkdvnsnvajksdnvjknad;gklas;gkalg;skdg;askg;kEG"
                             android:textColor="@color/gray_text"
                             android:textSize="@dimen/_11_px"
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_desc_text"
@@ -263,16 +231,48 @@
 
 
                         <TextView
+                            android:id="@+id/tv_product_category_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_drop_down_category"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:layout_marginRight="@dimen/_10_px"
+                            android:background="@drawable/edittext_bg"
+                            android:padding="@dimen/_5_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_category_text">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spnr_category"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/attribute" />
+                        </LinearLayout>
+
+
+                        <TextView
                             android:id="@+id/tv_product_attribute_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="what is product attribute"
+                            android:text="Attribute"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+                            app:layout_constraintTop_toBottomOf="@+id/ll_drop_down_category" />
 
                         <LinearLayout
                             android:id="@+id/ll_drop_down"
@@ -287,8 +287,8 @@
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_attribute_text">
 
                             <androidx.appcompat.widget.AppCompatSpinner
-                                android:layout_width="match_parent"
                                 android:id="@+id/spnr_attribute"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/attribute" />
                         </LinearLayout>

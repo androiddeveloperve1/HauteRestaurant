@@ -76,8 +76,8 @@
                 android:layout_height="@dimen/_30_px"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/_5_px"
-                android:padding="@dimen/_5_px"
                 android:onClick="@{(v)->click.onSearch(v)}"
+                android:padding="@dimen/_5_px"
                 android:src="@drawable/ic_search"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
@@ -90,8 +90,8 @@
                 android:layout_height="@dimen/_30_px"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/_5_px"
-                android:padding="@dimen/_5_px"
                 android:onClick="@{(v)->click.onAdd(v)}"
+                android:padding="@dimen/_5_px"
                 android:src="@drawable/ic_add"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
@@ -101,14 +101,88 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <FrameLayout
-            android:id="@+id/child_container"
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?actionBarSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
+            app:tabBackground="@color/white"
+            app:tabIndicatorColor="@color/black"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="scrollable" />
+
+        <LinearLayout
+            android:id="@+id/ll_foodtype"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_text"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
+
+            <TextView
+                android:id="@+id/tv_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/food_type_bg_white"
+                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                android:paddingLeft="@dimen/_10_px"
+                android:paddingTop="@dimen/_5_px"
+                android:paddingRight="@dimen/_10_px"
+                android:paddingBottom="@dimen/_5_px"
+                android:text="ALL"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12_px" />
+
+            <TextView
+                android:id="@+id/tv_veg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10_px"
+                android:background="@drawable/food_type_bg_white"
+                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                android:paddingLeft="@dimen/_10_px"
+                android:paddingTop="@dimen/_5_px"
+                android:paddingRight="@dimen/_10_px"
+                android:paddingBottom="@dimen/_5_px"
+                android:text="VEG"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12_px" />
+
+            <TextView
+                android:id="@+id/tv_non_veg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_10_px"
+                android:background="@drawable/food_type_bg_white"
+                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                android:paddingLeft="@dimen/_10_px"
+                android:paddingTop="@dimen/_5_px"
+                android:paddingRight="@dimen/_10_px"
+                android:paddingBottom="@dimen/_5_px"
+                android:text="NON VEG"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12_px" />
+
+        </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_foodtype" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

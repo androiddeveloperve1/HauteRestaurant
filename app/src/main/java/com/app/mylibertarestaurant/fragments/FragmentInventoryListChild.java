@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,11 +32,20 @@ public class FragmentInventoryListChild extends Fragment {
         binder.setAdapter(new InventoryItemAdapter(new RecycleItemClickListener() {
             @Override
             public void onItemClicked(int position, Object data) {
-                startActivity(new Intent(getActivity(), ItemDescriptionActivity.class));
+                Intent mIntent = new Intent(getActivity(), ItemDescriptionActivity.class);
+                startActivityForResult(mIntent, 100);
             }
         }));
 
         View view = binder.getRoot();
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+       // refresh here
+        }
     }
 }

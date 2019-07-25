@@ -55,7 +55,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -72,19 +72,81 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_otp"
+
+                    <LinearLayout
+                        android:id="@+id/ll_otp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10_px"
                         android:layout_marginTop="@dimen/_10_px"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:text="7 7 7 7"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_25_px"
+                        android:layout_marginRight="@dimen/_10_px"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_otp_text" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_otp_text">
+
+                        <EditText
+                            android:id="@+id/otp1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_40_px"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px" />
+
+                        <EditText
+                            android:id="@+id/otp2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_40_px"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px" />
+
+                        <EditText
+                            android:id="@+id/otp3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_40_px"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px" />
+
+                        <EditText
+                            android:id="@+id/otp4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:maxLength="1"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px" />
+                    </LinearLayout>
+
 
                     <View
                         android:id="@+id/view0"
@@ -94,7 +156,7 @@
                         android:background="@color/gray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_otp" />
+                        app:layout_constraintTop_toBottomOf="@+id/ll_otp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -133,9 +195,9 @@
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
                     android:text='@{model.user_id.orderaddress}'
                     android:textColor="@color/gray_text"
-                    app:layout_constraintRight_toLeftOf="@+id/img_paid"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="@id/tv_user_name"
+                    app:layout_constraintRight_toLeftOf="@+id/img_paid"
                     app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
                 <View
@@ -289,6 +351,25 @@
                     android:gravity="center"
                     android:onClick="@{(v)->clickHandle.readyForPickup(v)}"
                     android:text="READY FOR PICKUP"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14_px"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@id/tv_time"
+                    app:layout_constraintRight_toRightOf="@id/img_paid"
+                    app:layout_constraintTop_toBottomOf="@id/tv_total_price" />
+
+                <TextView
+                    android:id="@+id/tv_verify"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15_px"
+                    android:layout_marginBottom="@dimen/_10_px"
+                    android:background="@drawable/button_green"
+                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                    android:gravity="center"
+                    android:onClick="@{(v)->clickHandle.verifyOtp(v)}"
+                    android:text="Verify"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14_px"
                     android:visibility="gone"

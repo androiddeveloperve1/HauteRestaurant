@@ -77,13 +77,22 @@ public class EarningFragment extends Fragment {
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<OrderDetailsModel>> response) {
                         progressDialog.dismiss();
-                        Log.e("@@@@@@@@", "" + new Gson().toJson(response));
                         if (response.getStatus().equals("200")) {
-                            binder.setAdp(new EarnAdapter(response.getData(),new RecycleItemClickListener() {
-                                @Override
-                                public void onItemClicked(int position, Object data) {
-                                }
-                            }));
+
+                            if (response.getData().size() > 0) {
+                                binder.tvNoData.setVisibility(View.GONE);
+                                binder.rvItems.setVisibility(View.VISIBLE);
+                                binder.setAdp(new EarnAdapter(response.getData(), new RecycleItemClickListener() {
+                                    @Override
+                                    public void onItemClicked(int position, Object data) {
+                                    }
+                                }));
+
+                            } else {
+                                binder.tvNoData.setVisibility(View.VISIBLE);
+                                binder.rvItems.setVisibility(View.GONE);
+                            }
+
 
                         } else {
                             ResponseDialog.showErrorDialog(getActivity(), response.getMessage());

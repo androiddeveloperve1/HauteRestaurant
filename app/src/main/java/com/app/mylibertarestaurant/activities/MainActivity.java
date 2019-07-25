@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateStatus(boolean status) {
         HashMap<String, String> map = new HashMap<>();
-        map.put("restaurantId", restaurantDetailModel.get_id());
+        map.put("restaurantId", restaurantDetailModel.getRestaurants().get_id());
         map.put("status", "" + status);
         final Dialog progressDialog = ResponseDialog.showProgressDialog(MainActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(MainActivity.this);

@@ -21,6 +21,8 @@ public class UrlConstants {
     public static final String ADD_FOOD = "restaurent/addfooditeminrestaurant";
     public static final String EDIT_FOOD = ADMIN + "/restaurant/updatefooditem";
     public static final String UPDATE_RESTAURANT = ADMIN + "/update-restaurant";
+    public static final String READY_FOR_PICKUP = ADMIN + "/updateReadyForPickupStatus";
+    public static final String ORDER_DETAIL = ADMIN + "/order-detail/";
 
 
 }

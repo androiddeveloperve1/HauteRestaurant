@@ -23,6 +23,7 @@ public class Constants {
     public static final String BROADCAST_ORDER_ACCEPT = "order_accepted";
     public static final String BROADCAST_ORDER_CANCEL = "order_cancelled";
     public static final String BROADCAST_ORDER_READY_FOR_PICKUP = "order_ready_for_pickup";
+    public static final String DRIVER_VERIFIED_WITH_OTP = "driver_verified_with_otp";
 
     public static String  DELIVERY_STATUS_0 = "Placed";
     public static String  DELIVERY_STATUS_1 = "Accepted";
@@ -30,6 +31,8 @@ public class Constants {
     public static String  DELIVERY_STATUS_3 = "Cancelled";
     public static String  DELIVERY_STATUS_4 = "Picked up";
     public static String  DELIVERY_STATUS_5 = "Delivered";
+
+    public static int  ADD_NEW = 1;
 
 
 

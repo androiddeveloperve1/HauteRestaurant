@@ -94,36 +94,7 @@
                         android:layout_margin="@dimen/_10_px">
 
 
-                        <TextView
-                            android:id="@+id/tv_product_category_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10_px"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Category"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <LinearLayout
-                            android:id="@+id/ll_drop_down_category"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:layout_marginRight="@dimen/_10_px"
-                            android:background="@drawable/edittext_bg"
-                            android:padding="@dimen/_5_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_category_text">
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spnr_category"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:entries="@array/attribute" />
-                        </LinearLayout>
 
 
                         <TextView
@@ -136,7 +107,7 @@
                             android:textSize="@dimen/_10_px"
                             android:layout_marginTop="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ll_drop_down_category" />
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/img_veg_nonveg_switch"
@@ -261,7 +232,36 @@
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_desc_text"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_desc_text" />
+                        <TextView
+                            android:id="@+id/tv_product_category_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
+                        <LinearLayout
+                            android:id="@+id/ll_drop_down_category"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:layout_marginRight="@dimen/_10_px"
+                            android:background="@drawable/edittext_bg"
+                            android:padding="@dimen/_5_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_category_text">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/spnr_category"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/attribute" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tv_product_attribute_text"
@@ -273,7 +273,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+                            app:layout_constraintTop_toBottomOf="@+id/ll_drop_down_category" />
 
                         <LinearLayout
                             android:id="@+id/ll_drop_down"

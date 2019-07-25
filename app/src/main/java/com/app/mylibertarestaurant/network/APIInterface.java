@@ -60,9 +60,7 @@ public interface APIInterface {
     @DELETE(UrlConstants.DELETE_FOOD_ITEM + "{id}")
     Observable<ApiResponseModel> deleteFoodItem(@Path("id") String orderId);
 
-    @Headers("Content-Type: application/json")
-    @POST(UrlConstants.ADD_FOOD)
-    Observable<ApiResponseModel> addFoodItem(@Body HashMap<String, String> body);
+
 
     @Headers("Content-Type: application/json")
     @POST(UrlConstants.EDIT_FOOD)
@@ -87,4 +85,27 @@ public interface APIInterface {
                                                @Part("deliverykm") RequestBody deliverykm,
                                                @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
                                                @Part("longitude") RequestBody longitude);
+
+    @Multipart
+    @POST(UrlConstants.ADD_FOOD)
+    Observable<ApiResponseModel> addFoodItem(@Part MultipartBody.Part image,
+                                             @Part("item_id") RequestBody item_id,
+                                             @Part("restaurent_id") RequestBody restaurent_id,
+                                             @Part("category_id") RequestBody category_id,
+                                             @Part("price_devide") RequestBody price_devide,
+                                             @Part("full_price") RequestBody full_price,
+                                             @Part("half_price") RequestBody half_price,
+                                             @Part("food_type") RequestBody food_type,
+                                             @Part("attribute_id") RequestBody attribute_id,
+                                             @Part("description") RequestBody description,
+                                             @Part("is_available") RequestBody is_available);
+
+
+
+    @Headers("Content-Type: application/json")
+    @PUT(UrlConstants.READY_FOR_PICKUP)
+    Observable<ApiResponseModel> readyForPickup(@Body HashMap<String, String> body);
+
+    @GET(UrlConstants.ORDER_DETAIL + "{id}")
+    Observable<ApiResponseModel<OrderDetailsModel>> getOrderDetail(@Path("id") String orderId);
 }

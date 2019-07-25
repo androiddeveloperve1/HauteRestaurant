@@ -77,6 +77,7 @@
 
 
         <androidx.cardview.widget.CardView
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/_5_px"
@@ -95,10 +96,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adapter="@{adp}"
-                android:orientation="vertical"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_earning" />
+                android:orientation="vertical" />
+
+
+            <TextView
+                android:id="@+id/tv_no_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                android:text="No Order Found"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_18_px" />
         </androidx.cardview.widget.CardView>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,26 +1,21 @@
 package com.app.mylibertarestaurant.activities;
 
-import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
-import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.network.APIInterface;
-import com.app.mylibertarestaurant.utils.ResponseDialog;
 
 import javax.inject.Inject;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class ItemDescriptionActivity extends AppCompatActivity {
     ActivityItemDescriptionBinding binder;
@@ -51,8 +46,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                         startActivity(new Intent(ItemDescriptionActivity.this, CopyItemActivity.class));
                         break;
                     case R.id.delete:
-                        finish();
-                        //deleteItem("");
+                        deleteAlert();
                         break;
                 }
                 return false;
@@ -61,7 +55,9 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     }
 
     private void deleteItem(String id) {
-        final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemDescriptionActivity.this);
+
+        finish();
+        /*final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemDescriptionActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemDescriptionActivity.this);
         apiInterface.deleteFoodItem(id)
                 .subscribeOn(Schedulers.io())
@@ -81,12 +77,13 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
+                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemDescriptionActivity.this, response.getMessage());
                         }
                     }
-                });
+                });*/
     }
 
     public class Click {
@@ -98,5 +95,27 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         public void onPopupClick(View v) {
             popup.show();
         }
+    }
+
+
+    void deleteAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Alert");
+        builder.setMessage("Are you sure, want to delete this item ?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteItem("");
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.show();
     }
 }

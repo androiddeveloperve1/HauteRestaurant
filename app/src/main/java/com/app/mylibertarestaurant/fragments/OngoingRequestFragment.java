@@ -31,7 +31,9 @@ import java.util.ArrayList;
 
 public class OngoingRequestFragment extends Fragment {
     FragmentOngoingOrderBinding binder;
+    static OngoingRequestFragment orderRequestFragment;
     private ArrayList<OrderDetailsModel> order;
+
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_ongoing_order, container, false);
@@ -62,8 +64,15 @@ public class OngoingRequestFragment extends Fragment {
 
 
         View view = binder.getRoot();
+        orderRequestFragment = this;
         return view;
     }
 
+    public static OngoingRequestFragment getInstance()
+    {
+        if(orderRequestFragment == null)
+            orderRequestFragment = new OngoingRequestFragment();
+        return orderRequestFragment;
 
+    }
 }

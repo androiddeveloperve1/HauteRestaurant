@@ -16,65 +16,7 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
-            android:id="@+id/ll_foodtype"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/gray_text"
-            android:orientation="horizontal"
-            android:padding="@dimen/_10_px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/food_type_bg_white"
-                android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:paddingLeft="@dimen/_10_px"
-                android:paddingTop="@dimen/_5_px"
-                android:paddingRight="@dimen/_10_px"
-                android:paddingBottom="@dimen/_5_px"
-                android:text="ALL"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12_px" />
-
-            <TextView
-                android:id="@+id/tv_veg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10_px"
-                android:background="@drawable/food_type_bg_white"
-                android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:paddingLeft="@dimen/_10_px"
-                android:paddingTop="@dimen/_5_px"
-                android:paddingRight="@dimen/_10_px"
-                android:paddingBottom="@dimen/_5_px"
-                android:text="VEG"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12_px" />
-
-            <TextView
-                android:id="@+id/tv_non_veg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_10_px"
-                android:background="@drawable/food_type_bg_white"
-                android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:paddingLeft="@dimen/_10_px"
-                android:paddingTop="@dimen/_5_px"
-                android:paddingRight="@dimen/_10_px"
-                android:paddingBottom="@dimen/_5_px"
-                android:text="NON VEG"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12_px" />
-
-        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_item"
@@ -84,7 +26,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_foodtype" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.activities;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -128,6 +129,8 @@ public class EditProfileActivity extends ImageUploadingActivity {
                         if (response.getStatus().equals("200")) {
                             restaurantDetailModel.setRestaurants(response.getData());
                             MySharedPreference.getInstance(EditProfileActivity.this).setUser(restaurantDetailModel);
+                            setResult(Activity.RESULT_OK);
+                            finish();
                         } else {
                             ResponseDialog.showErrorDialog(EditProfileActivity.this, response.getMessage());
                         }
@@ -139,7 +142,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
     void showInView() {
         binder.tvReatsurantName.setText(restaurantDetailModel.getRestaurants().getName());
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
-        mlaLatLng=new LatLng(restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(0),restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(1));
+        mlaLatLng = new LatLng(restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(0), restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(1));
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
         try {
             range = Integer.parseInt(restaurantDetailModel.getRestaurants().getDeliverykm());

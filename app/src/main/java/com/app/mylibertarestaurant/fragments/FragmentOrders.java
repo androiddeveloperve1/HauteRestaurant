@@ -29,11 +29,8 @@ import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -55,11 +52,12 @@ public class FragmentOrders extends Fragment {
     private ArrayList<OrderDetailsModel> newOrderRequest = new ArrayList<>();
     private ArrayList<OrderDetailsModel> onGoingOrder = new ArrayList<>();
     private ArrayList<OrderDetailsModel> readyForPickupOrder = new ArrayList<>();
+    private MyPagerAdapter myPagerAdapter;
     BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(Constants.BROADCAST_ORDER_ACCEPT) || action.equals(Constants.BROADCAST_ORDER_CANCEL)) {
+            if (action.equals(Constants.BROADCAST_ORDER_ACCEPT) || action.equals(Constants.BROADCAST_ORDER_CANCEL)|| action.equals(Constants.DRIVER_VERIFIED_WITH_OTP)) {
                 getOrder(0);
             } else if (action.equals(Constants.BROADCAST_ORDER_READY_FOR_PICKUP)) {
                 getOrder(1);
@@ -71,7 +69,8 @@ public class FragmentOrders extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_order, container, false);
         binder.setClick(new Presenter());
-
+        myPagerAdapter=new  MyPagerAdapter(getChildFragmentManager(), newOrderRequest, onGoingOrder, readyForPickupOrder);
+        binder.viewPager.setAdapter(myPagerAdapter);
         getOrder(0);
         registerRecieverNow();
         View view = binder.getRoot();
@@ -138,7 +137,7 @@ public class FragmentOrders extends Fragment {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
         apiInterface.getUpcommingOrder()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel<ArrayList<OrderDetailsModel>>>() {
                     @Override
@@ -157,6 +156,7 @@ public class FragmentOrders extends Fragment {
                         newOrderRequest.clear();
                         onGoingOrder.clear();
                         readyForPickupOrder.clear();
+                        myPagerAdapter.notifyDataSetChanged();
                         if (response.getStatus().equals("200")) {
                             for (int i = 0; i < response.getData().size(); i++) {
                                 OrderDetailsModel data = response.getData().get(i);
@@ -164,14 +164,12 @@ public class FragmentOrders extends Fragment {
                                     newOrderRequest.add(data);
                                 } else if (data.getDelivery_status().equals("1")) {
                                     onGoingOrder.add(data);
-                                } else {
+                                } else if (data.getDelivery_status().equals("6")) {
                                     readyForPickupOrder.add(data);
                                 }
                             }
-
-
-                            binder.viewPager.setAdapter(new MyPagerAdapter(getChildFragmentManager(), newOrderRequest, onGoingOrder, readyForPickupOrder));
-
+                            Log.e("@@@@@", "Adapter");
+                            myPagerAdapter.notifyDataSetChanged();
                             if (selectposition == 0) {
                                 requestOrderSelect();
                                 binder.viewPager.setCurrentItem(0);
@@ -182,6 +180,7 @@ public class FragmentOrders extends Fragment {
                                 readyOrderSelect();
                                 binder.viewPager.setCurrentItem(2);
                             }
+
                         } else {
                             ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
                         }
@@ -195,6 +194,7 @@ public class FragmentOrders extends Fragment {
         filter.addAction(Constants.BROADCAST_ORDER_CANCEL);
         filter.addAction(Constants.BROADCAST_ORDER_ACCEPT);
         filter.addAction(Constants.BROADCAST_ORDER_READY_FOR_PICKUP);
+        filter.addAction(Constants.DRIVER_VERIFIED_WITH_OTP);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filter);
     }
 

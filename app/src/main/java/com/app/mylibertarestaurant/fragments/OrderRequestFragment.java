@@ -2,6 +2,7 @@ package com.app.mylibertarestaurant.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,20 +31,20 @@ import java.util.ArrayList;
 
 
 public class OrderRequestFragment extends Fragment {
+    static OrderRequestFragment orderRequestFragment;
     FragmentOrderRequestBinding binder;
     private ArrayList<OrderDetailsModel> order;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_order_request, container, false);
-        order = new Gson().fromJson(getArguments().getString("data"), new TypeToken<ArrayList<OrderDetailsModel>>(){}.getType());
-
-        if(order!=null && order.size()>0)
-        {
+        order = new Gson().fromJson(getArguments().getString("data"), new TypeToken<ArrayList<OrderDetailsModel>>() {
+        }.getType());
+        if (order.size() > 0) {
             binder.tvNoData.setVisibility(View.GONE);
             binder.rvItems.setVisibility(View.VISIBLE);
 
             binder.rvItems.setLayoutManager(new LinearLayoutManager(getActivity()));
-            binder.setAdp(new RequestOrderItemAdapter(order,new RecycleItemClickListener<OrderDetailsModel>() {
+            binder.setAdp(new RequestOrderItemAdapter(order, new RecycleItemClickListener<OrderDetailsModel>() {
                 @Override
                 public void onItemClickedWithTag(int position, OrderDetailsModel data, int tag) {
                     Intent mIntent = new Intent(getActivity(), OrderDecriptionActivity.class);
@@ -53,15 +54,23 @@ public class OrderRequestFragment extends Fragment {
                 }
             }, Constants.FROM_ORDER_REQUEST_TAG));
 
-        }else {
+        } else {
 
             binder.tvNoData.setVisibility(View.VISIBLE);
             binder.rvItems.setVisibility(View.GONE);
         }
-
-
-
         View view = binder.getRoot();
+        orderRequestFragment = this;
         return view;
     }
+
+    public static OrderRequestFragment getInstance()
+    {
+        if(orderRequestFragment == null)
+            orderRequestFragment = new OrderRequestFragment();
+        return orderRequestFragment;
+
+    }
+
+
 }
