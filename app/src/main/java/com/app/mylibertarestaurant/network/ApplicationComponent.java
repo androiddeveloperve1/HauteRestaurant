@@ -11,6 +11,7 @@ import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.activities.OrderDecriptionActivity;
 import com.app.mylibertarestaurant.fragments.EarningFragment;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
+import com.app.mylibertarestaurant.fragments.InventoryFragment;
 import com.app.mylibertarestaurant.fragments.ProfileFragment;
 
 import javax.inject.Singleton;
@@ -35,6 +36,7 @@ public interface ApplicationComponent {
     void inject(ItemDescriptionActivity model);
     void inject(EditProfileActivity model);
     void inject(ProfileFragment model);
+    void inject(InventoryFragment model);
 
 
 }

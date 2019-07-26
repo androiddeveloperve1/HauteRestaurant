@@ -18,6 +18,7 @@ import com.app.mylibertarestaurant.databinding.ActivityCopyItemBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.CategoryModel;
+import com.app.mylibertarestaurant.model.InventoryModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
 import com.app.mylibertarestaurant.network.APIInterface;
@@ -49,6 +50,7 @@ public class CopyItemActivity extends ImageUploadingActivity {
 
     private ArrayList<CategoryModel> categoryList = new ArrayList<>();
     private ArrayList<AttributeModel> attributeList = new ArrayList<>();
+    private InventoryModel dataToBECOpy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,12 @@ public class CopyItemActivity extends ImageUploadingActivity {
         binder.setClick(new Click());
         flag = getIntent().getIntExtra("flag", 0);
         restaurantDetailModel = MySharedPreference.getInstance(CopyItemActivity.this).getUser();
+        if (flag == Constants.COPY) {
+            // copy the same data
+            dataToBECOpy = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModel.class);
+            copyItemData();
+
+        }
         getAttribute();
         getCategory();
     }
@@ -91,9 +99,17 @@ public class CopyItemActivity extends ImageUploadingActivity {
                             attributeList.clear();
                             attributeList.addAll(response.getData());
                             binder.spnrAttribute.setAdapter(new AttributeAdapter(attributeList));
+                            if (flag == Constants.COPY) {
+                                for (int i = 0; i <response.getData().size() ; i++) {
+                                    if(dataToBECOpy.getAttribute_id().get_id().equals(response.getData().get(i).get_id()))
+                                    {
+                                        binder.spnrAttribute.setSelection(i);
+                                    }
 
-                            if (flag == Constants.ADD_NEW) {
-                                //binder.spnrAttribute.setSelection(0);
+                                }
+
+
+
                             }
                         } else {
                             ResponseDialog.showErrorDialog(CopyItemActivity.this, response.getMessage());
@@ -126,8 +142,13 @@ public class CopyItemActivity extends ImageUploadingActivity {
                             categoryList.clear();
                             categoryList.addAll(response.getData());
                             binder.spnrCategory.setAdapter(new CategoryAdapter(categoryList));
-                            if (flag == Constants.ADD_NEW) {
-                                //binder.spnrCategory.setSelection(0);
+                            if (flag == Constants.COPY) {
+                                for (int i = 0; i <response.getData().size() ; i++) {
+                                    if(dataToBECOpy.getCategory_id().get_id().equals(response.getData().get(i).get_id()))
+                                    {
+                                        binder.spnrCategory.setSelection(i);
+                                    }
+                                }
                             }
                         } else {
                             ResponseDialog.showErrorDialog(CopyItemActivity.this, response.getMessage());
@@ -190,7 +211,10 @@ public class CopyItemActivity extends ImageUploadingActivity {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
-                            setResult(Activity.RESULT_OK);
+                            if (flag == Constants.ADD_NEW) {
+                                setResult(Activity.RESULT_OK);
+                            }
+
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(CopyItemActivity.this, response.getMessage());
@@ -198,6 +222,15 @@ public class CopyItemActivity extends ImageUploadingActivity {
 
                     }
                 });
+    }
+
+    void copyItemData() {
+
+        binder.etProductName.setText(dataToBECOpy.getItem_id().getName());
+        binder.etProductPrice.setText(dataToBECOpy.getFull_price());
+        binder.tvDesc.setText(dataToBECOpy.getDescription());
+
+
     }
 
     public class Click {

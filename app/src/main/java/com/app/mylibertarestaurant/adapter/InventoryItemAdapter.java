@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.mylibertarestaurant.BR;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemInventoryBinding;
-import com.app.mylibertarestaurant.databinding.ItemTodayEarningBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
+import com.app.mylibertarestaurant.model.InventoryModel;
+
+import java.util.ArrayList;
 
 /**
  * Create By Rahul Mangal
@@ -21,9 +23,11 @@ import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 
 public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdapter.MyViewHolder> {
     RecycleItemClickListener listenr;
+    private ArrayList<InventoryModel> list;
 
-    public InventoryItemAdapter(RecycleItemClickListener listenr) {
+    public InventoryItemAdapter(RecycleItemClickListener listenr, ArrayList<InventoryModel> list) {
         this.listenr = listenr;
+        this.list=list;
     }
 
     @NonNull
@@ -37,13 +41,13 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
 
     @Override
     public void onBindViewHolder(@NonNull InventoryItemAdapter.MyViewHolder holder, int i) {
-        // holder.bind(list.get(i));
-        holder.bind(new Object());
+         holder.bind(list.get(i));
+
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return list.size();
     }
 
 
@@ -55,8 +59,8 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
             this.binding = databinding;
         }
 
-        public void bind(Object data) {
-            // this.binding.setVariable(BR.data, data);
+        public void bind(InventoryModel data) {
+            this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();
         }

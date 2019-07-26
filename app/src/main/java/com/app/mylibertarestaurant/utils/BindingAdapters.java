@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 import com.app.mylibertarestaurant.R;
+import com.squareup.picasso.Picasso;
 
 /**
  * Create By Rahul Mangal
@@ -51,7 +52,31 @@ public class BindingAdapters {
     }
 
 
+    @BindingAdapter({"bind:imageUrl"})
+    public static void loadImage(ImageView view, String imageUrl) {
+        Picasso.with(view.getContext()).load(imageUrl).placeholder(R.drawable.placeholder_squre).into(view);
+    }
 
 
+    @BindingAdapter("android:setAvailable")
+    public static void setAvailable(TextView textView, String tag) {
+        if (tag.equals("1")) {
+            textView.setBackgroundResource(R.drawable.available_bg);
+            textView.setText("Available");
+        } else {
+            textView.setBackgroundResource(R.drawable.un_available_bg);
+            textView.setText("Un Available");
+        }
+    }
 
+
+    @BindingAdapter("android:setFoodType")
+    public static void setFoodType(TextView textView, String food) {
+        textView.setText(food);
+        if (food.equals("veg")) {
+            textView.setTextColor(textView.getContext().getResources().getColor(R.color.greencolor));
+        } else {
+            textView.setTextColor(textView.getContext().getResources().getColor(R.color.red));
+        }
+    }
 }

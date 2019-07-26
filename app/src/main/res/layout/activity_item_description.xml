@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout >
 
     <data>
-
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.InventoryModel" />
         <variable
             name="click"
             type="com.app.mylibertarestaurant.activities.ItemDescriptionActivity.Click" />
@@ -13,6 +15,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        xmlns:bind="http://schemas.android.com/tools"
         android:layout_height="match_parent"
         tools:context=".activities.ItemDescriptionActivity">
 
@@ -20,6 +23,8 @@
             android:id="@+id/img_item"
             android:layout_width="0dp"
             android:layout_height="@dimen/_150_px"
+            bind:imageUrl="@{model.image}"
+            android:scaleType="fitXY"
             android:background="@drawable/placeholder_rect"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -84,7 +89,7 @@
                         android:ellipsize="end"
                         android:fontStyleName="@{`Roboto_Bold.ttf`}"
                         android:maxLines="1"
-                        android:text="VEG"
+                        android:setFoodType='@{model.food_type}'
                         android:textColor="@color/greencolor"
                         android:textSize="@dimen/_13_px"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -100,7 +105,7 @@
                         android:ellipsize="end"
                         android:fontStyleName="@{`Roboto_Bold.ttf`}"
                         android:maxLines="1"
-                        android:text="Burger combo"
+                        android:text="@{model.item_id.name}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_13_px"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -112,8 +117,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10_px"
                         android:layout_marginRight="@dimen/_5_px"
-                        android:background="@drawable/available_bg"
                         android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:setAvailable="@{model.is_available}"
                         android:paddingLeft="@dimen/_10_px"
                         android:paddingTop="@dimen/_5_px"
                         android:paddingRight="@dimen/_10_px"
@@ -130,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5_px"
                         android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                        android:text="$12.00"
+                        android:text='@{"$ "+model.full_price}'
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14_px"
                         app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
@@ -143,7 +148,7 @@
                         android:layout_marginTop="@dimen/_10_px"
                         android:fontStyleName="@{`Roboto_Regular.ttf`}"
                         android:paddingBottom="@dimen/_5_px"
-                        android:text="Vfdsfndsfn;klsdlkdsnaasfd;sfdsklfdlsfjksdlahjkdsglaj;salghjksdlghaskdlghjkdslghjksdghjksdhglkjsghklsjdaghlsdkgjhsldakghsdjklghsdjkfghdsjkhgjdlgkfdkgh;fdlgkh;fdjkfdlfjkhdlskfdhjklfdhgfjkldshkfjdghfjdgh;fdkghfkdjhlfjkdghlfdkgh;fdluj;kghfdf;jklghfdkljrpoturhsd'sk'flkgj ;f.bnfdjk;gf.jds;gklas;gkslfdfsndfnlsdnasdnksnjksnjksdnasjkdvnkasnsskkanvsjkdvnsnvajksdnvjknad;gklas;gkalg;skdg;askg;kEG"
+                        android:text="@{model.description}"
                         android:textColor="@color/gray_text"
                         android:textSize="@dimen/_11_px"
                         app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"

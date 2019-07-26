@@ -34,13 +34,14 @@ public class AppUtils {
 
     public static String getHumanReadableTimeFromUTCString(String status) {
         utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String time = null;
         try {
-            return humanFormat.format(utcFormat.parse(status));
+            time = humanFormat.format(utcFormat.parse(status));
         } catch (ParseException e) {
             e.printStackTrace();
-            return null;
+            time = "no time";
         }
-
+        return time;
     }
 
     public static String getItemListInAppendMode(ArrayList<OrderItemModel> order) {

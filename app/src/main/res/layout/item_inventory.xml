@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="clickListener"
             type="com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener" />
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.InventoryModel" />
 
         <variable
             name="position"
@@ -16,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5_px"
-        android:onClick="@{(v)->clickListener.onItemClicked(position,null)}"
+        android:onClick="@{(v)->clickListener.onItemClicked(position,model)}"
         app:cardCornerRadius="@dimen/_5_px">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,6 +32,8 @@
                 android:id="@+id/iv_image"
                 android:layout_width="@dimen/_100_px"
                 android:layout_height="0dp"
+                bind:imageUrl="@{model.image}"
+                android:scaleType="fitXY"
                 android:background="@drawable/placeholder_squre"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +49,7 @@
                 android:ellipsize="end"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
                 android:maxLines="1"
-                android:text="Burger combo"
+                android:text="@{model.item_id.name}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13_px"
                 app:layout_constraintLeft_toRightOf="@+id/iv_image"
@@ -54,13 +61,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10_px"
                 android:layout_marginRight="@dimen/_5_px"
-                android:background="@drawable/available_bg"
+                android:setAvailable="@{model.is_available}"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:paddingLeft="@dimen/_10_px"
                 android:paddingTop="@dimen/_5_px"
                 android:paddingRight="@dimen/_10_px"
                 android:paddingBottom="@dimen/_5_px"
-                android:text="Available"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_11_px"
                 app:layout_constraintRight_toRightOf="parent"
@@ -72,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text="$12.00"
+                android:text='@{"$ "+model.full_price}'
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14_px"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
@@ -84,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text="VEG"
+                android:setFoodType='@{model.food_type}'
                 android:textColor="@color/greencolor"
                 android:textSize="@dimen/_11_px"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
@@ -100,7 +106,7 @@
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:maxLines="3"
                 android:paddingBottom="@dimen/_5_px"
-                android:text="Vfdsfndsfn;klsdlkdsnas;gklas;gkslfdfsndfnlsdnasdnksnjksnjksdnasjkdvnkasnsskkanvsjkdvnsnvajksdnvjknad;gklas;gkalg;skdg;askg;kEG"
+                android:text='@{model.description}'
                 android:textColor="@color/gray_text"
                 android:textSize="@dimen/_11_px"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"

@@ -31,6 +31,12 @@ public class OrderDetailsModel extends BaseObservable {
     private String delivery_status;
     private String distance = "";
     private String order_no;
+    private String is_driver_assign;
+
+    @Bindable
+    public String getIs_driver_assign() {
+        return is_driver_assign;
+    }
 
     @Bindable
     public UserModel getUser_id() {
@@ -151,6 +157,11 @@ public class OrderDetailsModel extends BaseObservable {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
         this.notifyPropertyChanged(BR.updatedAt);
+    }
+
+    public void setIs_driver_assign(String is_driver_assign) {
+        this.is_driver_assign = is_driver_assign;
+        this.notifyPropertyChanged(BR.is_driver_assign);
     }
 
     @Bindable

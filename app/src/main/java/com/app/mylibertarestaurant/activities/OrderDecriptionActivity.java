@@ -24,6 +24,7 @@ import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
+import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.FragmentTransactionUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
@@ -42,6 +43,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
     @Inject
     APIInterface apiInterface;
     private int tag;
+
     private OrderDetailsModel orderDetailsModel;
 
     @Override
@@ -49,33 +51,10 @@ public class OrderDecriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_order_decription);
         tag = getIntent().getIntExtra("tag", 0);
-        orderDetailsModel = new Gson().fromJson(getIntent().getStringExtra("data"), OrderDetailsModel.class);
-        //orderDetail(orderDetailsModel.get_id());
-        binder.viewTool.toolbarTitle.setText("ORDER ID :" + orderDetailsModel.getOrder_no());
-
-        if (tag == Constants.FROM_READY_REQUEST_TAG) {
-            binder.llOrderRequest.setVisibility(View.GONE);
-            binder.tvPickupReady.setVisibility(View.GONE);
-            binder.tvVerify.setVisibility(View.VISIBLE);
-            binder.clOtp.setVisibility(View.VISIBLE);
-        } else if (tag == Constants.FROM_ONGOING_REQUEST_TAG) {
-            binder.llOrderRequest.setVisibility(View.GONE);
-            binder.tvPickupReady.setVisibility(View.VISIBLE);
-            binder.clOtp.setVisibility(View.GONE);
-            binder.tvVerify.setVisibility(View.GONE);
-        } else {
-            binder.llOrderRequest.setVisibility(View.VISIBLE);
-            binder.tvPickupReady.setVisibility(View.GONE);
-            binder.clOtp.setVisibility(View.GONE);
-            binder.tvVerify.setVisibility(View.GONE);
-        }
         binder.rvItem.setLayoutManager(new LinearLayoutManager(this));
-        binder.setAdapt(new OrderItemDescriptionAdapter(orderDetailsModel.getOrder()));
-        binder.setModel(orderDetailsModel);
-        binder.setClickHandle(new Click());
-        setOtpEditTextListener();
-        binder.viewTool.toolbarBack.setOnClickListener((v) -> onBackPressed());
-        binder.viewTool.toolbarHelp.setOnClickListener((v) -> startActivity(new Intent(OrderDecriptionActivity.this, HalpActivity.class)));
+        orderDetail(getIntent().getStringExtra("id"));
+
+
     }
 
     private void acceptOrderApi() {
@@ -299,6 +278,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
+                            Log.e("@@@@@@@@@",new Gson().toJson(response.getData()));
                             Intent mIntent = new Intent();
                             mIntent.setAction(Constants.DRIVER_VERIFIED_WITH_OTP);
                             LocalBroadcastManager.getInstance(OrderDecriptionActivity.this).sendBroadcast(mIntent);
@@ -331,9 +311,15 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                     @Override
                     public void onNext(ApiResponseModel<OrderDetailsModel> response) {
                         progressDialog.dismiss();
-                        Log.e("@@@@@@@@", "Details" + new Gson().toJson(response));
+                        Log.e("##",new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
 
+                            orderDetailsModel = response.getData();
+                            showDataNow();
+                            binder.viewTool.toolbarTitle.setText("ORDER ID :" + orderDetailsModel.getOrder_no());
+                            binder.setAdapt(new OrderItemDescriptionAdapter(orderDetailsModel.getOrder()));
+                            binder.setModel(orderDetailsModel);
+                            binder.tvTime.setText(AppUtils.getHumanReadableTimeFromUTCString(orderDetailsModel.getCreatedAt()));
                         } else {
                             ResponseDialog.showErrorDialog(OrderDecriptionActivity.this, response.getMessage());
                         }
@@ -341,9 +327,42 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                 });
     }
 
+    void showDataNow() {
+        binder.setClickHandle(new Click());
+        setOtpEditTextListener();
+        binder.viewTool.toolbarBack.setOnClickListener((v) -> onBackPressed());
+        binder.viewTool.toolbarHelp.setOnClickListener((v) -> startActivity(new Intent(OrderDecriptionActivity.this, HalpActivity.class)));
+        if (tag == Constants.FROM_READY_REQUEST_TAG) {
+            binder.llOrderRequest.setVisibility(View.GONE);
+            binder.tvPickupReady.setVisibility(View.GONE);
+            binder.tvVerify.setVisibility(View.VISIBLE);
+            binder.clOtp.setVisibility(View.VISIBLE);
+        } else if (tag == Constants.FROM_ONGOING_REQUEST_TAG) {
+            binder.llOrderRequest.setVisibility(View.GONE);
+            binder.tvPickupReady.setVisibility(View.VISIBLE);
+            binder.clOtp.setVisibility(View.GONE);
+            binder.tvVerify.setVisibility(View.GONE);
+            if (orderDetailsModel.getIs_driver_assign().equals("0")) {
+                binder.tvPickupReady.setAlpha(.5f);
+            } else {
+                binder.tvPickupReady.setAlpha(1);
+            }
+        } else {
+            binder.llOrderRequest.setVisibility(View.VISIBLE);
+            binder.tvPickupReady.setVisibility(View.GONE);
+            binder.clOtp.setVisibility(View.GONE);
+            binder.tvVerify.setVisibility(View.GONE);
+        }
+    }
+
     public class Click {
         public void readyForPickup(View v) {
-            readyForPickupAPI();
+            if (orderDetailsModel.getIs_driver_assign().equals("0")) {
+                ResponseDialog.dialog(OrderDecriptionActivity.this, "Waiting for driver assign");
+            } else {
+                readyForPickupAPI();
+            }
+
         }
 
         public void cancelOrder(View v) {

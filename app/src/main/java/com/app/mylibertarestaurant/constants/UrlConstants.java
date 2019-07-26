@@ -23,6 +23,7 @@ public class UrlConstants {
     public static final String UPDATE_RESTAURANT = ADMIN + "/update-restaurant";
     public static final String READY_FOR_PICKUP = ADMIN + "/updateReadyForPickupStatus";
     public static final String ORDER_DETAIL = ADMIN + "/order-detail/";
+    public static final String INVENTORY = ADMIN + "/restaurant/appFoodList";
 
 
 }

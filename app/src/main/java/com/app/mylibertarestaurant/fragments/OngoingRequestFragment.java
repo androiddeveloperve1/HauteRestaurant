@@ -51,7 +51,7 @@ public class OngoingRequestFragment extends Fragment {
                 public void onItemClickedWithTag(int position, OrderDetailsModel data, int tag) {
                     Intent mIntent = new Intent(getActivity(), OrderDecriptionActivity.class);
                     mIntent.putExtra("tag", tag);
-                    mIntent.putExtra("data", new Gson().toJson(data));
+                    mIntent.putExtra("id", data.get_id());
                     startActivity(mIntent);
                 }
             }, Constants.FROM_ONGOING_REQUEST_TAG));

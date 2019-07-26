@@ -13,5 +13,6 @@
     <color name="yellow">#eb872b</color>
     <color name="transarent">#00FFFFFF</color>
     <color name="black_trans">#80000000</color>
+    <color name="red">#FFFF0000</color>
 
 </resources>
