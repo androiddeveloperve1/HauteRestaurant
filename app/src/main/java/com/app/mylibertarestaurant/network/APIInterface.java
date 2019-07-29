@@ -63,30 +63,23 @@ public interface APIInterface {
     Observable<ApiResponseModel> deleteFoodItem(@Path("id") String orderId);
 
 
-
-    @Headers("Content-Type: application/json")
-    @POST(UrlConstants.EDIT_FOOD)
-    Observable<ApiResponseModel> editFoodItem(@Body HashMap<String, String> body);
-
-
     @Headers("Content-Type: application/json")
     @POST(UrlConstants.ONLINE_OFFLINE_STATUS)
     Observable<ApiResponseModel> updateOnlineOfflineStatus(@Body HashMap<String, String> body);
 
 
-
-
     @GET(UrlConstants.RESTAURANT_DETAIL)
     Observable<ApiResponseModel<RestaurantDetail>> getDetail();
+
     @Multipart
     @PUT(UrlConstants.UPDATE_RESTAURANT)
     Observable<ApiResponseModel<RestaurantDetail>> updateProfile(@Part MultipartBody.Part image,
-                                               @Part("name") RequestBody name,
-                                               @Part("address") RequestBody address,
-                                               @Part("pincode") RequestBody pincode,
-                                               @Part("deliverykm") RequestBody deliverykm,
-                                               @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
-                                               @Part("longitude") RequestBody longitude);
+                                                                 @Part("name") RequestBody name,
+                                                                 @Part("address") RequestBody address,
+                                                                 @Part("pincode") RequestBody pincode,
+                                                                 @Part("deliverykm") RequestBody deliverykm,
+                                                                 @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
+                                                                 @Part("longitude") RequestBody longitude);
 
     @Multipart
     @POST(UrlConstants.ADD_FOOD)
@@ -102,6 +95,21 @@ public interface APIInterface {
                                              @Part("description") RequestBody description,
                                              @Part("is_available") RequestBody is_available);
 
+    @Multipart
+    @PUT(UrlConstants.EDIT_FOOD)
+    Observable<ApiResponseModel> editFoodItem(@Part MultipartBody.Part image,
+
+                                              @Part("item_id") RequestBody item_id,
+                                              @Part("restaurent_id") RequestBody restaurent_id,
+                                              @Part("category_id") RequestBody category_id,
+                                              @Part("price_devide") RequestBody price_devide,
+                                              @Part("full_price") RequestBody full_price,
+                                              @Part("half_price") RequestBody half_price,
+                                              @Part("food_type") RequestBody food_type,
+                                              @Part("attribute_id") RequestBody attribute_id,
+                                              @Part("description") RequestBody description,
+                                              @Part("is_available") RequestBody is_available,
+                                              @Part("foodrelation_id") RequestBody foodrelation_id);
 
 
     @Headers("Content-Type: application/json")
@@ -110,7 +118,6 @@ public interface APIInterface {
 
     @GET(UrlConstants.ORDER_DETAIL + "{id}")
     Observable<ApiResponseModel<OrderDetailsModel>> getOrderDetail(@Path("id") String orderId);
-
 
 
     @GET(UrlConstants.INVENTORY)

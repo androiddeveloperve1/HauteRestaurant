@@ -3,6 +3,8 @@ package com.app.mylibertarestaurant.activities;
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,6 +29,8 @@ import com.app.mylibertarestaurant.utils.MultipartUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,6 +55,7 @@ public class CopyItemActivity extends ImageUploadingActivity {
     private ArrayList<CategoryModel> categoryList = new ArrayList<>();
     private ArrayList<AttributeModel> attributeList = new ArrayList<>();
     private InventoryModel dataToBECOpy;
+    private String attributeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +63,11 @@ public class CopyItemActivity extends ImageUploadingActivity {
         binder = DataBindingUtil.setContentView(this, R.layout.activity_copy_item);
         binder.setClick(new Click());
         flag = getIntent().getIntExtra("flag", 0);
+
         restaurantDetailModel = MySharedPreference.getInstance(CopyItemActivity.this).getUser();
         if (flag == Constants.COPY) {
             // copy the same data
+            attributeId = getIntent().getStringExtra("attribute_id");
             dataToBECOpy = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModel.class);
             copyItemData();
 
@@ -100,14 +107,12 @@ public class CopyItemActivity extends ImageUploadingActivity {
                             attributeList.addAll(response.getData());
                             binder.spnrAttribute.setAdapter(new AttributeAdapter(attributeList));
                             if (flag == Constants.COPY) {
-                                for (int i = 0; i <response.getData().size() ; i++) {
-                                    if(dataToBECOpy.getAttribute_id().get_id().equals(response.getData().get(i).get_id()))
-                                    {
+                                for (int i = 0; i < response.getData().size(); i++) {
+                                    if (attributeId.equals(response.getData().get(i).get_id())) {
                                         binder.spnrAttribute.setSelection(i);
+                                        break;
                                     }
-
                                 }
-
 
 
                             }
@@ -143,10 +148,10 @@ public class CopyItemActivity extends ImageUploadingActivity {
                             categoryList.addAll(response.getData());
                             binder.spnrCategory.setAdapter(new CategoryAdapter(categoryList));
                             if (flag == Constants.COPY) {
-                                for (int i = 0; i <response.getData().size() ; i++) {
-                                    if(dataToBECOpy.getCategory_id().get_id().equals(response.getData().get(i).get_id()))
-                                    {
+                                for (int i = 0; i < response.getData().size(); i++) {
+                                    if (dataToBECOpy.getCategory_id().get_id().equals(response.getData().get(i).get_id())) {
                                         binder.spnrCategory.setSelection(i);
+                                        break;
                                     }
                                 }
                             }
@@ -229,8 +234,21 @@ public class CopyItemActivity extends ImageUploadingActivity {
         binder.etProductName.setText(dataToBECOpy.getItem_id().getName());
         binder.etProductPrice.setText(dataToBECOpy.getFull_price());
         binder.tvDesc.setText(dataToBECOpy.getDescription());
-
-
+        new DownloadImage().execute(dataToBECOpy.getImage());
+        if (dataToBECOpy.getIs_available().equals("0")) {
+            binder.tvProductAvailSwitch.setTag(getResources().getString(R.string.un_available));
+            binder.tvProductAvailSwitch.setBackgroundResource(R.drawable.ic_toggle_unavailable);
+        } else {
+            binder.tvProductAvailSwitch.setTag(getResources().getString(R.string.available));
+            binder.tvProductAvailSwitch.setBackgroundResource(R.drawable.ic_toggle_available);
+        }
+        if (dataToBECOpy.getFood_type().equals("non-veg")) {
+            binder.imgVegNonvegSwitch.setTag(getResources().getString(R.string.non_veg));
+            binder.imgVegNonvegSwitch.setBackgroundResource(R.drawable.ic_toggle_on_veg);
+        } else {
+            binder.imgVegNonvegSwitch.setTag(getResources().getString(R.string.veg));
+            binder.imgVegNonvegSwitch.setBackgroundResource(R.drawable.ic_toggle_veg);
+        }
     }
 
     public class Click {
@@ -283,5 +301,35 @@ public class CopyItemActivity extends ImageUploadingActivity {
             addFoodItem();
         }
 
+    }
+
+
+    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        private String TAG = "___________";
+
+        private Bitmap downloadImageBitmap(String sUrl) {
+            Bitmap bitmap = null;
+            try {
+                InputStream inputStream = new URL(sUrl).openStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+            } catch (Exception e) {
+                Log.e(TAG, "Exception 1, Something went wrong!");
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            return downloadImageBitmap(params[0]);
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            if (result != null) {
+                restaurantImage = result;
+                binder.imgPic.setImageBitmap(restaurantImage);
+            }
+        }
     }
 }

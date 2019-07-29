@@ -174,6 +174,7 @@
                         android:ellipsize="end"
                         android:fontStyleName="@{`Roboto_Bold.ttf`}"
                         android:maxLines="1"
+                        android:visibility="gone"
                         android:text="Today's sell count"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12_px"
@@ -183,6 +184,7 @@
                     <TextView
                         android:id="@+id/tv_today_sell_count"
                         android:layout_width="0dp"
+                        android:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10_px"
                         android:layout_marginTop="@dimen/_10_px"
@@ -205,6 +207,7 @@
                         android:layout_marginLeft="@dimen/_5_px"
                         android:textColor="@color/gray_text"
                         android:textSize="@dimen/_8_px"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_today_sell_count"
                         app:layout_constraintLeft_toRightOf="@+id/tv_today_sell_count" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

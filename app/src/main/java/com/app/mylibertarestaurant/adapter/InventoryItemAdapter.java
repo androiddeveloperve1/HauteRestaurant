@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -13,6 +14,7 @@ import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemInventoryBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.InventoryModel;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -27,7 +29,7 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
 
     public InventoryItemAdapter(RecycleItemClickListener listenr, ArrayList<InventoryModel> list) {
         this.listenr = listenr;
-        this.list=list;
+        this.list =list;
     }
 
     @NonNull
@@ -41,7 +43,7 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
 
     @Override
     public void onBindViewHolder(@NonNull InventoryItemAdapter.MyViewHolder holder, int i) {
-         holder.bind(list.get(i));
+        holder.bind(list.get(i));
 
     }
 
@@ -66,4 +68,5 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
         }
 
     }
+
 }

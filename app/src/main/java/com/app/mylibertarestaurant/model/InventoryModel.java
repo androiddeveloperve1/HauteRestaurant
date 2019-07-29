@@ -18,6 +18,8 @@ public class InventoryModel extends BaseObservable {
     private String price_devide;
     private String half_price;
     private String image;
+    private String foodItemId;
+
     private String food_type;
     private String is_available;
     private String description;
@@ -25,6 +27,10 @@ public class InventoryModel extends BaseObservable {
     private String full_price;
     private ItemDataModel category_id;
     private ItemDataModel attribute_id;
+@Bindable
+    public String getFoodItemId() {
+        return foodItemId;
+    }
 
     @Bindable
     private String getPrice_devide() {
@@ -82,6 +88,11 @@ public class InventoryModel extends BaseObservable {
     public void setHalf_price(String half_price) {
         this.half_price = half_price;
         this.notifyPropertyChanged(BR.half_price);
+    }
+
+    public void setFoodItemId(String foodItemId) {
+        this.foodItemId = foodItemId;
+        this.notifyPropertyChanged(BR.foodItemId);
     }
 
     public void setImage(String image) {

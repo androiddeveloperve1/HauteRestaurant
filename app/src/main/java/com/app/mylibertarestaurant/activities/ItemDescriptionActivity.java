@@ -33,7 +33,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     PopupMenu popup;
     @Inject
     APIInterface apiInterface;
-    String ID;
+    String attributeId;
     private InventoryModel data;
 
     @Override
@@ -43,7 +43,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         binder.setClick(new Click());
         data = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModel.class);
         binder.setModel(data);
-        ID = getIntent().getStringExtra("id");
+        attributeId = getIntent().getStringExtra("attribute_id");
         initMenu();
     }
 
@@ -53,19 +53,26 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                Intent mIntent;
 
                 switch (item.getItemId()) {
                     case R.id.edit:
-                        //startActivity(new Intent(ItemDescriptionActivity.this, EditItemActivity.class));
+                        mIntent = new Intent(ItemDescriptionActivity.this, EditItemActivity.class);
+                        mIntent.putExtra("data", new Gson().toJson(data));
+                        mIntent.putExtra("attribute_id", attributeId);
+                        startActivity(mIntent);
+
+
                         break;
                     case R.id.copy:
-                        /*Intent mIntent = new Intent(ItemDescriptionActivity.this, CopyItemActivity.class);
+                        mIntent = new Intent(ItemDescriptionActivity.this, CopyItemActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.COPY);
-                        startActivity(mIntent);*/
+                        mIntent.putExtra("attribute_id", attributeId);
+                        startActivity(mIntent);
                         break;
                     case R.id.delete:
-                        //deleteAlert();
+                        deleteAlert();
                         break;
                 }
                 return false;
@@ -76,7 +83,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     private void deleteItem() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemDescriptionActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemDescriptionActivity.this);
-        apiInterface.deleteFoodItem(ID)
+        apiInterface.deleteFoodItem(data.getFoodItemId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -94,7 +101,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-
+                            finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemDescriptionActivity.this, response.getMessage());
                         }

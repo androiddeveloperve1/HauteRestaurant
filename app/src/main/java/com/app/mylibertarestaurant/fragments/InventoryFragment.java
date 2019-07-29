@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.app.mylibertarestaurant.R;
@@ -55,17 +56,18 @@ public class InventoryFragment extends Fragment {
     @Inject
     APIInterface apiInterface;
     private TabLayout tabLayout;
-    private InventoryAdapter inventoryAdapter;
     private ArrayList<InventoryResponseModel> inventoryList;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory, container, false);
         binder.setClick(new Click());
+
         tabLayout = binder.tabLayout;
         tabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.gray_text), ContextCompat.getColor(getActivity(), R.color.black));
-        View view = binder.getRoot();
+
         getInventory();
         clickListener();
+        View view = binder.getRoot();
         return view;
     }
 
@@ -82,7 +84,7 @@ public class InventoryFragment extends Fragment {
     public void initData() {
         tabLayout.removeAllTabs();
         FragmentInventoryListChild frag;
-        inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
+        InventoryAdapter inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
         for (int i = 0; i < inventoryList.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(inventoryList.get(i).getAttribute_name()));
             Bundle data = new Bundle();
@@ -92,6 +94,9 @@ public class InventoryFragment extends Fragment {
             inventoryAdapter.addFragment(frag);
         }
         binder.viewPager.setAdapter(inventoryAdapter);
+        binder.viewPager.setOffscreenPageLimit(3);
+        inventoryAdapter.notifyDataSetChanged();
+        Log.e("@@@@@", "PAGER SETUP");
 
     }
 
@@ -127,7 +132,6 @@ public class InventoryFragment extends Fragment {
 
             }
         });
-
     }
 
     private void getInventory() {
@@ -150,7 +154,7 @@ public class InventoryFragment extends Fragment {
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<InventoryResponseModel>> response) {
                         progressDialog.dismiss();
-                        Log.e("@@@@@Inventory", "" + new Gson().toJson(response.getData()));
+                        Log.e("Inventory->>>>>>", "" + new Gson().toJson(response.getData()));
                         inventoryList = response.getData();
                         initData();
                         if (response.getStatus().equals("200")) {
