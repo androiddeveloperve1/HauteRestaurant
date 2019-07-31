@@ -5,6 +5,8 @@ import androidx.databinding.Bindable;
 
 import com.app.mylibertarestaurant.BR;
 import com.app.mylibertarestaurant.model.Location;
+import com.app.mylibertarestaurant.model.TimeModel;
+import com.app.mylibertarestaurant.model.TimeSlotModel;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,17 @@ public class RestaurantDetail extends BaseObservable {
     private String deliverykm;
     private String pincode;
     private Location location;
+    private ArrayList<TimeModel> openForService;
+
+@Bindable
+    public ArrayList<TimeModel> getOpenForService() {
+        return openForService;
+    }
+
+    public void setOpenForService(ArrayList<TimeModel> openForService) {
+        this.openForService = openForService;
+        this.notifyPropertyChanged(BR.openForService);
+    }
 
     @Bindable
     public String getContact_no() {

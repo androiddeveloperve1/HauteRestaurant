@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
         tv_name_restaurant.setText(restaurantDetailModel.getRestaurants().getName());
-        Picasso.with(MainActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).placeholder(R.drawable.placeholder_squre).into(img_restaurant);
+        Picasso.with(MainActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200)
+                .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(img_restaurant);
         if (restaurantDetailModel.getRestaurants().getIs_online().equals("true")) {
             tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
             tv_on_off_line.setText("Online");

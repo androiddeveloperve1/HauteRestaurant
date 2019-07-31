@@ -23,7 +23,7 @@
             android:id="@+id/img_item"
             android:layout_width="0dp"
             android:layout_height="@dimen/_150_px"
-            bind:imageUrl="@{model.image}"
+            bind:imageUrl2="@{model.image}"
             android:scaleType="fitXY"
             android:background="@drawable/placeholder_rect"
             app:layout_constraintLeft_toLeftOf="parent"

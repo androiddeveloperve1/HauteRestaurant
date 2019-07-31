@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
@@ -54,22 +55,19 @@ public class ItemDescriptionActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Intent mIntent;
-
                 switch (item.getItemId()) {
                     case R.id.edit:
                         mIntent = new Intent(ItemDescriptionActivity.this, EditItemActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("attribute_id", attributeId);
-                        startActivity(mIntent);
-
-
+                        startActivityForResult(mIntent,20);
                         break;
                     case R.id.copy:
                         mIntent = new Intent(ItemDescriptionActivity.this, CopyItemActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.COPY);
                         mIntent.putExtra("attribute_id", attributeId);
-                        startActivity(mIntent);
+                        startActivityForResult(mIntent,20);
                         break;
                     case R.id.delete:
                         deleteAlert();
@@ -139,5 +137,17 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         public void onPopupClick(View v) {
             popup.show();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==Activity.RESULT_OK)
+        {
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
+
     }
 }

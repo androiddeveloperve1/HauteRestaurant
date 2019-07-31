@@ -20,15 +20,16 @@ import com.app.mylibertarestaurant.activities.EditProfileActivity;
 import com.app.mylibertarestaurant.activities.EditServiceDaysActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.activities.MyApplication;
-import com.app.mylibertarestaurant.adapter.MyPagerAdapter;
 import com.app.mylibertarestaurant.adapter.TimeAdapter;
 import com.app.mylibertarestaurant.databinding.FragmentProfileBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
-import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+import com.app.mylibertarestaurant.model.TimeModel;
+import com.app.mylibertarestaurant.model.TimeSlotModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
+import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -53,6 +54,11 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binder;
     private Resources mResources;
 
+    private int colorRed;
+    private int colorGreen;
+    private int colorAvailable;
+
+
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
@@ -66,41 +72,12 @@ public class ProfileFragment extends Fragment {
         binder.setClick(new MyClick());
         mResources = getActivity().getResources();
 
+        colorGreen = mResources.getColor(R.color.greenColorAlpha);
+        colorRed = mResources.getColor(R.color.redAlpha);
+
         getProfile();
 
-        binder.viewPager.setAdapter(new TimeAdapter(getActivity()));
-        binder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 0) {
-                    mon();
-                } else if (position == 1) {
-                    tue();
-                } else if (position == 2) {
-                    wed();
-                } else if (position == 3) {
-                    thur();
-                } else if (position == 4) {
-                    fri();
-                } else if (position == 5) {
-                    sat();
-                } else if (position == 6) {
-                    sun();
-                }
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        setClickListener();
         View view = binder.getRoot();
         return view;
     }
@@ -136,217 +113,163 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    void sun() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineSun.setVisibility(View.VISIBLE);
 
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setVisibility(View.GONE);
+    void setColorToTab() {
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(0).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
+        }
+        binder.includeLayout.tvMon.setTextColor(colorAvailable);
+        binder.includeLayout.lineMon.setBackgroundColor(colorAvailable);
 
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setVisibility(View.GONE);
 
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setVisibility(View.GONE);
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(1).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
 
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setVisibility(View.GONE);
+        }
+        binder.includeLayout.tvTue.setTextColor(colorAvailable);
+        binder.includeLayout.lineTue.setBackgroundColor(colorAvailable);
 
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setVisibility(View.GONE);
 
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setVisibility(View.GONE);
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(2).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
 
+        }
+        binder.includeLayout.tvWed.setTextColor(colorAvailable);
+        binder.includeLayout.lineWed.setBackgroundColor(colorAvailable);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(3).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
+
+        }
+        binder.includeLayout.tvThru.setTextColor(colorAvailable);
+        binder.includeLayout.lineThu.setBackgroundColor(colorAvailable);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(4).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
+
+        }
+        binder.includeLayout.tvFri.setTextColor(colorAvailable);
+        binder.includeLayout.lineFri.setBackgroundColor(colorAvailable);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(5).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
+
+        }
+        binder.includeLayout.tvSat.setTextColor(colorAvailable);
+        binder.includeLayout.lineSat.setBackgroundColor(colorAvailable);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(6).isIs_selected()) {
+            colorAvailable = colorGreen;
+        } else {
+            colorAvailable = colorRed;
+
+        }
+        binder.includeLayout.tvSun.setTextColor(colorAvailable);
+        binder.includeLayout.lineSun.setBackgroundColor(colorAvailable);
     }
 
+
     void mon() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setVisibility(View.GONE);
-
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.greencolor));
         binder.includeLayout.lineMon.setVisibility(View.VISIBLE);
-
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineTue.setVisibility(View.GONE);
-
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineWed.setVisibility(View.GONE);
-
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineThu.setVisibility(View.GONE);
-
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineFri.setVisibility(View.GONE);
-
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineSat.setVisibility(View.GONE);
+        binder.includeLayout.lineSun.setVisibility(View.GONE);
+        setColorToTab();
 
     }
 
     void tue() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setVisibility(View.GONE);
 
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.gray_text));
+
         binder.includeLayout.lineMon.setVisibility(View.GONE);
-
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.greencolor));
         binder.includeLayout.lineTue.setVisibility(View.VISIBLE);
-
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineWed.setVisibility(View.GONE);
-
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineThu.setVisibility(View.GONE);
-
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineFri.setVisibility(View.GONE);
-
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineSat.setVisibility(View.GONE);
+        binder.includeLayout.lineSun.setVisibility(View.GONE);
+        setColorToTab();
     }
 
     void wed() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setVisibility(View.GONE);
 
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineMon.setVisibility(View.GONE);
-
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineTue.setVisibility(View.GONE);
-
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.greencolor));
         binder.includeLayout.lineWed.setVisibility(View.VISIBLE);
-
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineThu.setVisibility(View.GONE);
-
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineFri.setVisibility(View.GONE);
-
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineSat.setVisibility(View.GONE);
+        binder.includeLayout.lineSun.setVisibility(View.GONE);
+        setColorToTab();
     }
 
     void thur() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setVisibility(View.GONE);
-
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineMon.setVisibility(View.GONE);
-
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineTue.setVisibility(View.GONE);
-
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineWed.setVisibility(View.GONE);
-
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.greencolor));
         binder.includeLayout.lineThu.setVisibility(View.VISIBLE);
-
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineFri.setVisibility(View.GONE);
-
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineSat.setVisibility(View.GONE);
+        binder.includeLayout.lineSun.setVisibility(View.GONE);
+        setColorToTab();
     }
 
     void fri() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setVisibility(View.GONE);
-
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineMon.setVisibility(View.GONE);
-
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineTue.setVisibility(View.GONE);
-
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineWed.setVisibility(View.GONE);
-
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineThu.setVisibility(View.GONE);
-
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.greencolor));
         binder.includeLayout.lineFri.setVisibility(View.VISIBLE);
-
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineSat.setVisibility(View.GONE);
+        binder.includeLayout.lineSun.setVisibility(View.GONE);
+        setColorToTab();
     }
 
     void sat() {
-        binder.includeLayout.tvSun.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setBackgroundColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineSun.setVisibility(View.GONE);
 
-        binder.includeLayout.tvMon.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineMon.setBackgroundColor(mResources.getColor(R.color.gray_text));
+
         binder.includeLayout.lineMon.setVisibility(View.GONE);
-
-        binder.includeLayout.tvTue.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineTue.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineTue.setVisibility(View.GONE);
-
-        binder.includeLayout.tvWed.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineWed.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineWed.setVisibility(View.GONE);
-
-        binder.includeLayout.tvThru.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineThu.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineThu.setVisibility(View.GONE);
-
-        binder.includeLayout.tvFri.setTextColor(mResources.getColor(R.color.gray_text));
-        binder.includeLayout.lineFri.setBackgroundColor(mResources.getColor(R.color.gray_text));
         binder.includeLayout.lineFri.setVisibility(View.GONE);
-
-        binder.includeLayout.tvSat.setTextColor(mResources.getColor(R.color.greencolor));
-        binder.includeLayout.lineSat.setBackgroundColor(mResources.getColor(R.color.greencolor));
         binder.includeLayout.lineSat.setVisibility(View.VISIBLE);
+        binder.includeLayout.lineSun.setVisibility(View.GONE);
+        setColorToTab();
+
     }
+
+    void sun() {
+        binder.includeLayout.lineMon.setVisibility(View.GONE);
+        binder.includeLayout.lineTue.setVisibility(View.GONE);
+        binder.includeLayout.lineWed.setVisibility(View.GONE);
+        binder.includeLayout.lineThu.setVisibility(View.GONE);
+        binder.includeLayout.lineFri.setVisibility(View.GONE);
+        binder.includeLayout.lineSat.setVisibility(View.GONE);
+        binder.includeLayout.lineSun.setVisibility(View.VISIBLE);
+        setColorToTab();
+
+    }
+
 
     private void getProfile() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
@@ -369,6 +292,7 @@ public class ProfileFragment extends Fragment {
                     public void onNext(ApiResponseModel<RestaurantDetail> response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
+                            Log.e("@@@@@", new Gson().toJson(response.getData()));
                             restaurantDetailModel.setRestaurants(response.getData());
                             MySharedPreference.getInstance(getActivity()).setUser(restaurantDetailModel);
                             showInView();
@@ -386,18 +310,91 @@ public class ProfileFragment extends Fragment {
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime());
         binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Km.");
-        Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
+        Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
+        if (!(restaurantDetailModel.getRestaurants().getOpenForService() != null && restaurantDetailModel.getRestaurants().getOpenForService().size() > 0)) {
+            restaurantDetailModel.getRestaurants().setOpenForService(AppUtils.initDummyTimeData());
+        }
+
+        binder.viewPager.setAdapter(new TimeAdapter(getActivity(), restaurantDetailModel.getRestaurants().getOpenForService()));
+        binder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 0) {
+                    mon();
+                } else if (position == 1) {
+                    tue();
+                } else if (position == 2) {
+                    wed();
+                } else if (position == 3) {
+                    thur();
+                } else if (position == 4) {
+                    fri();
+                } else if (position == 5) {
+                    sat();
+                } else if (position == 6) {
+                    sun();
+                }
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        setClickListener();
+        binder.viewPager.setCurrentItem(0);
+        mon();
+
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            restaurantDetailModel= MySharedPreference.getInstance(getActivity()).getUser();
+            restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
             showInView();
         }
 
     }
+
+    private void logOut() {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
+        ((MyApplication) getActivity().getApplication()).getConfiguration().inject(ProfileFragment.this);
+        apiInterface.logOut()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(getActivity(), throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel response) {
+                        progressDialog.dismiss();
+                        if (response.getStatus().equals("200")) {
+                            MySharedPreference.getInstance(getActivity()).clearMyPreference();
+                            getActivity().finish();
+                        } else {
+                            ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
+                        }
+
+                    }
+                });
+    }
+
 
     public class MyClick {
         public void editRestaurant(View v) {
@@ -406,13 +403,13 @@ public class ProfileFragment extends Fragment {
         }
 
         public void editServices(View v) {
-            startActivity(new Intent(getActivity(), EditServiceDaysActivity.class));
+            startActivityForResult(new Intent(getActivity(), EditServiceDaysActivity.class), 100);
         }
 
         public void logout(View v) {
-
-            MySharedPreference.getInstance(getActivity()).clearMyPreference();
-            getActivity().finish();
+            logOut();
         }
     }
+
+
 }

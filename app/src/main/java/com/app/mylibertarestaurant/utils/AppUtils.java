@@ -3,6 +3,8 @@ package com.app.mylibertarestaurant.utils;
 import android.util.Log;
 
 import com.app.mylibertarestaurant.constants.Constants;
+import com.app.mylibertarestaurant.model.TimeModel;
+import com.app.mylibertarestaurant.model.TimeSlotModel;
 import com.app.mylibertarestaurant.model.items.OrderItemModel;
 
 import java.text.DateFormat;
@@ -69,6 +71,31 @@ public class AppUtils {
             flag = Constants.DELIVERY_STATUS_5;
         }
         return flag;
+    }
+
+    public static ArrayList<TimeModel> initDummyTimeData() {
+
+        ArrayList<TimeModel> timesSlotList = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            TimeModel model = new TimeModel();
+            model.setDay(i + 1);
+            model.setIs_selected(false);
+            model.setIs_two_slot(false);
+            ArrayList<TimeSlotModel> timeSlotModels = new ArrayList<>();
+            TimeSlotModel time = null;
+            time = new TimeSlotModel();
+            time.setOpenAt("");
+            time.setCloseAt("");
+            timeSlotModels.add(time);
+
+            time = new TimeSlotModel();
+            time.setOpenAt("");
+            time.setCloseAt("");
+            timeSlotModels.add(time);
+            model.setTimings(timeSlotModels);
+            timesSlotList.add(model);
+        }
+        return timesSlotList;
     }
 
 }

@@ -61,10 +61,8 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory, container, false);
         binder.setClick(new Click());
-
         tabLayout = binder.tabLayout;
         tabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.gray_text), ContextCompat.getColor(getActivity(), R.color.black));
-
         getInventory();
         clickListener();
         View view = binder.getRoot();
@@ -75,20 +73,20 @@ public class InventoryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 200 && resultCode == Activity.RESULT_OK) {
+            if (resultCode == Activity.RESULT_OK) {
                 getInventory();
             }
         }
     }
 
-    public void initData() {
+    public void initData(ArrayList<InventoryResponseModel> inventoryListFiltered) {
         tabLayout.removeAllTabs();
         FragmentInventoryListChild frag;
         InventoryAdapter inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
-        for (int i = 0; i < inventoryList.size(); i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(inventoryList.get(i).getAttribute_name()));
+        for (int i = 0; i < inventoryListFiltered.size(); i++) {
+            tabLayout.addTab(tabLayout.newTab().setText(inventoryListFiltered.get(i).getAttribute_name()));
             Bundle data = new Bundle();
-            data.putString("data", new Gson().toJson(inventoryList.get(i)));
+            data.putString("data", new Gson().toJson(inventoryListFiltered.get(i)));
             frag = new FragmentInventoryListChild();
             frag.setArguments(data);
             inventoryAdapter.addFragment(frag);
@@ -96,8 +94,6 @@ public class InventoryFragment extends Fragment {
         binder.viewPager.setAdapter(inventoryAdapter);
         binder.viewPager.setOffscreenPageLimit(3);
         inventoryAdapter.notifyDataSetChanged();
-        Log.e("@@@@@", "PAGER SETUP");
-
     }
 
     void clickListener() {
@@ -156,7 +152,7 @@ public class InventoryFragment extends Fragment {
                         progressDialog.dismiss();
                         Log.e("Inventory->>>>>>", "" + new Gson().toJson(response.getData()));
                         inventoryList = response.getData();
-                        initData();
+                        initData(response.getData());
                         if (response.getStatus().equals("200")) {
                         } else {
                             ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
@@ -179,6 +175,19 @@ public class InventoryFragment extends Fragment {
             Intent mIntent = new Intent(getActivity(), CopyItemActivity.class);
             mIntent.putExtra("flag", Constants.ADD_NEW);
             startActivityForResult(mIntent, 200);
+        }
+
+        public void filterAll(View view) {
+            initData(inventoryList);
+        }
+
+        public void filterVeg(View view) {
+            //initData(inventoryList);
+
+        }
+
+        public void filterNonVeg(View view) {
+            //initData(inventoryList);
         }
     }
 

@@ -216,10 +216,10 @@ public class CopyItemActivity extends ImageUploadingActivity {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
-                            if (flag == Constants.ADD_NEW) {
+                            setResult(Activity.RESULT_OK);
+                           /* if (flag == Constants.ADD_NEW) {
                                 setResult(Activity.RESULT_OK);
-                            }
-
+                            }*/
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(CopyItemActivity.this, response.getMessage());

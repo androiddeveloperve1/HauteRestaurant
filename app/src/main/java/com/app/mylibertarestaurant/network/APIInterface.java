@@ -7,6 +7,7 @@ import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.CategoryModel;
 import com.app.mylibertarestaurant.model.InventoryModel;
 import com.app.mylibertarestaurant.model.InventoryResponseModel;
+import com.app.mylibertarestaurant.model.TimeSlotUpdate;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
@@ -122,6 +123,17 @@ public interface APIInterface {
 
     @GET(UrlConstants.INVENTORY)
     Observable<ApiResponseModel<ArrayList<InventoryResponseModel>>> getInventory();
+
+    @GET(UrlConstants.LOGOUT)
+    Observable<ApiResponseModel> logOut();
+
+    @Headers("Content-Type: application/json")
+    @PUT(UrlConstants.UPDATE_TIME_SLOT)
+    Observable<ApiResponseModel> updateSlot(@Body TimeSlotUpdate body);
+
+
+
+
 
 
 }

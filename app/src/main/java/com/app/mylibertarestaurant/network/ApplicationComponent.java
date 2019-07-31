@@ -4,6 +4,7 @@ package com.app.mylibertarestaurant.network;
 import com.app.mylibertarestaurant.activities.CopyItemActivity;
 import com.app.mylibertarestaurant.activities.EditItemActivity;
 import com.app.mylibertarestaurant.activities.EditProfileActivity;
+import com.app.mylibertarestaurant.activities.EditServiceDaysActivity;
 import com.app.mylibertarestaurant.activities.ForgotPasswordActivity;
 import com.app.mylibertarestaurant.activities.ItemDescriptionActivity;
 import com.app.mylibertarestaurant.activities.LoginActivity;
@@ -37,6 +38,7 @@ public interface ApplicationComponent {
     void inject(EditProfileActivity model);
     void inject(ProfileFragment model);
     void inject(InventoryFragment model);
+    void inject(EditServiceDaysActivity model);
 
 
 }

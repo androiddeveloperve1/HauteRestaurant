@@ -37,15 +37,19 @@ import java.util.ArrayList;
 public class FragmentInventoryListChild extends Fragment {
     static FragmentInventoryListChild fragmentInventoryListChild;
     FragmentInventoryChildBinding binder;
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("@@@@@", "RECIEVE");
+        }
+    };
     private InventoryResponseModel model;
     private InventoryItemAdapter inventoryItemAdapter;
-
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_child, container, false);
         binder.rvItem.setLayoutManager(new LinearLayoutManager(getActivity()));
         model = new Gson().fromJson(getArguments().getString("data"), InventoryResponseModel.class);
-        Log.e("@@@@Data insid fragnet", getArguments().getString("data"));
         inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModel>() {
             @Override
             public void onItemClicked(int position, InventoryModel data) {
@@ -67,32 +71,14 @@ public class FragmentInventoryListChild extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            // refresh here
-        }
+        getParentFragment().onActivityResult(requestCode, resultCode, data);
     }
 
-   /* @Override
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            try {
-                inventoryItemAdapter.notifyDataSetChanged();
-                Log.e("@@@@@@@", "NOTIFED");
-            } catch (Exception e) {
-
-            }
-
-        }
-    }*/
-
-    /* public static FragmentInventoryListChild getInsrance()
-    {
-        if(fragmentInventoryListChild == null)
-            fragmentInventoryListChild = new FragmentInventoryListChild();
-        return fragmentInventoryListChild;
-    }*/
-
+        Log.e("@@@@Visible", "" + isVisibleToUser);
+    }
 
 
 

@@ -7,8 +7,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
+import androidx.databinding.InverseBindingMethod;
+import androidx.databinding.InverseBindingMethods;
 
 import com.app.mylibertarestaurant.R;
+import com.app.mylibertarestaurant.model.TimeModel;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -54,7 +58,15 @@ public class BindingAdapters {
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
-        Picasso.with(view.getContext()).load(imageUrl).placeholder(R.drawable.placeholder_squre).into(view);
+        Picasso.with(view.getContext()).load(imageUrl).resize(250, 250)
+                .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(view);
+    }
+
+
+    @BindingAdapter({"bind:imageUrl2"})
+    public static void loadImage2(ImageView view, String imageUrl) {
+        Picasso.with(view.getContext()).load(imageUrl).resize(400, 300)
+                .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(view);
     }
 
 
@@ -79,4 +91,8 @@ public class BindingAdapters {
             textView.setTextColor(textView.getContext().getResources().getColor(R.color.red));
         }
     }
+
+
+
+
 }

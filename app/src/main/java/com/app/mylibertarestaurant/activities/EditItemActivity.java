@@ -224,6 +224,7 @@ public class EditItemActivity extends ImageUploadingActivity {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
+                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(EditItemActivity.this, response.getMessage());
