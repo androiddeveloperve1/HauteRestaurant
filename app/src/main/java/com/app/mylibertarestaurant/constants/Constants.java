@@ -37,5 +37,7 @@ public class Constants {
 
 
 
-
+    public static int  FILTER_ALL = 0;
+    public static int  FILTER_VEG = 1;
+    public static int  FILTER_NON_VEG = 2;
 }

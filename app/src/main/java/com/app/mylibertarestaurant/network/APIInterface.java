@@ -131,9 +131,9 @@ public interface APIInterface {
     @PUT(UrlConstants.UPDATE_TIME_SLOT)
     Observable<ApiResponseModel> updateSlot(@Body TimeSlotUpdate body);
 
-
-
-
+    @Headers("Content-Type: application/json")
+    @POST(UrlConstants.FORGOT_PASSWORD)
+    Observable<ApiResponseModel> forGotPass(@Body HashMap<String, String> body);
 
 
 }

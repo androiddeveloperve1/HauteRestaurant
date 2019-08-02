@@ -3,6 +3,7 @@ package com.app.mylibertarestaurant.prefes;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.google.gson.Gson;
 
@@ -17,6 +18,7 @@ public class MySharedPreference {
     private static final String User_Detail = "user_data";
     private static final String USER_SESSION_TOKEN = "user_session_token";
     private static final String FCM_TOKEN = "fcm_token";
+    private static final String filter_type = "filter_type";
 
 
     private static MySharedPreference instence;
@@ -77,6 +79,14 @@ public class MySharedPreference {
         editor.commit();
     }
 
+    public int getFilter() {
+        return sharedpreferences.getInt(filter_type, Constants.FILTER_ALL);
+    }
 
+    public void setFilter(int data) {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(filter_type, data);
+        editor.commit();
+    }
 
 }

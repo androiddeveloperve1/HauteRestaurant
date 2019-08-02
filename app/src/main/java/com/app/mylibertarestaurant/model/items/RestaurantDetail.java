@@ -33,7 +33,7 @@ public class RestaurantDetail extends BaseObservable {
     private Location location;
     private ArrayList<TimeModel> openForService;
 
-@Bindable
+    @Bindable
     public ArrayList<TimeModel> getOpenForService() {
         return openForService;
     }
@@ -48,9 +48,19 @@ public class RestaurantDetail extends BaseObservable {
         return contact_no;
     }
 
+    public void setContact_no(String contact_no) {
+        this.contact_no = contact_no;
+        this.notifyPropertyChanged(BR.contact_no);
+    }
+
     @Bindable
     public String getCountry_code() {
         return country_code;
+    }
+
+    public void setCountry_code(String country_code) {
+        this.country_code = country_code;
+        this.notifyPropertyChanged(BR.country_code);
     }
 
     @Bindable
@@ -58,9 +68,19 @@ public class RestaurantDetail extends BaseObservable {
         return deliveryfees;
     }
 
+    public void setDeliveryfees(String deliveryfees) {
+        this.deliveryfees = deliveryfees;
+        this.notifyPropertyChanged(BR.deliveryfees);
+    }
+
     @Bindable
     public String getDeliverykm() {
         return deliverykm;
+    }
+
+    public void setDeliverykm(String deliverykm) {
+        this.deliverykm = deliverykm;
+        this.notifyPropertyChanged(BR.deliverykm);
     }
 
     @Bindable
@@ -68,23 +88,39 @@ public class RestaurantDetail extends BaseObservable {
         return pincode;
     }
 
+    public void setPincode(String pincode) {
+        this.pincode = pincode;
+        this.notifyPropertyChanged(BR.pincode);
+    }
+
     @Bindable
     public Location getLocation() {
         return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+        this.notifyPropertyChanged(BR.location);
     }
 
     @Bindable
     public String getName() {
         return name;
     }
-@Bindable
-    public String getMaxdeliverytime() {
-        return maxdeliverytime;
-    }
 
     public void setName(String name) {
         this.name = name;
         this.notifyPropertyChanged(BR.name);
+    }
+
+    @Bindable
+    public String getMaxdeliverytime() {
+        return maxdeliverytime;
+    }
+
+    public void setMaxdeliverytime(String maxdeliverytime) {
+        this.maxdeliverytime = maxdeliverytime;
+        this.notifyPropertyChanged(BR.maxdeliverytime);
     }
 
     @Bindable
@@ -135,40 +171,5 @@ public class RestaurantDetail extends BaseObservable {
     public void setImages(ArrayList<String> images) {
         this.images = images;
         this.notifyPropertyChanged(BR.images);
-    }
-
-    public void setContact_no(String contact_no) {
-        this.contact_no = contact_no;
-        this.notifyPropertyChanged(BR.contact_no);
-    }
-
-    public void setCountry_code(String country_code) {
-        this.country_code = country_code;
-        this.notifyPropertyChanged(BR.country_code);
-    }
-
-    public void setDeliveryfees(String deliveryfees) {
-        this.deliveryfees = deliveryfees;
-        this.notifyPropertyChanged(BR.deliveryfees);
-    }
-
-    public void setDeliverykm(String deliverykm) {
-        this.deliverykm = deliverykm;
-        this.notifyPropertyChanged(BR.deliverykm);
-    }
-
-    public void setPincode(String pincode) {
-        this.pincode = pincode;
-        this.notifyPropertyChanged(BR.pincode);
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-        this.notifyPropertyChanged(BR.location);
-    }
-
-    public void setMaxdeliverytime(String maxdeliverytime) {
-        this.maxdeliverytime = maxdeliverytime;
-        this.notifyPropertyChanged(BR.maxdeliverytime);
     }
 }

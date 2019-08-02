@@ -4,36 +4,27 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.activities.CopyItemActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.activities.MyApplication;
-import com.app.mylibertarestaurant.adapter.EarnAdapter;
 import com.app.mylibertarestaurant.adapter.InventoryAdapter;
-import com.app.mylibertarestaurant.adapter.InventoryItemAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.FragmentInventoryBinding;
-import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
-import com.app.mylibertarestaurant.model.InventoryModel;
 import com.app.mylibertarestaurant.model.InventoryResponseModel;
-import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.network.APIInterface;
+import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -53,6 +44,7 @@ import rx.schedulers.Schedulers;
 
 public class InventoryFragment extends Fragment {
     FragmentInventoryBinding binder;
+    InventoryAdapter inventoryAdapter;
     @Inject
     APIInterface apiInterface;
     private TabLayout tabLayout;
@@ -63,6 +55,7 @@ public class InventoryFragment extends Fragment {
         binder.setClick(new Click());
         tabLayout = binder.tabLayout;
         tabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.gray_text), ContextCompat.getColor(getActivity(), R.color.black));
+        MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
         getInventory();
         clickListener();
         View view = binder.getRoot();
@@ -82,7 +75,7 @@ public class InventoryFragment extends Fragment {
     public void initData(ArrayList<InventoryResponseModel> inventoryListFiltered) {
         tabLayout.removeAllTabs();
         FragmentInventoryListChild frag;
-        InventoryAdapter inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
+        inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
         for (int i = 0; i < inventoryListFiltered.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(inventoryListFiltered.get(i).getAttribute_name()));
             Bundle data = new Bundle();
@@ -92,8 +85,9 @@ public class InventoryFragment extends Fragment {
             inventoryAdapter.addFragment(frag);
         }
         binder.viewPager.setAdapter(inventoryAdapter);
-        binder.viewPager.setOffscreenPageLimit(3);
+        binder.viewPager.setOffscreenPageLimit(inventoryListFiltered.size());
         inventoryAdapter.notifyDataSetChanged();
+        onListen();
     }
 
     void clickListener() {
@@ -111,15 +105,17 @@ public class InventoryFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+
         binder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                tabLayout.getTabAt(position).select();
+
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                tabLayout.getTabAt(position).select();
+                onListen();
 
             }
 
@@ -150,7 +146,6 @@ public class InventoryFragment extends Fragment {
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<InventoryResponseModel>> response) {
                         progressDialog.dismiss();
-                        Log.e("Inventory->>>>>>", "" + new Gson().toJson(response.getData()));
                         inventoryList = response.getData();
                         initData(response.getData());
                         if (response.getStatus().equals("200")) {
@@ -162,6 +157,11 @@ public class InventoryFragment extends Fragment {
                 });
     }
 
+    public void onListen() {
+        FragmentInventoryListChild frag = inventoryAdapter.getItem(binder.viewPager.getCurrentItem());
+        frag.doFilter(binder.viewPager.getCurrentItem());
+    }
+
     public class Click {
         public void onNavigationMenu(View v) {
             MainActivity act = (MainActivity) getActivity();
@@ -169,6 +169,8 @@ public class InventoryFragment extends Fragment {
         }
 
         public void onSearch(View v) {
+            /*mIntent.putExtra("data", new Gson().toJson(data));
+            mIntent.putExtra("attribute_id", model.get_id());*/
         }
 
         public void onAdd(View v) {
@@ -178,16 +180,18 @@ public class InventoryFragment extends Fragment {
         }
 
         public void filterAll(View view) {
-            initData(inventoryList);
+            MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
+            onListen();
         }
 
         public void filterVeg(View view) {
-            //initData(inventoryList);
-
+            MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_VEG);
+            onListen();
         }
 
         public void filterNonVeg(View view) {
-            //initData(inventoryList);
+            MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_NON_VEG);
+            onListen();
         }
     }
 

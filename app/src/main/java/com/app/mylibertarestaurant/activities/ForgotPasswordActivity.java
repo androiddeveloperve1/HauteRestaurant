@@ -1,6 +1,7 @@
 package com.app.mylibertarestaurant.activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,13 +13,19 @@ import androidx.databinding.DataBindingUtil;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ActivityForgotPasswordBinding;
+import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.network.APIInterface;
+import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 
 import java.util.HashMap;
 
 import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Create By Rahul Mangal
@@ -39,18 +46,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     }
 
-    private void sendOtp(final HashMap param) {
+    private void sendOtp(HashMap<String, String> param) {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(this);
         ((MyApplication) getApplication()).getConfiguration().inject(this);
-       /* apiInterface.resendOTP(param)
+        apiInterface.forGotPass(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel<DriverModel>>() {
+                .subscribe(new Subscriber<ApiResponseModel>() {
                     @Override
                     public void onCompleted() {
-
                     }
-
                     @Override
                     public void onError(Throwable throwable) {
                         progressDialog.dismiss();
@@ -58,18 +63,15 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(ApiResponseModel<DriverModel> response) {
+                    public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-                            MySharedPreference.getInstance(ForgotPasswordActivity.this).setUser(response.getData());
-                            Intent mIntent = new Intent(ForgotPasswordActivity.this, EnterOTPActivity.class);
-                            mIntent.putExtra("flag", Constants.FROM_FORGOT_PASS);
-                            startActivity(mIntent);
+                            Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         } else {
                             ResponseDialog.showErrorDialog(ForgotPasswordActivity.this, response.getMessage());
                         }
                     }
-                });*/
+                });
     }
 
     public class Listener {

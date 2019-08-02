@@ -26,6 +26,7 @@ public class UrlConstants {
     public static final String INVENTORY = ADMIN + "/restaurant/appFoodList";
     public static final String LOGOUT = "/restaurent/logout";
     public static final String UPDATE_TIME_SLOT = "/restaurent/updateTimeSlot";
+    public static final String FORGOT_PASSWORD = "/restaurent/forgot";
 
 
 }
