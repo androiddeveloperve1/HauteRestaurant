@@ -56,5 +56,11 @@ public class FragmentTransactionUtils {
     }
 
 
+    public static void replaceInVentoryFragment(Context context, Fragment fragment) {
+        String Tag = fragment.getClass().getName();
+        FragmentManager mngr = ((AppCompatActivity) context).getSupportFragmentManager();
+        mngr.beginTransaction().remove(fragment);
+        Log.e("@@@@","Remov");
 
+    }
 }

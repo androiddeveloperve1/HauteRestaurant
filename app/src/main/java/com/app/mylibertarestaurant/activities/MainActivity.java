@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentOrders fragmentOrders;
     private ProfileFragment profileFragment;
     private EarningFragment earningFragment;
-    private InventoryFragment inventoryFragment;
     private RestaurantDetailModel restaurantDetailModel;
     private TextView tv_name_restaurant;
     private ImageView iv_on_off_line;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentOrders = new FragmentOrders();
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
-        inventoryFragment = new InventoryFragment();
+
         initView();
 
 
@@ -188,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             iv_earn.setImageResource(R.drawable.ic_earning_off);
             iv_profile.setImageResource(R.drawable.ic_my_profile_off);
             iv_help.setImageResource(R.drawable.ic_support_off);
-            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, inventoryFragment);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new InventoryFragment());
             drawer.closeDrawer(GravityCompat.START);
         });
 

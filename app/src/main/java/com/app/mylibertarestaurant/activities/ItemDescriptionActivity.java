@@ -99,6 +99,8 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
+
+                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemDescriptionActivity.this, response.getMessage());
