@@ -48,14 +48,12 @@ public class InventoryFragment extends Fragment {
     @Inject
     APIInterface apiInterface;
     private TabLayout tabLayout;
-    private ArrayList<InventoryResponseModel> inventoryList;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory, container, false);
         binder.setClick(new Click());
         tabLayout = binder.tabLayout;
         tabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.gray_text), ContextCompat.getColor(getActivity(), R.color.black));
-        MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
         getInventory();
         clickListener();
         View view = binder.getRoot();
@@ -75,6 +73,8 @@ public class InventoryFragment extends Fragment {
     public void initData(ArrayList<InventoryResponseModel> inventoryListFiltered) {
         tabLayout.removeAllTabs();
         FragmentInventoryListChild frag;
+        MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
+        allSelection();
         inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
         for (int i = 0; i < inventoryListFiltered.size(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(inventoryListFiltered.get(i).getAttribute_name()));
@@ -146,7 +146,6 @@ public class InventoryFragment extends Fragment {
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<InventoryResponseModel>> response) {
                         progressDialog.dismiss();
-                        inventoryList = response.getData();
                         initData(response.getData());
                         if (response.getStatus().equals("200")) {
                         } else {
@@ -182,17 +181,52 @@ public class InventoryFragment extends Fragment {
         public void filterAll(View view) {
             MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
             onListen();
+            allSelection();
         }
 
         public void filterVeg(View view) {
             MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_VEG);
             onListen();
+            vegSelection();
         }
 
         public void filterNonVeg(View view) {
             MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_NON_VEG);
             onListen();
+            nonVegSelection();
         }
+    }
+
+
+    void allSelection() {
+        binder.tvAll.setBackgroundResource(R.drawable.foof_type_bg_green);
+        binder.tvNonVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+
+        binder.tvVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvAll.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    void vegSelection() {
+        binder.tvAll.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvNonVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvVeg.setBackgroundResource(R.drawable.foof_type_bg_green);
+
+        binder.tvVeg.setTextColor(getResources().getColor(R.color.white));
+        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvAll.setTextColor(getResources().getColor(R.color.black));
+    }
+
+    void nonVegSelection() {
+        binder.tvAll.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvNonVeg.setBackgroundResource(R.drawable.foof_type_bg_green);
+        binder.tvVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+
+        binder.tvVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.white));
+        binder.tvAll.setTextColor(getResources().getColor(R.color.black));
+
     }
 
 }

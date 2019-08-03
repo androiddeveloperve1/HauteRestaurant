@@ -1,11 +1,14 @@
 package com.app.mylibertarestaurant.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.app.mylibertarestaurant.fragments.InventoryFragment;
 
 import java.util.List;
 
@@ -18,6 +21,8 @@ public class FragmentTransactionUtils {
     public static void replaceFragmnet(Context context, int layout, Fragment fragment) {
 
         String Tag = fragment.getClass().getName();
+
+
         FragmentManager mngr = ((AppCompatActivity) context).getSupportFragmentManager();
         boolean fragmentPopped = mngr.popBackStackImmediate(Tag, 0);
         if (!fragmentPopped && mngr.findFragmentByTag(Tag) == null) {
@@ -49,4 +54,7 @@ public class FragmentTransactionUtils {
             }
         }
     }
+
+
+
 }

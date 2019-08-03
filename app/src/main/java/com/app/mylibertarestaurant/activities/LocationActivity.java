@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -80,6 +81,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
 
+
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -106,30 +108,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        PermissionUtils.getInstance().checkAllPermission(LocationActivity.this, PermissionConstants.permissionArrayForLocation, new PermissionHandlerListener() {
-            @Override
-            public void onGrant() {
-                if (checkGooglePlayServiceAvailability(LocationActivity.this)) {
-                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(LocationActivity.this);
-                }
-            }
 
-            @Override
-            public void onReject(ArrayList<String> remainsPermissonList) {
-
-            }
-
-            @Override
-            public void onRationalPermission(ArrayList<String> rationalPermissonList) {
-                PermissionUtils.firePerimisionActivity(LocationActivity.this);
-
-            }
-        });
-    }
 
 
     @Override
@@ -143,43 +122,7 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         googlePlacesAutocompleteAdapter = new GooglePlacesAutocompleteAdapter(this, R.layout.item_places);
         enter_new_address.setAdapter(googlePlacesAutocompleteAdapter);
 
-        enter_new_address.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-            }
 
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                googlePlacesAutocompleteAdapter.getFilter().filter(s.toString());
-            }
-        });
-
-        enter_new_address.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GoogleApiUtils.getLatLongByPlace(googlePlacesAutocompleteAdapter.getPlacesList().get(position), new OnAddressListener() {
-                    @Override
-                    public void onAddressFound(final Object address) {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                showLocationOnMap((LatLng) address);
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onAddressError(String error) {
-
-                    }
-                });
-
-            }
-        });
 
 
         findViewById(R.id.save_address).setOnClickListener(new View.OnClickListener() {
@@ -200,6 +143,29 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
             public void onClick(View view) {
                 enter_new_address.setText("");
                 checkResolutionAndProceed();
+            }
+        });
+
+
+
+        PermissionUtils.getInstance().checkAllPermission(LocationActivity.this, PermissionConstants.permissionArrayForLocation, new PermissionHandlerListener() {
+            @Override
+            public void onGrant() {
+                if (checkGooglePlayServiceAvailability(LocationActivity.this)) {
+                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                    mapFragment.getMapAsync(LocationActivity.this);
+                }
+            }
+
+            @Override
+            public void onReject(ArrayList<String> remainsPermissonList) {
+
+            }
+
+            @Override
+            public void onRationalPermission(ArrayList<String> rationalPermissonList) {
+                PermissionUtils.firePerimisionActivity(LocationActivity.this);
+
             }
         });
     }
@@ -371,6 +337,48 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public void startProgressNow() {
+        enter_new_address.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable s) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                googlePlacesAutocompleteAdapter.getFilter().filter(s.toString());
+            }
+        });
+
+        enter_new_address.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GoogleApiUtils.getLatLongByPlace(googlePlacesAutocompleteAdapter.getPlacesList().get(position), new OnAddressListener() {
+                    @Override
+                    public void onAddressFound(final Object address) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                showLocationOnMap((LatLng) address);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onAddressError(String error) {
+
+                    }
+                });
+
+            }
+        });
+
+
+
+
+
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }

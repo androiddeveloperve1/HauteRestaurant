@@ -9,7 +9,7 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -17,296 +17,301 @@
         tools:context=".activities.EditProfileActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_48_px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <View
-                android:id="@+id/toolbar_shadow"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_48_px"
-                android:background="@drawable/toolbar_drop_shadow"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginBottom="@dimen/_5_px"
-                android:background="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
-
-
-            <ImageView
-                android:id="@+id/toolbar_manu"
-                android:layout_width="@dimen/_30_px"
-                android:layout_height="@dimen/_35_px"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/_5_px"
-                android:onClick="@{(v)->click.onClose(v)}"
-                android:padding="@dimen/_5_px"
-                android:src="@drawable/cancel_black"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/_10_px"
-                android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text="Edit Profile"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14_px"
-                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/toolbar_manu" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10_px"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-
-                android:id="@+id/cl_profile"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_60_px"
-                android:background="@drawable/card_bg"
-                android:paddingBottom="@dimen/_10_px"
+                android:layout_height="@dimen/_48_px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
-                <TextView
-                    android:id="@+id/tv_reatsurant_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10_px"
-                    android:layout_marginTop="@dimen/_20_px"
-
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="Restaurant Name"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12_px"
+                <View
+                    android:id="@+id/toolbar_shadow"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_48_px"
+                    android:background="@drawable/toolbar_drop_shadow"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/tv_reatsurant_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5_px"
-                    android:layout_marginRight="@dimen/_10_px"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:hint="Name of the Restaurant"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_name_text" />
-
-
-                <TextView
-                    android:id="@+id/tv_reatsurant_address_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10_px"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="Address"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_name" />
-
-                <TextView
-                    android:id="@+id/tv_reatsurant_address"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5_px"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:hint="Select Address"
-                    android:imeOptions="actionNext"
-                    android:onClick="@{(v)->click.selectAdress(v)}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name"
-                    app:layout_constraintRight_toRightOf="@id/tv_reatsurant_name"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_address_text" />
-
-
-                <TextView
-                    android:id="@+id/tv_zip_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10_px"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="Zip Code"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_address" />
-
-                <EditText
-                    android:id="@+id/tv_zip"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5_px"
-                    android:background="@drawable/edit_text_bg"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:inputType="number"
-                    android:maxLength="6"
-                    android:text="123456"
-                    android:imeOptions="actionDone"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name"
-                    app:layout_constraintRight_toRightOf="@id/tv_reatsurant_name"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_zip_text" />
-
                 <View
-                    android:id="@+id/view"
                     android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/_10_px"
-                    android:background="@color/gray"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/_5_px"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_zip" />
+                    app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
 
+
+                <ImageView
+                    android:id="@+id/toolbar_manu"
+                    android:layout_width="@dimen/_30_px"
+                    android:layout_height="@dimen/_35_px"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/_5_px"
+                    android:onClick="@{(v)->click.onClose(v)}"
+                    android:padding="@dimen/_5_px"
+                    android:src="@drawable/cancel_black"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
 
                 <TextView
-                    android:id="@+id/tv_delivery_range__text"
+                    android:id="@+id/toolbar_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10_px"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="Delivery Range(in km)"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/_10_px"
+                    android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                    android:text="Edit Profile"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_12_px"
-                    app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                    app:layout_constraintTop_toBottomOf="@+id/view" />
-
-                <LinearLayout
-                    android:id="@+id/ll_range_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintLeft_toLeftOf="@+id/tv_reatsurant_name_text"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_range__text">
-
-                    <ImageView
-                        android:id="@+id/tv_range_minus"
-                        android:layout_width="@dimen/_35_px"
-                        android:layout_height="@dimen/_35_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@drawable/ic_stepper_minus"
-                        android:maxLength="3"
-                        android:onClick="@{(v)->click.rangeDecrement(v)}"
-                        android:text="99"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-                    <TextView
-                        android:id="@+id/tv_range"
-                        android:layout_width="@dimen/_35_px"
-                        android:layout_height="@dimen/_35_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@drawable/rect_border"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:gravity="center"
-                        android:maxLength="3"
-                        android:text="0"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-                    <ImageView
-                        android:id="@+id/tv_range_plus"
-                        android:layout_width="@dimen/_35_px"
-                        android:layout_height="@dimen/_35_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@drawable/ic_stepper_plus"
-                        android:maxLength="3"
-                        android:onClick="@{(v)->click.rangeIncrement(v)}"
-                        android:text="99"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
-                        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10_px"
-                    android:background="@drawable/button_green"
-                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:gravity="center"
-                    android:onClick="@{(v)->click.onSave(v)}"
-                    android:text="SAVE"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12_px"
-                    app:layout_constraintLeft_toLeftOf="@+id/tv_reatsurant_name_text"
-                    app:layout_constraintRight_toRightOf="@+id/tv_reatsurant_name"
-                    app:layout_constraintTop_toBottomOf="@+id/ll_range_bar" />
+                    android:textSize="@dimen/_14_px"
+                    app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/toolbar_manu" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="@dimen/_90_px"
-                android:layout_height="@dimen/_90_px"
-                android:src="@drawable/placeholder_squre"
-                app:civ_border_color="@color/black"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10_px"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <ImageView
-                android:id="@+id/iv_cam"
-                android:layout_width="@dimen/_20_px"
-                android:layout_height="@dimen/_20_px"
-                android:onClick="@{(v)->click.captureImage(v)}"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_camera"
-                app:layout_constraintBottom_toBottomOf="@id/iv_profile"
-                app:layout_constraintRight_toRightOf="@id/iv_profile" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+
+                    android:id="@+id/cl_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_60_px"
+                    android:background="@drawable/card_bg"
+                    android:paddingBottom="@dimen/_10_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <TextView
+                        android:id="@+id/tv_reatsurant_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginTop="@dimen/_20_px"
+
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:text="Restaurant Name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12_px"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/tv_reatsurant_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5_px"
+                        android:layout_marginRight="@dimen/_10_px"
+                        android:background="@drawable/edit_text_bg"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:hint="Name of the Restaurant"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14_px"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_name_text" />
+
+
+                    <TextView
+                        android:id="@+id/tv_reatsurant_address_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:text="Address"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12_px"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_name" />
+
+                    <TextView
+                        android:id="@+id/tv_reatsurant_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5_px"
+                        android:background="@drawable/edit_text_bg"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:hint="Select Address"
+                        android:imeOptions="actionNext"
+                        android:onClick="@{(v)->click.selectAdress(v)}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14_px"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name"
+                        app:layout_constraintRight_toRightOf="@id/tv_reatsurant_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_address_text" />
+
+
+                    <TextView
+                        android:id="@+id/tv_zip_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:text="Zip Code"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12_px"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_reatsurant_address" />
+
+                    <EditText
+                        android:id="@+id/tv_zip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5_px"
+                        android:background="@drawable/edit_text_bg"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:singleLine="true"
+                        android:text="123456"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14_px"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name"
+                        app:layout_constraintRight_toRightOf="@id/tv_reatsurant_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_zip_text" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:background="@color/gray"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_zip" />
+
+
+                    <TextView
+                        android:id="@+id/tv_delivery_range__text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:text="Delivery Range(in km)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12_px"
+                        app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_range_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_reatsurant_name_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_delivery_range__text">
+
+                        <ImageView
+                            android:id="@+id/tv_range_minus"
+                            android:layout_width="@dimen/_35_px"
+                            android:layout_height="@dimen/_35_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@drawable/ic_stepper_minus"
+                            android:maxLength="3"
+                            android:onClick="@{(v)->click.rangeDecrement(v)}"
+                            android:text="99"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                        <TextView
+                            android:id="@+id/tv_range"
+                            android:layout_width="@dimen/_35_px"
+                            android:layout_height="@dimen/_35_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@drawable/rect_border"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:maxLength="3"
+                            android:text="0"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                        <ImageView
+                            android:id="@+id/tv_range_plus"
+                            android:layout_width="@dimen/_35_px"
+                            android:layout_height="@dimen/_35_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@drawable/ic_stepper_plus"
+                            android:maxLength="3"
+                            android:onClick="@{(v)->click.rangeIncrement(v)}"
+                            android:text="99"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_reatsurant_name_text"
+                            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:background="@drawable/button_green"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:gravity="center"
+                        android:onClick="@{(v)->click.onSave(v)}"
+                        android:text="SAVE"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12_px"
+                        app:layout_constraintLeft_toLeftOf="@+id/tv_reatsurant_name_text"
+                        app:layout_constraintRight_toRightOf="@+id/tv_reatsurant_name"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_range_bar" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="@dimen/_90_px"
+                    android:layout_height="@dimen/_90_px"
+                    android:src="@drawable/placeholder_squre"
+                    app:civ_border_color="@color/black"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_cam"
+                    android:layout_width="@dimen/_20_px"
+                    android:layout_height="@dimen/_20_px"
+                    android:onClick="@{(v)->click.captureImage(v)}"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_camera"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+                    app:layout_constraintRight_toRightOf="@id/iv_profile" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
