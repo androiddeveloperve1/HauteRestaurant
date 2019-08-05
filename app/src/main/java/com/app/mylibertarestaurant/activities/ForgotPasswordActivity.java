@@ -56,6 +56,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted() {
                     }
+
                     @Override
                     public void onError(Throwable throwable) {
                         progressDialog.dismiss();
@@ -66,6 +67,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
+                            finish();
                             Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
                         } else {
                             ResponseDialog.showErrorDialog(ForgotPasswordActivity.this, response.getMessage());

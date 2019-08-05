@@ -71,6 +71,7 @@ public class FragmentOrders extends Fragment {
         binder.setClick(new Presenter());
         myPagerAdapter=new  MyPagerAdapter(getChildFragmentManager(), newOrderRequest, onGoingOrder, readyForPickupOrder);
         binder.viewPager.setAdapter(myPagerAdapter);
+        binder.viewPager.setOffscreenPageLimit(3);
         getOrder(0);
         registerRecieverNow();
         View view = binder.getRoot();
