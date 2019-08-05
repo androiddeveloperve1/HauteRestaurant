@@ -20,6 +20,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         initDagger();
         super.onCreate();
+        //Fabric.with(this, new Crashlytics());
     }
 
     private void initDagger() {

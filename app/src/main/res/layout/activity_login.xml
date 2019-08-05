@@ -14,152 +14,158 @@
         android:layout_height="match_parent"
         android:background="@drawable/splash_bg">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/profileCard"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_topImage_image"
-                android:layout_marginLeft="@dimen/_10_px"
-                android:layout_marginTop="-75dp"
-                android:layout_marginRight="@dimen/_10_px"
-                android:layout_marginBottom="@dimen/_10_px"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="4dp"
-                app:cardUseCompatPadding="false">
+                android:layout_centerInParent="true">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/profileCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20_px"
-                    android:padding="@dimen/_10_px">
+                    android:layout_below="@+id/iv_topImage_image"
+                    android:layout_marginLeft="@dimen/_10_px"
+                    android:layout_marginTop="-75dp"
+                    android:layout_marginRight="@dimen/_10_px"
+                    android:layout_marginBottom="@dimen/_10_px"
+                    app:cardCornerRadius="4dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="false">
 
-                    <TextView
-                        android:id="@+id/tv_welcome_note"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                        android:text="Welcome"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14_px"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tv_text_sale"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:text="Continue with online sale"
-                        android:textColor="@color/gray_text"
-                        android:textSize="@dimen/_12_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
-                        app:layout_constraintTop_toBottomOf="@id/tv_welcome_note" />
-
-                    <TextView
-                        android:id="@+id/tv_text_restaurant_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                        android:text="Let's begin with your Email"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
-                        app:layout_constraintTop_toBottomOf="@id/tv_text_sale" />
-
-                    <EditText
-                        android:id="@+id/et_id"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:background="@drawable/edit_text_bg"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:hint="Email"
-                        android:text="blew@gmail.com"
-                        android:imeOptions="actionDone"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
-                        app:layout_constraintTop_toBottomOf="@id/tv_text_restaurant_id" />
-                    <EditText
-                        android:id="@+id/et_pass"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@drawable/edit_text_bg"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:hint="Password"
-                        android:text="123456789"
-                        android:imeOptions="actionDone"
-                        android:singleLine="true"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_14_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
-                        app:layout_constraintTop_toBottomOf="@id/et_id" />
-                    <TextView
-                        android:id="@+id/tv_forgot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:gravity="center"
-                        android:padding="@dimen/_5_px"
-                        android:onClick="@{(v)->click.forgot(v)}"
-                        android:text="Forgot Password?"
-                        android:textColor="@color/greencolor"
-                        android:textSize="@dimen/_11_px"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/et_pass" />
+                        android:layout_marginTop="@dimen/_20_px"
+                        android:padding="@dimen/_10_px">
 
-                    <TextView
-                        android:id="@+id/tv_login"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@drawable/button_green"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:gravity="center"
-                        android:onClick="@{(v)->click.doContinue(v)}"
-                        android:text="CONTINUE"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14_px"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_forgot" />
+                        <TextView
+                            android:id="@+id/tv_welcome_note"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                            android:text="Welcome"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_contact"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:fontStyleName="@{`Roboto_Black.ttf`}"
-                        android:padding="@dimen/_2_px"
-                        android:onClick="@{(v)->click.contactNow(v)}"
-                        android:text="Not yet on board, CONTACT US NOW!"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12_px"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_login" />
+                        <TextView
+                            android:id="@+id/tv_text_sale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Continue with online sale"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
+                            app:layout_constraintTop_toBottomOf="@id/tv_welcome_note" />
+
+                        <TextView
+                            android:id="@+id/tv_text_restaurant_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                            android:text="Let's begin with your Email"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
+                            app:layout_constraintTop_toBottomOf="@id/tv_text_sale" />
+
+                        <EditText
+                            android:id="@+id/et_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:hint="Email"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:text="blew@gmail.com"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
+                            app:layout_constraintTop_toBottomOf="@id/tv_text_restaurant_id" />
+
+                        <EditText
+                            android:id="@+id/et_pass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:hint="Password"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:text="123456789"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
+                            app:layout_constraintTop_toBottomOf="@id/et_id" />
+
+                        <TextView
+                            android:id="@+id/tv_forgot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:onClick="@{(v)->click.forgot(v)}"
+                            android:padding="@dimen/_5_px"
+                            android:text="Forgot Password?"
+                            android:textColor="@color/greencolor"
+                            android:textSize="@dimen/_11_px"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/et_pass" />
+
+                        <TextView
+                            android:id="@+id/tv_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@drawable/button_green"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="center"
+                            android:onClick="@{(v)->click.doContinue(v)}"
+                            android:text="CONTINUE"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_welcome_note"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_forgot" />
+
+                        <TextView
+                            android:id="@+id/tv_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Black.ttf`}"
+                            android:onClick="@{(v)->click.contactNow(v)}"
+                            android:padding="@dimen/_2_px"
+                            android:text="Not yet on board, CONTACT US NOW!"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
 
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <ImageView
-                android:id="@+id/iv_topImage_image"
-                android:layout_width="@dimen/_120_px"
-                android:layout_height="@dimen/_120_px"
-                android:layout_centerHorizontal="true"
-                android:elevation="8dp"
-                android:src="@drawable/ic_logo_haute" />
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/iv_topImage_image"
+                    android:layout_width="@dimen/_120_px"
+                    android:layout_height="@dimen/_120_px"
+                    android:layout_centerHorizontal="true"
+                    android:elevation="8dp"
+                    android:src="@drawable/ic_logo_haute" />
+            </RelativeLayout>
+        </ScrollView>
     </RelativeLayout>
 </layout>

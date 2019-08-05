@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     APIInterface apiInterface;
     private DrawerLayout drawer;
     private NavigationView nav_view;
-    private FragmentOrders fragmentOrders;
     private ProfileFragment profileFragment;
     private EarningFragment earningFragment;
     private RestaurantDetailModel restaurantDetailModel;
@@ -53,10 +52,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentOrders = new FragmentOrders();
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
-
         initView();
 
 
@@ -173,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
             iv_earn.setImageResource(R.drawable.ic_earning_off);
             iv_profile.setImageResource(R.drawable.ic_my_profile_off);
             iv_help.setImageResource(R.drawable.ic_support_off);
-            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new FragmentOrders());
             drawer.closeDrawer(GravityCompat.START);
         });
         tv_inventory.setOnClickListener((v) -> {
@@ -234,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
             iv_help.setImageResource(R.drawable.ic_support_on);
             drawer.closeDrawer(GravityCompat.START);
         });
-        FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, fragmentOrders);
+        FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new FragmentOrders());
     }
 
 
