@@ -35,15 +35,15 @@ public class MyPagerAdapter extends FragmentStatePagerAdapter {
         switch (pos) {
             case 0:
                 b.putString("data", new Gson().toJson(newOrderRequest));
-                frag = new OrderRequestFragment();
+                frag = OrderRequestFragment.getInstance();
                 break;
             case 1:
                 b.putString("data", new Gson().toJson(onGoingOrder));
-                frag = new OngoingRequestFragment();
+                frag = OngoingRequestFragment.getInstance();
                 break;
             case 2:
                 b.putString("data", new Gson().toJson(readyForPickupOrder));
-                frag = new ReadyOrderFragment();
+                frag = ReadyOrderFragment.getInstance();
                 break;
 
         }

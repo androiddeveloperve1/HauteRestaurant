@@ -65,6 +65,7 @@ public class InventoryFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             if (resultCode == Activity.RESULT_OK) {
+                tabLayout.getTabAt(0).select();
                 getInventory();
             }
         }
