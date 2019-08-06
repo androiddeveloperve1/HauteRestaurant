@@ -2,6 +2,7 @@ package com.app.mylibertarestaurant.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,32 +32,46 @@ import java.util.ArrayList;
 
 public class FragmentInventoryListChild extends Fragment {
     private FragmentInventoryChildBinding binder;
-    private InventoryResponseModel model;
     private InventoryItemAdapter inventoryItemAdapter;
-    private ArrayList<InventoryModel> list;
+    private InventoryResponseModel model;
+    private ArrayList<InventoryModel> list = new ArrayList<>();
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory_child, container, false);
         binder.rvItem.setLayoutManager(new LinearLayoutManager(getActivity()));
-        model = new Gson().fromJson(getArguments().getString("data"), InventoryResponseModel.class);
-        list = model.getAttribute_data();
-        setData(model.getAttribute_data());
-        View view = binder.getRoot();
+        Log.e("@@@@@@@", "CALLED");
 
+
+        inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModel>() {
+            @Override
+            public void onItemClicked(int position, InventoryModel data) {
+                Intent mIntent = new Intent(getActivity(), ItemDescriptionActivity.class);
+                mIntent.putExtra("data", new Gson().toJson(data));
+                mIntent.putExtra("attribute_id", model.get_id());
+                startActivityForResult(mIntent, 100);
+            }
+        }, list);
+        binder.setAdapter(inventoryItemAdapter);
+
+        View view = binder.getRoot();
         return view;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==100){
+        if (requestCode == 100) {
             getParentFragment().onActivityResult(requestCode, resultCode, data);
         }
 
     }
 
 
-    public void doFilter(int position) {
+    public void doFilter(InventoryResponseModel model) {
+        this.model = model;
+        Log.e("@@@@@@@", "Filter");
+        setData(model.getAttribute_data());
+
         int filter = MySharedPreference.getInstance(getActivity()).getFilter();
         if (filter == Constants.FILTER_ALL) {
             setData(model.getAttribute_data());
@@ -81,20 +96,13 @@ public class FragmentInventoryListChild extends Fragment {
     }
 
     void setData(ArrayList<InventoryModel> list) {
+        this.list.clear();
+        this.list.addAll(list);
         if (list.size() > 0) {
             binder.nodata.setVisibility(View.GONE);
             binder.rvItem.setVisibility(View.VISIBLE);
-            inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModel>() {
-                @Override
-                public void onItemClicked(int position, InventoryModel data) {
-                    Intent mIntent = new Intent(getActivity(), ItemDescriptionActivity.class);
-                    mIntent.putExtra("data", new Gson().toJson(data));
-                    mIntent.putExtra("attribute_id", model.get_id());
-                    startActivityForResult(mIntent, 100);
-                }
-            }, list);
+            inventoryItemAdapter.notifyDataSetChanged();
 
-            binder.setAdapter(inventoryItemAdapter);
         } else {
             binder.nodata.setVisibility(View.VISIBLE);
             binder.rvItem.setVisibility(View.GONE);

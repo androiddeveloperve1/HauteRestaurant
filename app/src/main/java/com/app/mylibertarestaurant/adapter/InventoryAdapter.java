@@ -11,7 +11,7 @@ public class InventoryAdapter extends FragmentStatePagerAdapter {
     private ArrayList<FragmentInventoryListChild> fragmentList = new ArrayList<>();
     public InventoryAdapter(FragmentManager fm) {
         super(fm);
-        fragmentList.clear();
+        //fragmentList.clear();
     }
     @Override
     public int getCount() {

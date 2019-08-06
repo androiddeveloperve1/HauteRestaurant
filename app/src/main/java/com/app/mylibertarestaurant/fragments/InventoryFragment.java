@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,12 +50,14 @@ public class InventoryFragment extends Fragment {
     @Inject
     APIInterface apiInterface;
     private TabLayout tabLayout;
+    private ArrayList<InventoryResponseModel> model;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binder = DataBindingUtil.inflate(inflater, R.layout.fragment_inventory, container, false);
         binder.setClick(new Click());
         tabLayout = binder.tabLayout;
         tabLayout.setTabTextColors(ContextCompat.getColor(getActivity(), R.color.gray_text), ContextCompat.getColor(getActivity(), R.color.black));
+        Log.e("@@@@@@", "Main Called");
         getInventory();
         clickListener();
         View view = binder.getRoot();
@@ -64,31 +68,43 @@ public class InventoryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (resultCode == Activity.RESULT_OK) {
+            try{
                 tabLayout.getTabAt(0).select();
+            }catch (Exception e){}
+
+            new Handler().postAtTime(() -> {
                 getInventory();
-            }
+            }, 200);
+
+
         }
     }
 
     public void initData(ArrayList<InventoryResponseModel> inventoryListFiltered) {
-        tabLayout.removeAllTabs();
-        FragmentInventoryListChild frag;
-        MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
-        allSelection();
-        inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
-        for (int i = 0; i < inventoryListFiltered.size(); i++) {
-            tabLayout.addTab(tabLayout.newTab().setText(inventoryListFiltered.get(i).getAttribute_name()));
-            Bundle data = new Bundle();
-            data.putString("data", new Gson().toJson(inventoryListFiltered.get(i)));
-            frag = new FragmentInventoryListChild();
-            frag.setArguments(data);
-            inventoryAdapter.addFragment(frag);
+        if (inventoryListFiltered.size() > 0) {
+            binder.clContent.setVisibility(View.VISIBLE);
+            binder.tvNoData.setVisibility(View.GONE);
+            tabLayout.removeAllTabs();
+            FragmentInventoryListChild frag;
+            MySharedPreference.getInstance(getActivity()).setFilter(Constants.FILTER_ALL);
+            allSelection();
+            inventoryAdapter = new InventoryAdapter(getChildFragmentManager());
+            for (int i = 0; i < inventoryListFiltered.size(); i++) {
+                Log.e("@@@@@@@@", "FRAGMENT ADDED");
+                tabLayout.addTab(tabLayout.newTab().setText(inventoryListFiltered.get(i).getAttribute_name()), i);
+                frag = new FragmentInventoryListChild();
+                inventoryAdapter.addFragment(frag);
+            }
+            binder.viewPager.setAdapter(inventoryAdapter);
+            binder.viewPager.setOffscreenPageLimit(inventoryListFiltered.size());
+            inventoryAdapter.notifyDataSetChanged();
+            onListen();
+        } else {
+            binder.clContent.setVisibility(View.GONE);
+            binder.tvNoData.setVisibility(View.VISIBLE);
         }
-        binder.viewPager.setAdapter(inventoryAdapter);
-        binder.viewPager.setOffscreenPageLimit(inventoryListFiltered.size());
-        inventoryAdapter.notifyDataSetChanged();
-        onListen();
+
+
     }
 
     void clickListener() {
@@ -128,6 +144,7 @@ public class InventoryFragment extends Fragment {
     }
 
     private void getInventory() {
+        Log.e("@@@@@@@", "API CALLED");
         final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
         apiInterface.getInventory()
@@ -147,8 +164,12 @@ public class InventoryFragment extends Fragment {
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<InventoryResponseModel>> response) {
                         progressDialog.dismiss();
-                        initData(response.getData());
+
                         if (response.getStatus().equals("200")) {
+                            Log.e("------------------RES", "listSize" + response.getData().size());
+                            model = response.getData();
+                            initData(model);
+
                         } else {
                             ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
                         }
@@ -159,7 +180,38 @@ public class InventoryFragment extends Fragment {
 
     public void onListen() {
         FragmentInventoryListChild frag = inventoryAdapter.getItem(binder.viewPager.getCurrentItem());
-        frag.doFilter(binder.viewPager.getCurrentItem());
+        frag.doFilter(model.get(binder.viewPager.getCurrentItem()));
+    }
+
+    void allSelection() {
+        binder.tvAll.setBackgroundResource(R.drawable.foof_type_bg_green);
+        binder.tvNonVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+
+        binder.tvVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvAll.setTextColor(getResources().getColor(R.color.white));
+    }
+
+    void vegSelection() {
+        binder.tvAll.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvNonVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvVeg.setBackgroundResource(R.drawable.foof_type_bg_green);
+
+        binder.tvVeg.setTextColor(getResources().getColor(R.color.white));
+        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvAll.setTextColor(getResources().getColor(R.color.black));
+    }
+
+    void nonVegSelection() {
+        binder.tvAll.setBackgroundResource(R.drawable.food_type_bg_white);
+        binder.tvNonVeg.setBackgroundResource(R.drawable.foof_type_bg_green);
+        binder.tvVeg.setBackgroundResource(R.drawable.food_type_bg_white);
+
+        binder.tvVeg.setTextColor(getResources().getColor(R.color.black));
+        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.white));
+        binder.tvAll.setTextColor(getResources().getColor(R.color.black));
+
     }
 
     public class Click {
@@ -196,38 +248,6 @@ public class InventoryFragment extends Fragment {
             onListen();
             nonVegSelection();
         }
-    }
-
-
-    void allSelection() {
-        binder.tvAll.setBackgroundResource(R.drawable.foof_type_bg_green);
-        binder.tvNonVeg.setBackgroundResource(R.drawable.food_type_bg_white);
-        binder.tvVeg.setBackgroundResource(R.drawable.food_type_bg_white);
-
-        binder.tvVeg.setTextColor(getResources().getColor(R.color.black));
-        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.black));
-        binder.tvAll.setTextColor(getResources().getColor(R.color.white));
-    }
-
-    void vegSelection() {
-        binder.tvAll.setBackgroundResource(R.drawable.food_type_bg_white);
-        binder.tvNonVeg.setBackgroundResource(R.drawable.food_type_bg_white);
-        binder.tvVeg.setBackgroundResource(R.drawable.foof_type_bg_green);
-
-        binder.tvVeg.setTextColor(getResources().getColor(R.color.white));
-        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.black));
-        binder.tvAll.setTextColor(getResources().getColor(R.color.black));
-    }
-
-    void nonVegSelection() {
-        binder.tvAll.setBackgroundResource(R.drawable.food_type_bg_white);
-        binder.tvNonVeg.setBackgroundResource(R.drawable.foof_type_bg_green);
-        binder.tvVeg.setBackgroundResource(R.drawable.food_type_bg_white);
-
-        binder.tvVeg.setTextColor(getResources().getColor(R.color.black));
-        binder.tvNonVeg.setTextColor(getResources().getColor(R.color.white));
-        binder.tvAll.setTextColor(getResources().getColor(R.color.black));
-
     }
 
 }

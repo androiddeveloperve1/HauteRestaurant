@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.CategoryModel;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class CategoryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        view = inflater.inflate(R.layout.item_attribute, null);
+        view = inflater.inflate(R.layout.item_category, null);
         TextView names = (TextView) view.findViewById(R.id.name);
         names.setText(list.get(i).getName());
         return view;

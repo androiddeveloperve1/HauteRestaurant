@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.mylibertarestaurant.R;
@@ -43,7 +42,7 @@ public class AttributeAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        view = inflater.inflate(R.layout.item_attribute, null);
+        view = inflater.inflate(R.layout.item_category, null);
         TextView names = (TextView) view.findViewById(R.id.name);
         names.setText(list.get(i).getName());
         return view;

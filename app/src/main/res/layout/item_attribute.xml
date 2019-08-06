@@ -1,19 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <data>
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.MultipleAttributeModel" />
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.itnerfaces.AttributeAddDeleteListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/_5_px">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
+
+        <EditText
+            android:id="@+id/et_attribute_name"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+            android:layout_marginRight="@dimen/_10_px"
+            android:background="@drawable/edittext_bg"
+            android:hint="Attribute name"
+            android:imeOptions="actionNext"
             android:padding="@dimen/_5_px"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_12_px" />
+            android:textSize="@dimen/_10_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/et_attribute_price"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_attribute_price"
+            android:layout_width="@dimen/_50_px"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10_px"
+            android:background="@drawable/edittext_bg"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/_5_px"
+            android:text="0"
+            android:textSize="@dimen/_10_px"
+            app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
+            app:layout_constraintRight_toLeftOf="@+id/rl_add_remove"
+            app:layout_constraintTop_toTopOf="@id/et_attribute_name" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_add_remove"
+            android:layout_width="@dimen/_50_px"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_attribute_name">
+
+            <TextView
+                android:id="@+id/tv_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_attribute_add"
+                android:gravity="center"
+                android:onClick="@{(v)->click.onAttributeAdd(position)}"
+                android:text="ADD"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_9_px" />
+
+            <TextView
+                android:id="@+id/tv_remove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_attribute_remove"
+                android:gravity="center"
+                android:onClick="@{(v)->click.onAttributeDelete(position)}"
+                android:text="REMOVE"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_9_px"
+                android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

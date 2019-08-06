@@ -50,6 +50,8 @@ public class EditItemActivity extends ImageUploadingActivity {
     private String attributeId;
     private Bitmap restaurantImage;
     private RestaurantDetailModel restaurantDetailModel;
+    private ArrayList<CategoryModel> categoryList = new ArrayList<>();
+    private ArrayList<AttributeModel> attributeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,9 @@ public class EditItemActivity extends ImageUploadingActivity {
                     public void onNext(ApiResponseModel<ArrayList<AttributeModel>> response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-                            binder.spnrAttribute.setAdapter(new AttributeAdapter(response.getData()));
+                            attributeList.clear();
+                            attributeList.addAll(response.getData());
+                            binder.spnrAttribute.setAdapter(new AttributeAdapter(attributeList));
 
 
                             for (int i = 0; i < response.getData().size(); i++) {
@@ -131,7 +135,9 @@ public class EditItemActivity extends ImageUploadingActivity {
                     public void onNext(ApiResponseModel<ArrayList<CategoryModel>> response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-                            binder.spnrCategory.setAdapter(new CategoryAdapter(response.getData()));
+                            categoryList.clear();
+                            categoryList.addAll(response.getData());
+                            binder.spnrCategory.setAdapter(new CategoryAdapter(categoryList));
                             for (int i = 0; i < response.getData().size(); i++) {
                                 if (dataToBeEdit.getCategory_id().get_id().equals(response.getData().get(i).get_id())) {
                                     binder.spnrCategory.setSelection(i);
@@ -176,7 +182,7 @@ public class EditItemActivity extends ImageUploadingActivity {
 
         RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), restaurantDetailModel.get_id());
 
-        RequestBody category_id = RequestBody.create(MediaType.parse("text/plain"), dataToBeEdit.getCategory_id().get_id());
+        RequestBody category_id = RequestBody.create(MediaType.parse("text/plain"), categoryList.get(binder.spnrCategory.getSelectedItemPosition()).get_id());
 
         RequestBody price_devide = RequestBody.create(MediaType.parse("text/plain"), "0");
 
@@ -185,7 +191,7 @@ public class EditItemActivity extends ImageUploadingActivity {
         RequestBody half_price = RequestBody.create(MediaType.parse("text/plain"), "0");
 
 
-        RequestBody attribute_id = RequestBody.create(MediaType.parse("text/plain"), attributeId);
+        RequestBody attribute_id = RequestBody.create(MediaType.parse("text/plain"), attributeList.get(binder.spnrCategory.getSelectedItemPosition()).get_id());
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), binder.tvDesc.getText().toString().trim());
 
         String foodType = "veg";

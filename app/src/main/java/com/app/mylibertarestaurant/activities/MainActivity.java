@@ -40,18 +40,20 @@ public class MainActivity extends AppCompatActivity {
     APIInterface apiInterface;
     private DrawerLayout drawer;
     private NavigationView nav_view;
+    private ProfileFragment profileFragment;
+    private EarningFragment earningFragment;
     private RestaurantDetailModel restaurantDetailModel;
     private TextView tv_name_restaurant;
     private ImageView iv_on_off_line;
     private TextView tv_on_off_line;
     private ImageView img_restaurant;
-    private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        profileFragment=new ProfileFragment();
+        profileFragment = new ProfileFragment();
+        earningFragment = new EarningFragment();
         initView();
 
 
@@ -105,19 +107,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
-        tv_name_restaurant.setText(restaurantDetailModel.getRestaurants().getName());
-        Picasso.with(MainActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200)
-                .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(img_restaurant);
-        if (restaurantDetailModel.getRestaurants().getIs_online().equals("true")) {
-            tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
-            tv_on_off_line.setText("Online");
-            iv_on_off_line.setImageResource(R.drawable.ic_online_toggle);
-        } else {
-            tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
-            tv_on_off_line.setText("Offline");
-            iv_on_off_line.setImageResource(R.drawable.ic_offline_toggle);
+        try {
+            restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
+            tv_name_restaurant.setText(restaurantDetailModel.getRestaurants().getName());
+            Picasso.with(MainActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200)
+                    .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(img_restaurant);
+            if (restaurantDetailModel.getRestaurants().getIs_online().equals("true")) {
+                tv_on_off_line.setTextColor(getResources().getColor(R.color.greencolor));
+                tv_on_off_line.setText("Online");
+                iv_on_off_line.setImageResource(R.drawable.ic_online_toggle);
+            } else {
+                tv_on_off_line.setTextColor(getResources().getColor(R.color.yellow));
+                tv_on_off_line.setText("Offline");
+                iv_on_off_line.setImageResource(R.drawable.ic_offline_toggle);
+            }
+
+        } catch (Exception e) {
         }
+
     }
 
     void navigationIteminitializer() {
@@ -197,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
             iv_earn.setImageResource(R.drawable.ic_earning_on);
             iv_profile.setImageResource(R.drawable.ic_my_profile_off);
             iv_help.setImageResource(R.drawable.ic_support_off);
-            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new EarningFragment());
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, earningFragment);
             drawer.closeDrawer(GravityCompat.START);
         });
 

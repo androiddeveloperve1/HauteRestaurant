@@ -21,6 +21,7 @@ import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.CategoryModel;
 import com.app.mylibertarestaurant.model.InventoryModel;
+import com.app.mylibertarestaurant.model.MultipleAttributeModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
 import com.app.mylibertarestaurant.network.APIInterface;
@@ -75,13 +76,6 @@ public class CopyItemActivity extends ImageUploadingActivity {
         getAttribute();
         getCategory();
     }
-
-    @Override
-    protected void onImageCaptured(Bitmap mBitmap) {
-        restaurantImage = mBitmap;
-        binder.imgPic.setImageBitmap(restaurantImage);
-    }
-
     private void getAttribute() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(CopyItemActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(CopyItemActivity.this);
@@ -121,6 +115,12 @@ public class CopyItemActivity extends ImageUploadingActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void onImageCaptured(Bitmap mBitmap) {
+        restaurantImage = mBitmap;
+        binder.imgPic.setImageBitmap(restaurantImage);
     }
 
     private void getCategory() {
@@ -332,4 +332,6 @@ public class CopyItemActivity extends ImageUploadingActivity {
             }
         }
     }
+
+
 }

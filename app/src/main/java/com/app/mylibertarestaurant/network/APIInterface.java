@@ -80,7 +80,7 @@ public interface APIInterface {
                                                                  @Part("pincode") RequestBody pincode,
                                                                  @Part("deliverykm") RequestBody deliverykm,
                                                                  @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
-                                                                 @Part("longitude") RequestBody longitude);
+                                                                 @Part("longitude") RequestBody longitude ,@Part("maxdeliverytime") RequestBody maxdeliverytime);
 
     @Multipart
     @POST(UrlConstants.ADD_FOOD)
