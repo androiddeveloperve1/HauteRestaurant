@@ -19,10 +19,7 @@ import java.util.List;
 
 public class FragmentTransactionUtils {
     public static void replaceFragmnet(Context context, int layout, Fragment fragment) {
-
         String Tag = fragment.getClass().getName();
-
-
         FragmentManager mngr = ((AppCompatActivity) context).getSupportFragmentManager();
         boolean fragmentPopped = mngr.popBackStackImmediate(Tag, 0);
         if (!fragmentPopped && mngr.findFragmentByTag(Tag) == null) {

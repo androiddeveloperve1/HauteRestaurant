@@ -69,6 +69,8 @@ public class AppUtils {
             flag = Constants.DELIVERY_STATUS_4;
         } else if (status.equals("5")) {
             flag = Constants.DELIVERY_STATUS_5;
+        }else if (status.equals("6")) {
+            flag = Constants.DELIVERY_STATUS_6;
         }
         return flag;
     }

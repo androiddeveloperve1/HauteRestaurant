@@ -45,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageView iv_on_off_line;
     private TextView tv_on_off_line;
     private ImageView img_restaurant;
+    private ProfileFragment profileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        profileFragment=new ProfileFragment();
         initView();
 
 
@@ -211,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             iv_profile.setImageResource(R.drawable.ic_my_profile_on);
             iv_help.setImageResource(R.drawable.ic_support_off);
             drawer.closeDrawer(GravityCompat.START);
-            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new ProfileFragment());
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, profileFragment);
         });
 
         tv_help.setOnClickListener((v) -> {

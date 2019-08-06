@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray"
+        android:background="@color/gray_text"
         android:padding="@dimen/_5_px"
         tools:context=".activities.CopyItemActivity">
 
@@ -53,6 +53,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/img_pic"
                 android:layout_width="@dimen/_135_px"
+                android:layout_marginTop="@dimen/_5_px"
                 android:layout_height="@dimen/_135_px"
                 android:src="@drawable/placeholder_squre"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -73,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:cardCornerRadius="@dimen/_5_px"
+                android:layout_marginTop="@dimen/_5_px"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -194,7 +196,7 @@
                             android:layout_marginTop="@dimen/_5_px"
                             android:background="@drawable/edit_text_bg"
                             android:hint="price"
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             app:layout_constraintLeft_toRightOf="@+id/tv_doller_mark"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_price_text" />

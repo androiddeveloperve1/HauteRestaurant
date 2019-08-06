@@ -1,6 +1,7 @@
 package com.app.mylibertarestaurant.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.model.TimeModel;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -35,12 +37,15 @@ public class TimeAdapter extends PagerAdapter {
         TextView tv_slot1 = layout.findViewById(R.id.tv_slot1);
         TextView tv_slot2 = layout.findViewById(R.id.tv_slot2);
         TimeModel slots = time.get(position);
+        Log.e("@@@@@@@@", "" + new Gson().toJson(slots));
 
         if (slots.isIs_selected()) {
+            tv_slot1.setText(slots.getTimings().get(0).getOpenAt() + "-" + slots.getTimings().get(0).getCloseAt());
+
+
             if (slots.isIs_two_slot()) {
-                tv_slot1.setText(slots.getTimings().get(0).getOpenAt() + "-" + slots.getTimings().get(0).getCloseAt());
-                tv_slot2.setText(slots.getTimings().get(1).getOpenAt() + "-" + slots.getTimings().get(1).getCloseAt());
                 tv_slot2.setVisibility(View.VISIBLE);
+                tv_slot2.setText(slots.getTimings().get(1).getOpenAt() + "-" + slots.getTimings().get(1).getCloseAt());
             } else {
                 tv_slot2.setVisibility(View.GONE);
             }
@@ -57,6 +62,9 @@ public class TimeAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup collection, int position, Object view) {
         collection.removeView((View) view);
+    }
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
     }
 
     @Override

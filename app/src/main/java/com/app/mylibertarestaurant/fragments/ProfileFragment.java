@@ -292,7 +292,7 @@ public class ProfileFragment extends Fragment {
                     public void onNext(ApiResponseModel<RestaurantDetail> response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-                            Log.e("@@@@@", new Gson().toJson(response.getData()));
+                            Log.e("---Response", new Gson().toJson(response.getData()));
                             restaurantDetailModel.setRestaurants(response.getData());
                             MySharedPreference.getInstance(getActivity()).setUser(restaurantDetailModel);
                             showInView();
@@ -305,6 +305,8 @@ public class ProfileFragment extends Fragment {
     }
 
     void showInView() {
+        Log.e("---Show in view", "------------------");
+
         binder.tvReatsurantName.setText(restaurantDetailModel.getRestaurants().getName());
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
@@ -349,6 +351,7 @@ public class ProfileFragment extends Fragment {
         });
         setClickListener();
         binder.viewPager.setCurrentItem(0);
+        binder.viewPager.setOffscreenPageLimit(7);
         mon();
 
     }

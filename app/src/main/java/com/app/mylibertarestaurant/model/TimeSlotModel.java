@@ -14,8 +14,13 @@ public class TimeSlotModel extends BaseObservable {
 
     private String openAt;
     private String closeAt;
-@Bindable
+
+    @Bindable
     public String getOpenAt() {
+
+      /*  if (openAt.trim().length() <= 0) {
+            openAt = "00:00";
+        }*/
         return openAt;
     }
 
@@ -23,8 +28,13 @@ public class TimeSlotModel extends BaseObservable {
         this.openAt = openAt;
         this.notifyPropertyChanged(BR.openAt);
     }
+
     @Bindable
     public String getCloseAt() {
+
+       /* if (closeAt.trim().length() <= 0) {
+            closeAt = "00:00";
+        }*/
         return closeAt;
     }
 
