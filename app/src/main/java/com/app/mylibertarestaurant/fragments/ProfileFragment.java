@@ -310,8 +310,9 @@ public class ProfileFragment extends Fragment {
         binder.tvReatsurantName.setText(restaurantDetailModel.getRestaurants().getName());
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
-        binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime()+" Mins.");
+        binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime() + " Mins.");
         binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Km.");
+        binder.tvDeliveryFee.setText("$ "+restaurantDetailModel.getRestaurants().getDeliveryfees());
         Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
         if (!(restaurantDetailModel.getRestaurants().getOpenForService() != null && restaurantDetailModel.getRestaurants().getOpenForService().size() > 0)) {
             restaurantDetailModel.getRestaurants().setOpenForService(AppUtils.initDummyTimeData());

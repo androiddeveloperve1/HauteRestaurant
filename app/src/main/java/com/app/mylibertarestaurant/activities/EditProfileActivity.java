@@ -106,10 +106,11 @@ public class EditProfileActivity extends ImageUploadingActivity {
 
         RequestBody longitude = RequestBody.create(MediaType.parse("text/plain"), "" + mlaLatLng.longitude);
         RequestBody deliveryTime = RequestBody.create(MediaType.parse("text/plain"), binder.tvDeliveryTime.getText().toString().trim());
+        RequestBody deliveryFee = RequestBody.create(MediaType.parse("text/plain"), binder.tvDeliveryFee.getText().toString().trim());
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(EditProfileActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(EditProfileActivity.this);
-        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime)
+        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime,deliveryFee)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel<RestaurantDetail>>() {
@@ -143,7 +144,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
     void showInView() {
         binder.tvReatsurantName.setText(restaurantDetailModel.getRestaurants().getName());
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
-
+        binder.tvDeliveryFee.setText(restaurantDetailModel.getRestaurants().getDeliveryfees());
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime());
         mlaLatLng = new LatLng(restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(0), restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(1));
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
@@ -186,6 +187,10 @@ public class EditProfileActivity extends ImageUploadingActivity {
             }
             if (binder.tvDeliveryTime.getText().toString().trim().length() <= 0) {
                 Toast.makeText(EditProfileActivity.this, "Please enter max delivery time", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (binder.tvDeliveryFee.getText().toString().trim().length() <= 0) {
+                Toast.makeText(EditProfileActivity.this, "Please enter delivery fee", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (binder.tvRange.getText().toString().trim().equals("0")) {

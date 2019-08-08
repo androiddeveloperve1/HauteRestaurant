@@ -259,7 +259,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
         param.put("otp", otp);
 
 
-        apiInterface.readyForPickup(param)
+        apiInterface.readyForPickupVerify(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {

@@ -80,7 +80,8 @@ public interface APIInterface {
                                                                  @Part("pincode") RequestBody pincode,
                                                                  @Part("deliverykm") RequestBody deliverykm,
                                                                  @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
-                                                                 @Part("longitude") RequestBody longitude ,@Part("maxdeliverytime") RequestBody maxdeliverytime);
+                                                                 @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime
+            , @Part("deliveryfees") RequestBody deliveryfees);
 
     @Multipart
     @POST(UrlConstants.ADD_FOOD)
@@ -134,6 +135,11 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @POST(UrlConstants.FORGOT_PASSWORD)
     Observable<ApiResponseModel> forGotPass(@Body HashMap<String, String> body);
+
+
+    @Headers("Content-Type: application/json")
+    @PUT(UrlConstants.READY_FOR_PICKUP_VERIFY)
+    Observable<ApiResponseModel> readyForPickupVerify(@Body HashMap<String, String> body);
 
 
 }

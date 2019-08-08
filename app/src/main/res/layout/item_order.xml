@@ -98,9 +98,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_10_px"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text='@{"$ "+model.amount}'
+                android:text='@{"$ "+model.totalamount}'
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15_px"
+                android:textSize="@dimen/_12_px"
                 app:layout_constraintBottom_toBottomOf="@id/tv_address"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_user_name" />
@@ -134,7 +134,6 @@
                 android:id="@+id/tv_qty_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:text="Total Item"
                 android:textColor="@color/gray_text"
@@ -147,14 +146,14 @@
                 android:id="@+id/tv_items"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5_px"
+
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:paddingBottom="@dimen/_10_px"
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:text='@{AppUtils.getItemListInAppendMode(model.order)}'
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15_px"
+                android:textSize="@dimen/_12_px"
                 app:layout_constraintRight_toLeftOf="@+id/tv_qty"
                 app:layout_constraintLeft_toLeftOf="@id/tv_time"
                 app:layout_constraintTop_toBottomOf="@+id/tv_item_text" />
@@ -164,15 +163,15 @@
                 android:id="@+id/tv_qty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:paddingBottom="@dimen/_10_px"
                 android:text='@{""+model.order.size()}'
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15_px"
+                android:textSize="@dimen/_12_px"
                 app:layout_constraintLeft_toLeftOf="@id/tv_qty_text"
                 app:layout_constraintRight_toRightOf="@id/tv_qty_text"
-                app:layout_constraintTop_toBottomOf="@+id/tv_item_text" />
+                app:layout_constraintTop_toTopOf="@+id/tv_items"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_items"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
