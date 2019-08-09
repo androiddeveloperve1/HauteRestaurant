@@ -2,11 +2,15 @@ package com.app.mylibertarestaurant.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -30,8 +34,11 @@ import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -57,6 +64,29 @@ public class EditProfileActivity extends ImageUploadingActivity {
     private LatLng mlaLatLng;
     private int range;
     private Bitmap profilePic;
+
+    private Target getTarget(final String url) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+                profilePic = bitmap;
+                binder.ivProfile.setImageBitmap(profilePic);
+                Log.e("@@@@@@","Image loded");
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+                Log.e("@@@@@@","Image failed");
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                Log.e("@@@@@@","prepare Image loded");
+
+            }
+        };
+        return target;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +118,6 @@ public class EditProfileActivity extends ImageUploadingActivity {
         PermissionUtils.getInstance().hendlePermission(EditProfileActivity.this, requestCode, permissions, grantResults);
     }
 
-
     private void updateRestaurant() {
 
         MultipartBody.Part image = MultipartUtils.createFile(EditProfileActivity.this, profilePic, "retaurant_image", "retaurant_image.jpg");
@@ -110,7 +139,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(EditProfileActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(EditProfileActivity.this);
-        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime,deliveryFee)
+        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime, deliveryFee)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel<RestaurantDetail>>() {
@@ -154,8 +183,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
             range = 0;
         }
         binder.tvRange.setText("" + range);
-        new DownloadImage().execute(restaurantDetailModel.getRestaurants().getImages().get(0));
-
+        Picasso.with(EditProfileActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(getTarget(restaurantDetailModel.getRestaurants().getImages().get(0)));
     }
 
     public class Myclick {
@@ -242,33 +270,4 @@ public class EditProfileActivity extends ImageUploadingActivity {
 
     }
 
-
-    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
-        private String TAG = "___________";
-
-        private Bitmap downloadImageBitmap(String sUrl) {
-            Bitmap bitmap = null;
-            try {
-                InputStream inputStream = new URL(sUrl).openStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-                inputStream.close();
-            } catch (Exception e) {
-                Log.e(TAG, "Exception 1, Something went wrong!");
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            return downloadImageBitmap(params[0]);
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            if (result != null) {
-                profilePic = result;
-                binder.ivProfile.setImageBitmap(profilePic);
-            }
-        }
-    }
 }

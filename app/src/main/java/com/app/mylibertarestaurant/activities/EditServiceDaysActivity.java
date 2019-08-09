@@ -309,6 +309,10 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     }
 
     public class Click {
+
+        public void finishNow(View v){
+            finish();
+        }
         public void close(View v) {
             boolean isTrue = true;
             for (int i = 0; i < restaurantDetailModel.getRestaurants().getOpenForService().size(); i++) {

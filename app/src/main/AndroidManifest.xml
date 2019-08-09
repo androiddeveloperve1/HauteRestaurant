@@ -53,6 +53,7 @@
             android:theme="@style/NoActionbarNoStatusbar" />
         <activity
             android:name=".activities.LoginActivity"
+            android:launchMode="singleInstance"
             android:theme="@style/NoActionbarNoStatusbar" />
         <activity
             android:name=".activities.MainActivity"

@@ -51,7 +51,7 @@
                 android:layout_height="@dimen/_35_px"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/_5_px"
-                android:onClick="@{(v)->click.close(v)}"
+                android:onClick="@{(v)->click.finishNow(v)}"
                 android:padding="@dimen/_5_px"
                 android:src="@drawable/cancel_black"
                 android:visibility="visible"

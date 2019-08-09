@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.app.mylibertarestaurant.BR;
+import com.app.mylibertarestaurant.model.CommisionModel;
 import com.app.mylibertarestaurant.model.Location;
 import com.app.mylibertarestaurant.model.TimeModel;
 import com.app.mylibertarestaurant.model.TimeSlotModel;
@@ -32,6 +33,16 @@ public class RestaurantDetail extends BaseObservable {
     private String pincode;
     private Location location;
     private ArrayList<TimeModel> openForService;
+    private CommisionModel comm;
+@Bindable
+    public CommisionModel getComm() {
+        return comm;
+    }
+
+    public void setComm(CommisionModel comm) {
+        this.comm = comm;
+        this.notifyPropertyChanged(BR.comm);
+    }
 
     @Bindable
     public ArrayList<TimeModel> getOpenForService() {

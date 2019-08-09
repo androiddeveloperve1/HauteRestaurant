@@ -313,6 +313,13 @@ public class ProfileFragment extends Fragment {
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime() + " Mins.");
         binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Km.");
         binder.tvDeliveryFee.setText("$ "+restaurantDetailModel.getRestaurants().getDeliveryfees());
+        if(restaurantDetailModel.getRestaurants().getComm()!=null)
+        {
+            binder.tvTax.setText(restaurantDetailModel.getRestaurants().getComm().getTaxrate()+"%");
+            binder.tvFee.setText("$"+restaurantDetailModel.getRestaurants().getComm().getAdmincom());
+        }
+
+
         Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
         if (!(restaurantDetailModel.getRestaurants().getOpenForService() != null && restaurantDetailModel.getRestaurants().getOpenForService().size() > 0)) {
             restaurantDetailModel.getRestaurants().setOpenForService(AppUtils.initDummyTimeData());
