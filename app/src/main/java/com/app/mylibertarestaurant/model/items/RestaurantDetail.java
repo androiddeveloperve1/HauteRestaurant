@@ -34,7 +34,8 @@ public class RestaurantDetail extends BaseObservable {
     private Location location;
     private ArrayList<TimeModel> openForService;
     private CommisionModel comm;
-@Bindable
+
+    @Bindable
     public CommisionModel getComm() {
         return comm;
     }
