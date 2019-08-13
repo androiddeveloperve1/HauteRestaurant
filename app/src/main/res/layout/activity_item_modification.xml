@@ -137,7 +137,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5_px"
                             android:background="@drawable/edit_text_bg"
-                            android:text="saldhjfhdsljfdsjfsjdkfh"
+                            android:text=""
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_name_text"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_name_text" />

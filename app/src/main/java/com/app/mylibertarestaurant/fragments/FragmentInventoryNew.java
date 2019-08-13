@@ -147,15 +147,14 @@ public class FragmentInventoryNew extends Fragment {
         }
 
         public void onSearch(View v) {
-            Intent mIntent = new Intent(getActivity(), ActivitySearchItem.class);
-            startActivity(mIntent);
+            /*Intent mIntent = new Intent(getActivity(), ActivitySearchItem.class);
+            startActivity(mIntent);*/
         }
 
         public void onAdd(View v) {
             Intent mIntent = new Intent(getActivity(), ItemModificationActivity.class);
             mIntent.putExtra("flag", Constants.ADD_NEW);
             startActivityForResult(mIntent, 200);
-
 
         }
 
