@@ -19,6 +19,7 @@ import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.InventoryModel;
+import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
@@ -35,18 +36,26 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     @Inject
     APIInterface apiInterface;
     String attributeId;
-    private InventoryModel data;
+    private InventoryModelNew data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_item_description);
         binder.setClick(new Click());
-        data = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModel.class);
+        data = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModelNew.class);
         binder.setModel(data);
         attributeId = getIntent().getStringExtra("attribute_id");
+        if (data.getAttribute() != null && data.getAttribute().size() > 0) {
+            for (int i = 0; i < data.getAttribute().size(); i++) {
+                binder.tagGroupFav.addTag(data.getAttribute().get(i).getAttribute_name());
+            }
+        } else {
+            binder.tagGroupFav.addTag("No Attribute found");
+        }
         initMenu();
     }
+
 
     void initMenu() {
         popup = new PopupMenu(ItemDescriptionActivity.this, binder.ivThreeDot);
@@ -57,17 +66,16 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                 Intent mIntent;
                 switch (item.getItemId()) {
                     case R.id.edit:
-                        mIntent = new Intent(ItemDescriptionActivity.this, EditItemActivity.class);
+                        mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
-                        mIntent.putExtra("attribute_id", attributeId);
-                        startActivityForResult(mIntent,20);
+                        mIntent.putExtra("flag", Constants.EDIT);
+                        startActivityForResult(mIntent, 20);
                         break;
                     case R.id.copy:
-                        mIntent = new Intent(ItemDescriptionActivity.this, CopyItemActivity.class);
+                        mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.COPY);
-                        mIntent.putExtra("attribute_id", attributeId);
-                        startActivityForResult(mIntent,20);
+                        startActivityForResult(mIntent, 20);
                         break;
                     case R.id.delete:
                         deleteAlert();
@@ -130,6 +138,17 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         builder.show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            setResult(Activity.RESULT_OK);
+            finish();
+        }
+
+    }
+
     public class Click {
         public void onBack(View v) {
             finish();
@@ -139,17 +158,5 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         public void onPopupClick(View v) {
             popup.show();
         }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode==Activity.RESULT_OK)
-        {
-            setResult(Activity.RESULT_OK);
-            finish();
-        }
-
     }
 }

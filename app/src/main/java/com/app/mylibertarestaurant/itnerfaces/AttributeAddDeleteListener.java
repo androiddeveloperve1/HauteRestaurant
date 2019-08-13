@@ -7,7 +7,6 @@ package com.app.mylibertarestaurant.itnerfaces;
 
 public interface AttributeAddDeleteListener {
 
-
     void onAttributeAdd(int position);
     void onAttributeDelete(int position);
 

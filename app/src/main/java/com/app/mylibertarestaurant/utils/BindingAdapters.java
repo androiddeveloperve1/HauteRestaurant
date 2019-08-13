@@ -3,6 +3,7 @@ package com.app.mylibertarestaurant.utils;
 import android.app.TimePickerDialog;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -91,8 +92,6 @@ public class BindingAdapters {
             textView.setTextColor(textView.getContext().getResources().getColor(R.color.red));
         }
     }
-
-
 
 
 }

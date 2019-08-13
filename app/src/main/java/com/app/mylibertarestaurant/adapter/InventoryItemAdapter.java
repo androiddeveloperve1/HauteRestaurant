@@ -14,6 +14,7 @@ import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemInventoryBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.InventoryModel;
+import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -25,9 +26,9 @@ import java.util.ArrayList;
 
 public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdapter.MyViewHolder> {
     RecycleItemClickListener listenr;
-    private ArrayList<InventoryModel> list;
+    private ArrayList<InventoryModelNew> list;
 
-    public InventoryItemAdapter(RecycleItemClickListener listenr, ArrayList<InventoryModel> list) {
+    public InventoryItemAdapter(RecycleItemClickListener listenr, ArrayList<InventoryModelNew> list) {
         this.listenr = listenr;
         this.list =list;
     }
@@ -61,7 +62,7 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
             this.binding = databinding;
         }
 
-        public void bind(InventoryModel data) {
+        public void bind(InventoryModelNew data) {
             this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();

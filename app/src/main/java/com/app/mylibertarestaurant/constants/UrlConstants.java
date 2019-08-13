@@ -24,7 +24,7 @@ public class UrlConstants {
     public static final String READY_FOR_PICKUP = ADMIN + "/updateReadyForPickupStatus";
     public static final String READY_FOR_PICKUP_VERIFY = "restaurent/otpVerificationForOrderPickUp";
     public static final String ORDER_DETAIL = ADMIN + "/order-detail/";
-    public static final String INVENTORY = ADMIN + "/restaurant/appFoodList";
+    public static final String INVENTORY = ADMIN + "/restaurant/food-list";
     public static final String LOGOUT = "/restaurent/logout";
     public static final String UPDATE_TIME_SLOT = "/restaurent/updateTimeSlot";
     public static final String FORGOT_PASSWORD = "/restaurent/forgot";

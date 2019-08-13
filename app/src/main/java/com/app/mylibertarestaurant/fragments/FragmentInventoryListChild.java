@@ -13,8 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.activities.ItemDescriptionActivity;
-import com.app.mylibertarestaurant.adapter.InventoryItemAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.FragmentInventoryChildBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 
 public class FragmentInventoryListChild extends Fragment {
     private FragmentInventoryChildBinding binder;
-    private InventoryItemAdapter inventoryItemAdapter;
     private InventoryResponseModel model;
     private ArrayList<InventoryModel> list = new ArrayList<>();
 
@@ -42,7 +39,7 @@ public class FragmentInventoryListChild extends Fragment {
         Log.e("@@@@@@@", "CALLED");
 
 
-        inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModel>() {
+        /*inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModel>() {
             @Override
             public void onItemClicked(int position, InventoryModel data) {
                 Intent mIntent = new Intent(getActivity(), ItemDescriptionActivity.class);
@@ -51,7 +48,7 @@ public class FragmentInventoryListChild extends Fragment {
                 startActivityForResult(mIntent, 100);
             }
         }, list);
-        binder.setAdapter(inventoryItemAdapter);
+        binder.setAdapter(inventoryItemAdapter);*/
 
         View view = binder.getRoot();
         return view;
@@ -101,7 +98,7 @@ public class FragmentInventoryListChild extends Fragment {
         if (list.size() > 0) {
             binder.nodata.setVisibility(View.GONE);
             binder.rvItem.setVisibility(View.VISIBLE);
-            inventoryItemAdapter.notifyDataSetChanged();
+            //inventoryItemAdapter.notifyDataSetChanged();
 
         } else {
             binder.nodata.setVisibility(View.VISIBLE);

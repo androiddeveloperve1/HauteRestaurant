@@ -10,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.app.mylibertarestaurant.model.InventoryModel" />
+            type="com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew" />
 
         <variable
             name="position"

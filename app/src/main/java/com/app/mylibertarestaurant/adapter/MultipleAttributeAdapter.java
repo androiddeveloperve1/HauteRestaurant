@@ -12,7 +12,7 @@ import com.app.mylibertarestaurant.BR;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemAttributeBinding;
 import com.app.mylibertarestaurant.itnerfaces.AttributeAddDeleteListener;
-import com.app.mylibertarestaurant.model.MultipleAttributeModel;
+import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class MultipleAttributeAdapter extends RecyclerView.Adapter<MultipleAttributeAdapter.MyViewHolder> {
     AttributeAddDeleteListener listenr;
-    private ArrayList<MultipleAttributeModel> list;
+    private ArrayList<AttributeModelNew> list;
 
-    public MultipleAttributeAdapter(ArrayList<MultipleAttributeModel> list, AttributeAddDeleteListener listenr) {
+    public MultipleAttributeAdapter(ArrayList<AttributeModelNew> list, AttributeAddDeleteListener listenr) {
         this.listenr = listenr;
         this.list = list;
     }
@@ -59,7 +59,7 @@ public class MultipleAttributeAdapter extends RecyclerView.Adapter<MultipleAttri
             this.binding = databinding;
         }
 
-        public void bind(MultipleAttributeModel data) {
+        public void bind(AttributeModelNew data) {
             this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();

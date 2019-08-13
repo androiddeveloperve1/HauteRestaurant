@@ -8,6 +8,7 @@ import com.app.mylibertarestaurant.model.CategoryModel;
 import com.app.mylibertarestaurant.model.InventoryModel;
 import com.app.mylibertarestaurant.model.InventoryResponseModel;
 import com.app.mylibertarestaurant.model.TimeSlotUpdate;
+import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
@@ -93,7 +94,7 @@ public interface APIInterface {
                                              @Part("full_price") RequestBody full_price,
                                              @Part("half_price") RequestBody half_price,
                                              @Part("food_type") RequestBody food_type,
-                                             @Part("attribute_id") RequestBody attribute_id,
+                                             @Part("attribute") RequestBody attribute_id,
                                              @Part("description") RequestBody description,
                                              @Part("is_available") RequestBody is_available);
 
@@ -108,7 +109,7 @@ public interface APIInterface {
                                               @Part("full_price") RequestBody full_price,
                                               @Part("half_price") RequestBody half_price,
                                               @Part("food_type") RequestBody food_type,
-                                              @Part("attribute_id") RequestBody attribute_id,
+                                              @Part("attribute") RequestBody attribute_id,
                                               @Part("description") RequestBody description,
                                               @Part("is_available") RequestBody is_available,
                                               @Part("foodrelation_id") RequestBody foodrelation_id);
@@ -141,5 +142,8 @@ public interface APIInterface {
     @PUT(UrlConstants.READY_FOR_PICKUP_VERIFY)
     Observable<ApiResponseModel> readyForPickupVerify(@Body HashMap<String, String> body);
 
+
+    @GET(UrlConstants.INVENTORY)
+    Observable<ApiResponseModel<ArrayList<InventoryModelNew>>> getInventoryNew();
 
 }

@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.fragments.EarningFragment;
+import com.app.mylibertarestaurant.fragments.FragmentInventoryNew;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
 import com.app.mylibertarestaurant.fragments.InventoryFragment;
 import com.app.mylibertarestaurant.fragments.ProfileFragment;
@@ -189,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             iv_earn.setImageResource(R.drawable.ic_earning_off);
             iv_profile.setImageResource(R.drawable.ic_my_profile_off);
             iv_help.setImageResource(R.drawable.ic_support_off);
-            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new InventoryFragment());
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new FragmentInventoryNew());
             drawer.closeDrawer(GravityCompat.START);
         });
 

@@ -10,7 +10,7 @@
 
         <variable
             name="model"
-            type="com.app.mylibertarestaurant.model.MultipleAttributeModel" />
+            type="com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew" />
 
         <variable
             name="click"
@@ -20,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/_5_px">
 
@@ -34,6 +34,7 @@
             android:hint="Attribute name"
             android:imeOptions="actionNext"
             android:padding="@dimen/_5_px"
+            android:text="@={model.attribute_name}"
             android:textSize="@dimen/_10_px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/et_attribute_price"
@@ -50,7 +51,8 @@
             android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:padding="@dimen/_5_px"
-            android:text="0"
+            android:text="@={model.attribute_price}"
+
             android:textSize="@dimen/_10_px"
             app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
             app:layout_constraintRight_toLeftOf="@+id/rl_add_remove"
@@ -69,24 +71,12 @@
                 android:id="@+id/tv_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_attribute_add"
-                android:gravity="center"
-                android:onClick="@{(v)->click.onAttributeAdd(position)}"
-                android:text="ADD"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_9_px" />
-
-            <TextView
-                android:id="@+id/tv_remove"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:background="@drawable/bg_attribute_remove"
                 android:gravity="center"
                 android:onClick="@{(v)->click.onAttributeDelete(position)}"
                 android:text="REMOVE"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_9_px"
-                android:visibility="gone" />
+                android:textSize="@dimen/_9_px" />
 
 
         </RelativeLayout>

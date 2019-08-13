@@ -68,9 +68,10 @@ public class InventoryFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            try{
+            try {
                 tabLayout.getTabAt(0).select();
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             new Handler().postAtTime(() -> {
                 getInventory();

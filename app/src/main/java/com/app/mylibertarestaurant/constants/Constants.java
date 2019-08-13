@@ -33,8 +33,9 @@ public class Constants {
     public static String  DELIVERY_STATUS_5 = "Delivered";
     public static String  DELIVERY_STATUS_6 = "Ready for Pickup";
 
-    public static int  ADD_NEW = 1;
-    public static int  COPY = 2;
+    public static int  ADD_NEW = 0;
+    public static int  COPY = 1;
+    public static int  EDIT = 2;
 
 
 

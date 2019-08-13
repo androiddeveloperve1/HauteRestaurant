@@ -47,7 +47,6 @@ public class EditItemActivity extends ImageUploadingActivity {
     APIInterface apiInterface;
     private ActivityEditItemBinding binder;
     private InventoryModel dataToBeEdit;
-    private String attributeId;
     private Bitmap restaurantImage;
     private RestaurantDetailModel restaurantDetailModel;
     private ArrayList<CategoryModel> categoryList = new ArrayList<>();
@@ -58,7 +57,6 @@ public class EditItemActivity extends ImageUploadingActivity {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_edit_item);
         binder.setClick(new Click());
-        attributeId = getIntent().getStringExtra("attribute_id");
         dataToBeEdit = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModel.class);
         restaurantDetailModel = MySharedPreference.getInstance(EditItemActivity.this).getUser();
         copyItemData();
@@ -98,12 +96,7 @@ public class EditItemActivity extends ImageUploadingActivity {
                             binder.spnrAttribute.setAdapter(new AttributeAdapter(attributeList));
 
 
-                            for (int i = 0; i < response.getData().size(); i++) {
-                                if (attributeId.equals(response.getData().get(i).get_id())) {
-                                    binder.spnrAttribute.setSelection(i);
-                                    break;
-                                }
-                            }
+
 
 
                         } else {

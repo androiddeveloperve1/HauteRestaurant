@@ -16,5 +16,6 @@
     <color name="black_trans">#80000000</color>
     <color name="red">#FFFF0000</color>
     <color name="redAlpha">#80FF0000</color>
+    <color name="colorTransparent">#80000000</color>
 
 </resources>

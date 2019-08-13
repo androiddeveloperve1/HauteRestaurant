@@ -21,9 +21,7 @@ import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.CategoryModel;
 import com.app.mylibertarestaurant.model.InventoryModel;
-import com.app.mylibertarestaurant.model.MultipleAttributeModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
-import com.app.mylibertarestaurant.model.items.RestaurantDetail;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.MultipartUtils;
@@ -33,7 +31,6 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -56,7 +53,6 @@ public class CopyItemActivity extends ImageUploadingActivity {
     private ArrayList<CategoryModel> categoryList = new ArrayList<>();
     private ArrayList<AttributeModel> attributeList = new ArrayList<>();
     private InventoryModel dataToBECOpy;
-    private String attributeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +64,6 @@ public class CopyItemActivity extends ImageUploadingActivity {
         restaurantDetailModel = MySharedPreference.getInstance(CopyItemActivity.this).getUser();
         if (flag == Constants.COPY) {
             // copy the same data
-            attributeId = getIntent().getStringExtra("attribute_id");
             dataToBECOpy = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModel.class);
             copyItemData();
 
@@ -76,6 +71,7 @@ public class CopyItemActivity extends ImageUploadingActivity {
         getAttribute();
         getCategory();
     }
+
     private void getAttribute() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(CopyItemActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(CopyItemActivity.this);
@@ -101,12 +97,6 @@ public class CopyItemActivity extends ImageUploadingActivity {
                             attributeList.addAll(response.getData());
                             binder.spnrAttribute.setAdapter(new AttributeAdapter(attributeList));
                             if (flag == Constants.COPY) {
-                                for (int i = 0; i < response.getData().size(); i++) {
-                                    if (attributeId.equals(response.getData().get(i).get_id())) {
-                                        binder.spnrAttribute.setSelection(i);
-                                        break;
-                                    }
-                                }
 
 
                             }
