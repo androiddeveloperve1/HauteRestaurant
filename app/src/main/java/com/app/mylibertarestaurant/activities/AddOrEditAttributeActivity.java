@@ -72,6 +72,10 @@ public class AddOrEditAttributeActivity extends AppCompatActivity implements Att
                     Toast.makeText(AddOrEditAttributeActivity.this, "Please fill the attribute or remove the attribute", Toast.LENGTH_LONG).show();
                     return;
                 }
+                if (arayList.get(i).getAttribute_price() == null || arayList.get(i).getAttribute_price().trim().length() <= 0) {
+                    Toast.makeText(AddOrEditAttributeActivity.this, "Please fill the attribute price", Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
             Intent mIntent = new Intent();
             mIntent.putExtra("data", new Gson().toJson(arayList));
