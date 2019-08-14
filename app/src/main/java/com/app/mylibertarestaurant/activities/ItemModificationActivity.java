@@ -242,6 +242,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                            setResult(Activity.RESULT_OK );
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
@@ -264,7 +265,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     private void editFoodItem() {
         MultipartBody.Part image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "food_image", "food_image.jpg");
         RequestBody item_id = RequestBody.create(MediaType.parse("text/plain"), binder.etProductName.getText().toString().trim());
-        RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), restaurantDetailModel.get_id());
+        RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), restaurantDetailModel.getRestaurants().get_id());
         RequestBody category_id = RequestBody.create(MediaType.parse("text/plain"), categoryList.get(binder.spnrCategory.getSelectedItemPosition()).get_id());
         RequestBody price_devide = RequestBody.create(MediaType.parse("text/plain"), "0");
         RequestBody full_price = RequestBody.create(MediaType.parse("text/plain"), binder.etProductPrice.getText().toString().trim());
@@ -282,7 +283,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             isAvailbale = "0";
         }
         RequestBody is_available = RequestBody.create(MediaType.parse("text/plain"), isAvailbale);
-        RequestBody food_itemId = RequestBody.create(MediaType.parse("text/plain"), inventoryModelNew.getItem_id().get_id());
+        RequestBody food_itemId = RequestBody.create(MediaType.parse("text/plain"), inventoryModelNew.get_id());
         RequestBody attribute = RequestBody.create(MediaType.parse("text/plain"), new Gson().toJson(inventoryModelNew.getAttribute()));
 
 
@@ -308,6 +309,8 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+
+                            setResult(Activity.RESULT_OK );
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
@@ -352,6 +355,8 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         public void goAttribute(View e) {
             Intent mIntent = new Intent(ItemModificationActivity.this, AddOrEditAttributeActivity.class);
             if (flag != Constants.ADD_NEW) {
+                if(inventoryModelNew.getAttribute()==null)
+                    inventoryModelNew.setAttribute(new ArrayList<AttributeModelNew>());
                 mIntent.putExtra("data", new Gson().toJson(inventoryModelNew.getAttribute()));
             }
             startActivityForResult(mIntent, 100);

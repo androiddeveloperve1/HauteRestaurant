@@ -19,10 +19,14 @@ import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.InventoryModel;
+import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
 import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -46,6 +50,12 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         data = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModelNew.class);
         binder.setModel(data);
         attributeId = getIntent().getStringExtra("attribute_id");
+
+        initMenu();
+        showAttribute();
+    }
+
+    void showAttribute() {
         if (data.getAttribute() != null && data.getAttribute().size() > 0) {
             for (int i = 0; i < data.getAttribute().size(); i++) {
                 binder.tagGroupFav.addTag(data.getAttribute().get(i).getAttribute_name());
@@ -53,9 +63,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         } else {
             binder.tagGroupFav.addTag("No Attribute found");
         }
-        initMenu();
     }
-
 
     void initMenu() {
         popup = new PopupMenu(ItemDescriptionActivity.this, binder.ivThreeDot);
@@ -69,13 +77,13 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                         mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.EDIT);
-                        startActivityForResult(mIntent, 20);
+                        startActivityForResult(mIntent, 100);
                         break;
                     case R.id.copy:
                         mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.COPY);
-                        startActivityForResult(mIntent, 20);
+                        startActivityForResult(mIntent, 100);
                         break;
                     case R.id.delete:
                         deleteAlert();
@@ -139,11 +147,9 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == Activity.RESULT_OK) {
-            setResult(Activity.RESULT_OK);
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data2) {
+        super.onActivityResult(requestCode, resultCode, data2);
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
             finish();
         }
 

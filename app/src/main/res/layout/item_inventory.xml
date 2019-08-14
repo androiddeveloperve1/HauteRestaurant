@@ -63,7 +63,7 @@
                 android:layout_marginRight="@dimen/_5_px"
                 android:setAvailable="@{model.is_available}"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:paddingLeft="@dimen/_10_px"
+                android:paddingLeft="@dimen/_5_px"
                 android:paddingTop="@dimen/_3_px"
                 android:paddingRight="@dimen/_5_px"
                 android:paddingBottom="@dimen/_3_px"

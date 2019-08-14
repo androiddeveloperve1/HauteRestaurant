@@ -7,6 +7,10 @@
             name="adapter"
             type="com.app.mylibertarestaurant.adapter.InventoryItemAdapter" />
 
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.activities.ActivitySearchItem.MyClick" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,20 +36,22 @@
                 android:layout_width="@dimen/_25_px"
                 android:layout_height="@dimen/_25_px"
                 android:layout_marginTop="@dimen/_20_px"
+                android:onClick="@{(v)->click.onBack(v)}"
                 android:padding="@dimen/_5_px"
                 android:src="@drawable/ic_back_white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
+                android:id="@+id/et_search"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginRight="@dimen/_5_px"
                 android:background="@drawable/bg_search"
                 android:gravity="center|left"
+                android:hint="Search Item "
                 android:paddingLeft="@dimen/_5_px"
                 android:paddingRight="@dimen/_5_px"
-                android:hint="Search here"
                 android:textSize="@dimen/_10_px"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
                 app:layout_constraintLeft_toRightOf="@+id/back"
@@ -59,9 +65,11 @@
                 android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                android:onClick="@{(v)->click.onCancel(v)}"
                 android:text="Cancel"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12_px"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/back" />
@@ -69,11 +77,28 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/tv_no_result"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/_5_px"
+            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+            android:onClick="@{(v)->click.onCancel(v)}"
+            android:text="No result found "
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:adapter="@{adapter}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

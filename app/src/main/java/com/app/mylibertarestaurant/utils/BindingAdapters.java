@@ -78,7 +78,7 @@ public class BindingAdapters {
             textView.setText("Available");
         } else {
             textView.setBackgroundResource(R.drawable.un_available_bg);
-            textView.setText("Un Available");
+            textView.setText("Unavailable");
         }
     }
 

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.activities.ActivitySearchItem;
@@ -68,13 +69,18 @@ public class FragmentInventoryNew extends Fragment {
             }
         }, list);
         binder.setAdapter(inventoryItemAdapter);
+        binder.pullRefresh.setOnRefreshListener(() -> {
+            getInventory();
+
+
+        });
         getInventory();
         View view = binder.getRoot();
         return view;
     }
 
     private void getInventory() {
-        final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
+        binder.pullRefresh.setRefreshing(true);
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
         apiInterface.getInventoryNew()
                 .subscribeOn(Schedulers.io())
@@ -86,14 +92,14 @@ public class FragmentInventoryNew extends Fragment {
 
                     @Override
                     public void onError(Throwable throwable) {
-                        progressDialog.dismiss();
+                        binder.pullRefresh.setRefreshing(false);
                         ResponseDialog.showErrorDialog(getActivity(), throwable.getLocalizedMessage());
                     }
 
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<InventoryModelNew>> response) {
-                        progressDialog.dismiss();
                         Log.e("@@@@@@@@", new Gson().toJson(response));
+                        binder.pullRefresh.setRefreshing(false);
                         if (response.getStatus().equals("200")) {
                             originalList.clear();
                             originalList.addAll(response.getData());
@@ -147,8 +153,8 @@ public class FragmentInventoryNew extends Fragment {
         }
 
         public void onSearch(View v) {
-            /*Intent mIntent = new Intent(getActivity(), ActivitySearchItem.class);
-            startActivity(mIntent);*/
+            Intent mIntent = new Intent(getActivity(), ActivitySearchItem.class);
+            startActivity(mIntent);
         }
 
         public void onAdd(View v) {
