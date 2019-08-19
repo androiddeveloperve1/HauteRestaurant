@@ -97,7 +97,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     private void deleteItem() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemDescriptionActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemDescriptionActivity.this);
-        apiInterface.deleteFoodItem(data.getFoodItemId())
+        apiInterface.deleteFoodItem(data.get_id())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -115,7 +115,6 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-
                             setResult(Activity.RESULT_OK);
                             finish();
                         } else {

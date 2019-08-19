@@ -358,6 +358,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 if(inventoryModelNew.getAttribute()==null)
                     inventoryModelNew.setAttribute(new ArrayList<AttributeModelNew>());
                 mIntent.putExtra("data", new Gson().toJson(inventoryModelNew.getAttribute()));
+            }else {
+                inventoryModelNew=new InventoryModelNew();
+                inventoryModelNew.setAttribute(new ArrayList<AttributeModelNew>());
+                mIntent.putExtra("data", new Gson().toJson(inventoryModelNew.getAttribute()));
             }
             startActivityForResult(mIntent, 100);
         }

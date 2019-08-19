@@ -67,7 +67,6 @@
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13_px"
-
                 app:layout_constraintBottom_toBottomOf="@id/tv_open_text1"
                 app:layout_constraintLeft_toRightOf="@+id/tv_open_text1"
                 app:layout_constraintTop_toTopOf="@id/tv_open_text1" />
@@ -102,7 +101,6 @@
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13_px"
-
                 app:layout_constraintBottom_toBottomOf="@id/tv_open_text1"
                 app:layout_constraintLeft_toRightOf="@+id/tv_close_text1"
                 app:layout_constraintTop_toTopOf="@id/tv_open_text1" />

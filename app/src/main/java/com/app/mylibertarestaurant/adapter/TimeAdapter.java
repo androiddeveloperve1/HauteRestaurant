@@ -41,14 +41,14 @@ public class TimeAdapter extends PagerAdapter {
 
         if (slots.isIs_selected()) {
             tv_slot1.setText(slots.getTimings().get(0).getOpenAt() + "-" + slots.getTimings().get(0).getCloseAt());
-
-
-            if (slots.isIs_two_slot()) {
+            /*if (slots.isIs_two_slot()) {
                 tv_slot2.setVisibility(View.VISIBLE);
                 tv_slot2.setText(slots.getTimings().get(1).getOpenAt() + "-" + slots.getTimings().get(1).getCloseAt());
             } else {
                 tv_slot2.setVisibility(View.GONE);
-            }
+            }*/
+
+
         } else {
             tv_slot1.setText("Not available this day");
             tv_slot2.setVisibility(View.GONE);

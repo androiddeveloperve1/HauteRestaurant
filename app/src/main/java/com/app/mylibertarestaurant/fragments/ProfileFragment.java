@@ -198,8 +198,6 @@ public class ProfileFragment extends Fragment {
     }
 
     void tue() {
-
-
         binder.includeLayout.lineMon.setVisibility(View.GONE);
         binder.includeLayout.lineTue.setVisibility(View.VISIBLE);
         binder.includeLayout.lineWed.setVisibility(View.GONE);
@@ -211,7 +209,6 @@ public class ProfileFragment extends Fragment {
     }
 
     void wed() {
-
         binder.includeLayout.lineMon.setVisibility(View.GONE);
         binder.includeLayout.lineTue.setVisibility(View.GONE);
         binder.includeLayout.lineWed.setVisibility(View.VISIBLE);

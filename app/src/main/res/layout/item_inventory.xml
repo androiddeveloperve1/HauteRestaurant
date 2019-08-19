@@ -53,14 +53,16 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13_px"
                 app:layout_constraintLeft_toRightOf="@+id/iv_image"
+                app:layout_constraintRight_toLeftOf="@+id/tv_availablity"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_availablity"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_70_px"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_5_px"
                 android:layout_marginRight="@dimen/_5_px"
+                android:gravity="center"
                 android:setAvailable="@{model.is_available}"
                 android:fontStyleName="@{`Roboto_Regular.ttf`}"
                 android:paddingLeft="@dimen/_5_px"

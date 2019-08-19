@@ -5,6 +5,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -50,7 +51,9 @@ public class ActivitySearchItem extends AppCompatActivity {
         inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModelNew>() {
             @Override
             public void onItemClicked(int position, InventoryModelNew data) {
-
+                Intent mIntent = new Intent(ActivitySearchItem.this, ItemDescriptionActivity.class);
+                mIntent.putExtra("data", new Gson().toJson(data));
+                startActivity(mIntent);
             }
         }, list);
         binder.rvItems.setLayoutManager(new LinearLayoutManager(this));

@@ -33,8 +33,11 @@ public class AddOrEditAttributeActivity extends AppCompatActivity implements Att
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_add_or_edit_attribute);
+
+
         arayList = new Gson().fromJson(getIntent().getStringExtra("data"), new TypeToken<ArrayList<AttributeModelNew>>() {
         }.getType());
+
         binder.setClick(new MyClick());
         multipleAttributeAdapter = new MultipleAttributeAdapter(arayList, this);
         binder.rvItem.setLayoutManager(new LinearLayoutManager(this));

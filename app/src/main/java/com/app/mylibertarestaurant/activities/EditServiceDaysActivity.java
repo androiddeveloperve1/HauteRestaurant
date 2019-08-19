@@ -47,7 +47,7 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     APIInterface apiInterface;
 
     void pickTime(TextView from, TextView to, int position) {
-        restaurantDetailModel.getRestaurants().getOpenForService().get(position);
+
         from.setOnClickListener((v) -> {
             String time[] = from.getText().toString().split(":");
             TimePickerDialog timeDialog = new TimePickerDialog(from.getContext(), (timePicker, i, i1) -> {
@@ -82,6 +82,40 @@ public class EditServiceDaysActivity extends AppCompatActivity {
             timeDialog.show();
         });
 
+    }
+
+    void pickTime2(TextView from, TextView to, int position) {
+        from.setOnClickListener((v) -> {
+            String time[] = from.getText().toString().split(":");
+            TimePickerDialog timeDialog = new TimePickerDialog(from.getContext(), (timePicker, i, i1) -> {
+                String timeSelected = String.format("%02d:%02d", i, i1);
+                from.setText(timeSelected);
+                restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(1).setOpenAt(timeSelected);
+                restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(1).setCloseAt("");
+                to.setText("");
+            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), true);
+            timeDialog.show();
+        });
+
+
+        to.setOnClickListener((v) -> {
+            String time[] = from.getText().toString().split(":");
+            TimePickerDialog timeDialog = new TimePickerDialog(to.getContext(), (timePicker, i, i1) -> {
+                if (Integer.parseInt(time[0]) > i) {
+                    Toast.makeText(this, "Start time can not be before from End time", Toast.LENGTH_SHORT).show();
+                    restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(1).setCloseAt("");
+                    to.setText("");
+                } else if (Integer.parseInt(time[1]) > i1) {
+                    Toast.makeText(this, "Start time can not be before from End time", Toast.LENGTH_SHORT).show();
+                    restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(1).setCloseAt("");
+                    to.setText("");
+                } else {
+                    restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(1).setCloseAt(String.format("%02d:%02d", i, i1));
+                    to.setText(String.format("%02d:%02d", i, i1));
+                }
+            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), true);
+            timeDialog.show();
+        });
     }
 
 
@@ -125,13 +159,14 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     void clickMon() {
         binder.llMon.tvServiceDay.setText("Monday");
         binder.llMon.setMyModel(restaurantDetailModel.getRestaurants().getOpenForService().get(0));
+
         checkBox(binder.llMon.imgCheckbox, restaurantDetailModel.getRestaurants().getOpenForService().get(0));
 
         binder.llMon.imgAddNewSlot.setOnClickListener((v) -> {
             binder.llMon.llSlot2.setVisibility(View.VISIBLE);
             restaurantDetailModel.getRestaurants().getOpenForService().get(0).setIs_two_slot(true);
-
         });
+
         binder.llMon.imgRemoveNewSlot.setOnClickListener((v) -> {
             binder.llMon.llSlot2.setVisibility(View.GONE);
             restaurantDetailModel.getRestaurants().getOpenForService().get(0).setIs_two_slot(false);
@@ -243,13 +278,14 @@ public class EditServiceDaysActivity extends AppCompatActivity {
         if (!(restaurantDetailModel.getRestaurants().getOpenForService() != null && restaurantDetailModel.getRestaurants().getOpenForService().size() > 0)) {
             restaurantDetailModel.getRestaurants().setOpenForService(AppUtils.initDummyTimeData());
         }
-        setTimeToTextView();
+        setTimeToTextView1();
         initClick();
     }
 
-    void setTimeToTextView() {
+    void setTimeToTextView1() {
         binder.llMon.tvOpenTime1.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(0).getTimings().get(0).getOpenAt());
         binder.llMon.tvCloseTime1.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(0).getTimings().get(0).getCloseAt());
+
 
         binder.llTue.tvOpenTime1.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(1).getTimings().get(0).getOpenAt());
         binder.llTue.tvCloseTime1.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(1).getTimings().get(0).getCloseAt());
@@ -269,6 +305,95 @@ public class EditServiceDaysActivity extends AppCompatActivity {
 
         binder.llSun.tvOpenTime1.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(6).getTimings().get(0).getOpenAt());
         binder.llSun.tvCloseTime1.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(6).getTimings().get(0).getCloseAt());
+        //setTimeToTextView2();
+    }
+
+
+    void setTimeToTextView2() {
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(0).isIs_two_slot()) {
+            binder.llMon.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llMon.llSlot2.setVisibility(View.VISIBLE);
+            binder.llMon.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(0).getTimings().get(1).getOpenAt());
+            binder.llMon.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(0).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llMon.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llMon.llSlot2.setVisibility(View.GONE);
+        }
+
+        pickTime2(binder.llMon.tvOpenTime2, binder.llMon.tvCloseTime2, 0);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(1).isIs_two_slot()) {
+            binder.llTue.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llTue.llSlot2.setVisibility(View.VISIBLE);
+            binder.llTue.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(1).getTimings().get(1).getOpenAt());
+            binder.llTue.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(1).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llTue.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llTue.llSlot2.setVisibility(View.GONE);
+        }
+        pickTime2(binder.llTue.tvOpenTime2, binder.llTue.tvCloseTime2, 1);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(2).isIs_two_slot()) {
+            binder.llWed.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llWed.llSlot2.setVisibility(View.VISIBLE);
+            binder.llWed.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(2).getTimings().get(1).getOpenAt());
+            binder.llWed.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(2).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llWed.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llWed.llSlot2.setVisibility(View.GONE);
+        }
+        pickTime2(binder.llWed.tvOpenTime2, binder.llWed.tvCloseTime2, 2);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(3).isIs_two_slot()) {
+            binder.llThu.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llThu.llSlot2.setVisibility(View.VISIBLE);
+            binder.llThu.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(3).getTimings().get(1).getOpenAt());
+            binder.llThu.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(3).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llThu.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llThu.llSlot2.setVisibility(View.GONE);
+        }
+        pickTime2(binder.llThu.tvOpenTime2, binder.llThu.tvCloseTime2, 3);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(4).isIs_two_slot()) {
+            binder.llFri.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llFri.llSlot2.setVisibility(View.VISIBLE);
+            binder.llFri.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(4).getTimings().get(1).getOpenAt());
+            binder.llFri.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(4).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llFri.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llFri.llSlot2.setVisibility(View.GONE);
+        }
+        pickTime2(binder.llFri.tvOpenTime2, binder.llFri.tvCloseTime2, 4);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(5).isIs_two_slot()) {
+            binder.llSat.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llSat.llSlot2.setVisibility(View.VISIBLE);
+            binder.llSat.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(5).getTimings().get(1).getOpenAt());
+            binder.llSat.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(5).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llSat.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llSat.llSlot2.setVisibility(View.GONE);
+        }
+        pickTime2(binder.llSat.tvOpenTime2, binder.llSat.tvCloseTime2, 5);
+
+
+        if (restaurantDetailModel.getRestaurants().getOpenForService().get(6).isIs_two_slot()) {
+            binder.llSun.imgAddNewSlot.setVisibility(View.GONE);
+            binder.llSun.llSlot2.setVisibility(View.VISIBLE);
+            binder.llSun.tvOpenTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(6).getTimings().get(1).getOpenAt());
+            binder.llSun.tvCloseTime2.setText(restaurantDetailModel.getRestaurants().getOpenForService().get(6).getTimings().get(1).getCloseAt());
+        }else {
+            binder.llSun.imgAddNewSlot.setVisibility(View.VISIBLE);
+            binder.llSun.llSlot2.setVisibility(View.GONE);
+        }
+        pickTime2(binder.llSun.tvOpenTime2, binder.llSun.tvCloseTime2, 6);
+
 
     }
 
@@ -309,28 +434,21 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     }
 
     public class Click {
-
-        public void finishNow(View v){
+        public void finishNow(View v) {
             finish();
         }
         public void close(View v) {
             boolean isTrue = true;
             for (int i = 0; i < restaurantDetailModel.getRestaurants().getOpenForService().size(); i++) {
-
                 if (restaurantDetailModel.getRestaurants().getOpenForService().get(i).isIs_selected()) {
-
                     if (restaurantDetailModel.getRestaurants().getOpenForService().get(i).getTimings().get(0).getOpenAt().trim().length() <= 0 ||
                             restaurantDetailModel.getRestaurants().getOpenForService().get(i).getTimings().get(0).getCloseAt().trim().length() <= 0) {
 
                         Toast.makeText(EditServiceDaysActivity.this, "Please select the time", Toast.LENGTH_SHORT).show();
                         isTrue = false;
                         break;
-
                     }
-
-
                 }
-
             }
             if (isTrue) {
                 updateTime();

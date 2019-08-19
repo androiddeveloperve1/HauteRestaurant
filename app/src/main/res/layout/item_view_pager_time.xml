@@ -16,6 +16,7 @@
         android:id="@+id/tv_slot2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginLeft="@dimen/_10_px"
         android:background="@drawable/edit_text_bg"
         android:text="10:36-12:40"
