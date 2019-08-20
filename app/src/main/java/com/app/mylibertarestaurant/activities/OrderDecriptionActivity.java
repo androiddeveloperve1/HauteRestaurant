@@ -254,7 +254,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(OrderDecriptionActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(OrderDecriptionActivity.this);
         HashMap<String, String> param = new HashMap<>();
-        param.put("driverId", orderDetailsModel.get_id());
+        param.put("driverId", orderDetailsModel.getDriver_id());
         param.put("orderId", orderDetailsModel.get_id());
         param.put("otp", otp);
 
@@ -313,7 +313,6 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         Log.e("##",new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
-
                             orderDetailsModel = response.getData();
                             showDataNow();
                             binder.viewTool.toolbarTitle.setText("ORDER ID :" + orderDetailsModel.getOrder_no());

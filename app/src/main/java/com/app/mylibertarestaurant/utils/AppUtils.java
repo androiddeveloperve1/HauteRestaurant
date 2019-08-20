@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.TimeZone;
 
 //code improvement, handle permission gps, geofencing , distance and time ,
@@ -24,6 +25,8 @@ public class AppUtils {
 
     static DateFormat utcFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
     static DateFormat humanFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
+    static SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
+    static SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
 
     public static boolean eMailValidation(CharSequence target) {
         if (target == null) {
@@ -69,7 +72,7 @@ public class AppUtils {
             flag = Constants.DELIVERY_STATUS_4;
         } else if (status.equals("5")) {
             flag = Constants.DELIVERY_STATUS_5;
-        }else if (status.equals("6")) {
+        } else if (status.equals("6")) {
             flag = Constants.DELIVERY_STATUS_6;
         }
         return flag;
@@ -86,18 +89,39 @@ public class AppUtils {
             ArrayList<TimeSlotModel> timeSlotModels = new ArrayList<>();
             TimeSlotModel time = null;
             time = new TimeSlotModel();
-            time.setOpenAt("");
-            time.setCloseAt("");
+            time.setOpenAt("10:00");
+            time.setCloseAt("06:00");
             timeSlotModels.add(time);
 
             time = new TimeSlotModel();
-            time.setOpenAt("");
-            time.setCloseAt("");
+            time.setOpenAt("10:00");
+            time.setCloseAt("06:00");
             timeSlotModels.add(time);
             model.setTimings(timeSlotModels);
             timesSlotList.add(model);
         }
         return timesSlotList;
+    }
+
+
+    public static String get12HoursTimeFormat(String _24HourTime) {
+        try {
+            Date _24HourDt = _24HourSDF.parse(_24HourTime);
+            return _12HourSDF.format(_24HourDt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String get24HoursTimeFormat(String _12HourTime) {
+        try {
+            Date _12HourDt = _12HourSDF.parse(_12HourTime);
+            return _24HourSDF.format(_12HourDt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "10:00";
     }
 
 }

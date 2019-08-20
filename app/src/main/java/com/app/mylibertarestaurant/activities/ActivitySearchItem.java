@@ -95,7 +95,6 @@ public class ActivitySearchItem extends AppCompatActivity {
                             }
                         });
 
-
                     }
                 }, 300);
             }

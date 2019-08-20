@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.app.mylibertarestaurant.BR;
+import com.app.mylibertarestaurant.utils.AppUtils;
 
 /**
  * Create By Rahul Mangal
@@ -17,11 +18,7 @@ public class TimeSlotModel extends BaseObservable {
 
     @Bindable
     public String getOpenAt() {
-
-      /*  if (openAt.trim().length() <= 0) {
-            openAt = "00:00";
-        }*/
-        return openAt;
+        return AppUtils.get12HoursTimeFormat(openAt);
     }
 
     public void setOpenAt(String openAt) {
@@ -31,11 +28,7 @@ public class TimeSlotModel extends BaseObservable {
 
     @Bindable
     public String getCloseAt() {
-
-       /* if (closeAt.trim().length() <= 0) {
-            closeAt = "00:00";
-        }*/
-        return closeAt;
+        return AppUtils.get12HoursTimeFormat(closeAt);
     }
 
     public void setCloseAt(String closeAt) {

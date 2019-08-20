@@ -6,15 +6,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app.mylibertarestaurant.BR;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.OrderItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.items.OrderItemModel;
 
 import java.util.ArrayList;
 
-import static com.app.mylibertarestaurant.BR.model;
 
 /**
  * Create By Rahul Mangal
@@ -33,6 +34,9 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
     public OrderItemDescriptionAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         OrderItemDescriptionBinding binding = DataBindingUtil.inflate(inflater, R.layout.order_item_description, viewGroup, false);
+       /* binding.rvAtribute.setLayoutManager(new LinearLayoutManager(viewGroup.getContext()));
+
+        binding.setAdapter(new ShowAttributeAdapter(order.get(i).getItem_id().getItemInfo().getAttribute()));*/
         return new OrderItemDescriptionAdapter.MyViewHolder(binding);
     }
 
@@ -56,7 +60,9 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
         }
 
         public void bind(OrderItemModel data) {
-            this.binding.setVariable(model,data);
+            this.binding.setVariable(BR.model, data);
+
+
             this.binding.executePendingBindings();
         }
 

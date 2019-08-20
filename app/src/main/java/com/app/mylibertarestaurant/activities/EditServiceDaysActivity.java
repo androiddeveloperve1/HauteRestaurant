@@ -47,22 +47,21 @@ public class EditServiceDaysActivity extends AppCompatActivity {
     APIInterface apiInterface;
 
     void pickTime(TextView from, TextView to, int position) {
-
         from.setOnClickListener((v) -> {
-            String time[] = from.getText().toString().split(":");
+            String time[] = AppUtils.get24HoursTimeFormat(from.getText().toString()).split(":");
             TimePickerDialog timeDialog = new TimePickerDialog(from.getContext(), (timePicker, i, i1) -> {
-                String timeSelected = String.format("%02d:%02d", i, i1);
+                String timeSelected = AppUtils.get12HoursTimeFormat(String.format("%02d:%02d", i, i1));
                 from.setText(timeSelected);
-                restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(0).setOpenAt(timeSelected);
+                restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(0).setOpenAt(String.format("%02d:%02d", i, i1));
                 restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(0).setCloseAt("");
                 to.setText("");
-            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), true);
+            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), false);
             timeDialog.show();
         });
 
 
         to.setOnClickListener((v) -> {
-            String time[] = from.getText().toString().split(":");
+            String time[] = AppUtils.get24HoursTimeFormat(from.getText().toString()).split(":");
             TimePickerDialog timeDialog = new TimePickerDialog(to.getContext(), (timePicker, i, i1) -> {
                 if (Integer.parseInt(time[0]) > i) {
                     Toast.makeText(this, "Start time can not be before from End time", Toast.LENGTH_SHORT).show();
@@ -74,11 +73,12 @@ public class EditServiceDaysActivity extends AppCompatActivity {
                     to.setText("");
                 } else {
                     restaurantDetailModel.getRestaurants().getOpenForService().get(position).getTimings().get(0).setCloseAt(String.format("%02d:%02d", i, i1));
-                    to.setText(String.format("%02d:%02d", i, i1));
+                    String timeSelected = AppUtils.get12HoursTimeFormat(String.format("%02d:%02d", i, i1));
+                    to.setText(timeSelected);
                 }
 
 
-            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), true);
+            }, Integer.parseInt(time[0]), Integer.parseInt(time[1]), false);
             timeDialog.show();
         });
 
@@ -440,15 +440,13 @@ public class EditServiceDaysActivity extends AppCompatActivity {
         public void close(View v) {
             boolean isTrue = true;
             for (int i = 0; i < restaurantDetailModel.getRestaurants().getOpenForService().size(); i++) {
-                if (restaurantDetailModel.getRestaurants().getOpenForService().get(i).isIs_selected()) {
-                    if (restaurantDetailModel.getRestaurants().getOpenForService().get(i).getTimings().get(0).getOpenAt().trim().length() <= 0 ||
-                            restaurantDetailModel.getRestaurants().getOpenForService().get(i).getTimings().get(0).getCloseAt().trim().length() <= 0) {
-
-                        Toast.makeText(EditServiceDaysActivity.this, "Please select the time", Toast.LENGTH_SHORT).show();
+                //if (restaurantDetailModel.getRestaurants().getOpenForService().get(i).isIs_selected()) {
+                    if (restaurantDetailModel.getRestaurants().getOpenForService().get(i).getTimings().get(0).getOpenAt().trim().length() <= 0 || restaurantDetailModel.getRestaurants().getOpenForService().get(i).getTimings().get(0).getCloseAt().trim().length() <= 0) {
+                        Toast.makeText(EditServiceDaysActivity.this, "Please fill every time slot", Toast.LENGTH_SHORT).show();
                         isTrue = false;
                         break;
                     }
-                }
+                //}
             }
             if (isTrue) {
                 updateTime();

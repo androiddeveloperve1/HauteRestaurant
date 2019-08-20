@@ -32,6 +32,17 @@ public class OrderDetailsModel extends BaseObservable {
     private String distance = "";
     private String order_no;
     private String is_driver_assign;
+    private String driver_id;
+
+@Bindable
+    public String getDriver_id() {
+        return driver_id;
+    }
+
+    public void setDriver_id(String driver_id) {
+        this.driver_id = driver_id;
+        this.notifyPropertyChanged(BR.driver_id);
+    }
 
     @Bindable
     public String getIs_driver_assign() {

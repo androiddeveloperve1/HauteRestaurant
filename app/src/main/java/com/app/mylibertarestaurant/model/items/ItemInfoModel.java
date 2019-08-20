@@ -4,6 +4,10 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import com.app.mylibertarestaurant.BR;
+import com.app.mylibertarestaurant.model.AttributeModel;
+import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
+
+import java.util.ArrayList;
 
 /**
  * Create By Rahul Mangal
@@ -31,6 +35,18 @@ public class ItemInfoModel extends BaseObservable {
     private String createdAt;
     private String updatedAt;
     private String __v;
+
+    private ArrayList<AttributeModelNew> attribute;
+
+@Bindable
+    public ArrayList<AttributeModelNew> getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(ArrayList<AttributeModelNew> attribute) {
+        this.attribute = attribute;
+        this.notifyPropertyChanged(BR.attribute);
+    }
 
     public void set_id(String _id) {
         this._id = _id;

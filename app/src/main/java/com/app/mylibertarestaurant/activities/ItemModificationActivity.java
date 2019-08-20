@@ -242,7 +242,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
-                            setResult(Activity.RESULT_OK );
+                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
@@ -310,7 +310,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
 
-                            setResult(Activity.RESULT_OK );
+                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
@@ -355,12 +355,16 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         public void goAttribute(View e) {
             Intent mIntent = new Intent(ItemModificationActivity.this, AddOrEditAttributeActivity.class);
             if (flag != Constants.ADD_NEW) {
-                if(inventoryModelNew.getAttribute()==null)
+                if (inventoryModelNew.getAttribute() == null)
                     inventoryModelNew.setAttribute(new ArrayList<AttributeModelNew>());
                 mIntent.putExtra("data", new Gson().toJson(inventoryModelNew.getAttribute()));
-            }else {
-                inventoryModelNew=new InventoryModelNew();
-                inventoryModelNew.setAttribute(new ArrayList<AttributeModelNew>());
+            } else {
+                if (inventoryModelNew == null) {
+                    inventoryModelNew = new InventoryModelNew();
+                }
+                if (inventoryModelNew.getAttribute() == null) {
+                    inventoryModelNew.setAttribute(new ArrayList<AttributeModelNew>());
+                }
                 mIntent.putExtra("data", new Gson().toJson(inventoryModelNew.getAttribute()));
             }
             startActivityForResult(mIntent, 100);

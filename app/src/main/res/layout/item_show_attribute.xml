@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/et_attribute_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10_px"
+            android:imeOptions="actionNext"
+            android:padding="@dimen/_5_px"
+            android:text="@={model.attribute_name}"
+            android:textSize="@dimen/_10_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/et_attribute_price"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/et_attribute_price"
+            android:layout_width="@dimen/_50_px"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_10_px"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/_5_px"
+            android:text="@={model.attribute_price}"
+            android:textSize="@dimen/_10_px"
+            app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/et_attribute_name" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
