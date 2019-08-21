@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 
 public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemDescriptionAdapter.MyViewHolder> {
     private ArrayList<OrderItemModel> order;
+    private Context context;
 
     public OrderItemDescriptionAdapter(ArrayList<OrderItemModel> order) {
         this.order = order;
@@ -33,10 +35,8 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
     @Override
     public OrderItemDescriptionAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        context=viewGroup.getContext();
         OrderItemDescriptionBinding binding = DataBindingUtil.inflate(inflater, R.layout.order_item_description, viewGroup, false);
-       /* binding.rvAtribute.setLayoutManager(new LinearLayoutManager(viewGroup.getContext()));
-
-        binding.setAdapter(new ShowAttributeAdapter(order.get(i).getItem_id().getItemInfo().getAttribute()));*/
         return new OrderItemDescriptionAdapter.MyViewHolder(binding);
     }
 
@@ -50,19 +50,19 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
         return order.size();
     }
 
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ViewDataBinding binding;
 
-        public MyViewHolder(ViewDataBinding databinding) {
+        public MyViewHolder(OrderItemDescriptionBinding databinding) {
             super(databinding.getRoot());
+            databinding.rvAtribute.setLayoutManager(new LinearLayoutManager(context));
             this.binding = databinding;
+
         }
 
         public void bind(OrderItemModel data) {
             this.binding.setVariable(BR.model, data);
-
-
+            this.binding.setVariable(BR.adapter, new ShowAttributeAdapter(order.get(getAdapterPosition()).getItem_id().getItemInfo().getAttribute()));
             this.binding.executePendingBindings();
         }
 

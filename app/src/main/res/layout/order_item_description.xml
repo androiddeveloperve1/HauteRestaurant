@@ -64,7 +64,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_atribute"
-            android:layout_marginLeft="@dimen/_10_px"
+            android:layout_marginLeft="@dimen/_20_px"
             android:layout_width="match_parent"
             android:adapter="@{adapter}"
             android:layout_height="wrap_content" />

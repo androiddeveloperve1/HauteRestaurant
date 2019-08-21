@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -24,7 +25,7 @@ public class ShowAttributeAdapter extends RecyclerView.Adapter<ShowAttributeAdap
     private ArrayList<AttributeModelNew> list;
 
     public ShowAttributeAdapter(ArrayList<AttributeModelNew> listnr) {
-        this.list = list;
+        this.list = listnr;
     }
 
     @NonNull
@@ -37,8 +38,8 @@ public class ShowAttributeAdapter extends RecyclerView.Adapter<ShowAttributeAdap
 
     @Override
     public void onBindViewHolder(@NonNull ShowAttributeAdapter.MyViewHolder holder, int i) {
-
         holder.bind(list.get(i));
+        Log.e("@@@@@@@",""+i);
     }
 
     @Override
@@ -49,7 +50,6 @@ public class ShowAttributeAdapter extends RecyclerView.Adapter<ShowAttributeAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ViewDataBinding binding;
-
         public MyViewHolder(ViewDataBinding databinding) {
             super(databinding.getRoot());
             this.binding = databinding;

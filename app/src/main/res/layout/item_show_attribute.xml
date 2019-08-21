@@ -26,7 +26,7 @@
             android:layout_marginRight="@dimen/_10_px"
             android:imeOptions="actionNext"
             android:padding="@dimen/_5_px"
-            android:text="@={model.attribute_name}"
+            android:text='@{model.attribute_name}'
             android:textSize="@dimen/_10_px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/et_attribute_price"
@@ -37,12 +37,11 @@
             android:id="@+id/et_attribute_price"
             android:layout_width="@dimen/_50_px"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/_10_px"
-            android:gravity="center"
             android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:padding="@dimen/_5_px"
-            android:text="@={model.attribute_price}"
+            android:gravity="right"
+            android:text='@{"$"+model.attribute_price}'
             android:textSize="@dimen/_10_px"
             app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
             app:layout_constraintRight_toRightOf="parent"
