@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
+   <!-- <item
         android:id="@+id/edit"
         android:orderInCategory="100"
         android:title="Edit"
@@ -10,7 +10,7 @@
         android:id="@+id/copy"
         android:orderInCategory="100"
         android:title="Make Copy"
-        app:showAsAction="never" />
+        app:showAsAction="never" />-->
     <item
         android:id="@+id/delete"
         android:orderInCategory="100"

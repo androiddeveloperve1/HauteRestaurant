@@ -73,7 +73,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 Intent mIntent;
                 switch (item.getItemId()) {
-                    case R.id.edit:
+                    /*case R.id.edit:
                         mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.EDIT);
@@ -84,7 +84,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.COPY);
                         startActivityForResult(mIntent, 100);
-                        break;
+                        break;*/
                     case R.id.delete:
                         deleteAlert();
                         break;
