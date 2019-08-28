@@ -3,6 +3,8 @@ package com.app.mylibertarestaurant.activities;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binder;
     @Inject
     APIInterface apiInterface;
+    private boolean isPasswordShow = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,20 @@ public class LoginActivity extends AppCompatActivity {
 
         public void forgot(View v) {
             startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+        }
+
+        public void onPassView(View e) {
+            if (!isPasswordShow) {
+                binder.etPass.setInputType(InputType.TYPE_CLASS_TEXT);
+                binder.etPass.setTransformationMethod(null);
+                binder.imgPass.setBackgroundResource(R.drawable.ic_eye_on);
+                isPasswordShow = true;
+            } else {
+                binder.imgPass.setBackgroundResource(R.drawable.ic_eye_off);
+                binder.etPass.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                binder.etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                isPasswordShow = false;
+            }
         }
 
 

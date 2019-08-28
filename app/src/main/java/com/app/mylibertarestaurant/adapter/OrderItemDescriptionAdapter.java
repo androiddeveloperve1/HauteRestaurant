@@ -10,7 +10,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.mylibertarestaurant.BR;
+import androidx.databinding.library.baseAdapters.BR;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.OrderItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.items.OrderItemModel;

@@ -3,7 +3,7 @@ package com.app.mylibertarestaurant.model;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.app.mylibertarestaurant.BR;
+import androidx.databinding.library.baseAdapters.BR;
 
 import java.util.ArrayList;
 

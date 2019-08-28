@@ -1,11 +1,5 @@
 package com.app.mylibertarestaurant.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,21 +9,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.OrderItemDescriptionAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
-import com.app.mylibertarestaurant.constants.UrlConstants;
 import com.app.mylibertarestaurant.databinding.ActivityOrderDecriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.network.APIInterface;
-import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.AppUtils;
-import com.app.mylibertarestaurant.utils.FragmentTransactionUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -315,7 +310,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                         if (response.getStatus().equals("200")) {
                             orderDetailsModel = response.getData();
                             showDataNow();
-                            binder.viewTool.toolbarTitle.setText("ORDER ID :" + orderDetailsModel.getOrder_no());
+                            binder.toolbarTitle.setText("ORDER ID :" + orderDetailsModel.getOrder_no());
                             binder.setAdapt(new OrderItemDescriptionAdapter(orderDetailsModel.getOrder()));
                             binder.setModel(orderDetailsModel);
                             binder.tvTime.setText(AppUtils.getHumanReadableTimeFromUTCString(orderDetailsModel.getCreatedAt()));
@@ -329,8 +324,8 @@ public class OrderDecriptionActivity extends AppCompatActivity {
     void showDataNow() {
         binder.setClickHandle(new Click());
         setOtpEditTextListener();
-        binder.viewTool.toolbarBack.setOnClickListener((v) -> onBackPressed());
-        binder.viewTool.toolbarHelp.setOnClickListener((v) -> startActivity(new Intent(OrderDecriptionActivity.this, HalpActivity.class)));
+        binder.toolbarBack.setOnClickListener((v) -> onBackPressed());
+        binder.toolbarHelp.setOnClickListener((v) -> startActivity(new Intent(OrderDecriptionActivity.this, HalpActivity.class)));
         if (tag == Constants.FROM_READY_REQUEST_TAG) {
             binder.llOrderRequest.setVisibility(View.GONE);
             binder.tvPickupReady.setVisibility(View.GONE);

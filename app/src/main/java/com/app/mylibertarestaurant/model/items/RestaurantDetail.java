@@ -3,7 +3,7 @@ package com.app.mylibertarestaurant.model.items;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.app.mylibertarestaurant.BR;
+import androidx.databinding.library.baseAdapters.BR;
 import com.app.mylibertarestaurant.model.CommisionModel;
 import com.app.mylibertarestaurant.model.Location;
 import com.app.mylibertarestaurant.model.TimeModel;

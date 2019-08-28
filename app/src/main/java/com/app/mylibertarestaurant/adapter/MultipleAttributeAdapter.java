@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.app.mylibertarestaurant.BR;
+import androidx.databinding.library.baseAdapters.BR;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemAttributeBinding;
 import com.app.mylibertarestaurant.itnerfaces.AttributeAddDeleteListener;

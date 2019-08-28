@@ -2,8 +2,8 @@ package com.app.mylibertarestaurant.model.items;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.library.baseAdapters.BR;
 
-import com.app.mylibertarestaurant.BR;
 import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
 
@@ -38,7 +38,7 @@ public class ItemInfoModel extends BaseObservable {
 
     private ArrayList<AttributeModelNew> attribute;
 
-@Bindable
+    @Bindable
     public ArrayList<AttributeModelNew> getAttribute() {
         return attribute;
     }
@@ -48,89 +48,14 @@ public class ItemInfoModel extends BaseObservable {
         this.notifyPropertyChanged(BR.attribute);
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
-        this.notifyPropertyChanged(BR._id);
-    }
-
-    public void setPrice_devide(String price_devide) {
-        this.price_devide = price_devide;
-        this.notifyPropertyChanged(BR.price_devide);
-    }
-
-    public void setHalf_price(String half_price) {
-        this.half_price = half_price;
-        this.notifyPropertyChanged(BR.half_price);
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-        this.notifyPropertyChanged(BR.image);
-    }
-
-    public void setFood_type(String food_type) {
-        this.food_type = food_type;
-        this.notifyPropertyChanged(BR.food_type);
-    }
-
-    public void setIs_available(String is_available) {
-        this.is_available = is_available;
-        this.notifyPropertyChanged(BR.is_available);
-    }
-
-    public void setItem_id(String item_id) {
-        this.item_id = item_id;
-        this.notifyPropertyChanged(BR.item_id);
-    }
-
-    public void setRestaurent_id(String restaurent_id) {
-        this.restaurent_id = restaurent_id;
-        this.notifyPropertyChanged(BR.restaurent_id);
-    }
-
-    public void setCategory_id(String category_id) {
-        this.category_id = category_id;
-        this.notifyPropertyChanged(BR.category_id);
-    }
-
-    public void setFull_price(String full_price) {
-        this.full_price = full_price;
-        this.notifyPropertyChanged(BR.full_price);
-    }
-
-    public void setAttribute_id(String attribute_id) {
-        this.attribute_id = attribute_id;
-        this.notifyPropertyChanged(BR.attribute_id);
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-        this.notifyPropertyChanged(BR.description);
-    }
-
-    public void setIs_delete(String is_delete) {
-        this.is_delete = is_delete;
-        this.notifyPropertyChanged(BR.is_delete);
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-        this.notifyPropertyChanged(BR.createdAt);
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-        this.notifyPropertyChanged(BR.updatedAt);
-    }
-
-    public void set__v(String __v) {
-        this.__v = __v;
-        this.notifyPropertyChanged(BR.__v);
-    }
-
     @Bindable
     public String get_id() {
         return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+        this.notifyPropertyChanged(BR._id);
     }
 
     @Bindable
@@ -138,9 +63,19 @@ public class ItemInfoModel extends BaseObservable {
         return price_devide;
     }
 
+    public void setPrice_devide(String price_devide) {
+        this.price_devide = price_devide;
+        this.notifyPropertyChanged(BR.price_devide);
+    }
+
     @Bindable
     public String getHalf_price() {
         return half_price;
+    }
+
+    public void setHalf_price(String half_price) {
+        this.half_price = half_price;
+        this.notifyPropertyChanged(BR.half_price);
     }
 
     @Bindable
@@ -148,9 +83,19 @@ public class ItemInfoModel extends BaseObservable {
         return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+        this.notifyPropertyChanged(BR.image);
+    }
+
     @Bindable
     public String getFood_type() {
         return food_type;
+    }
+
+    public void setFood_type(String food_type) {
+        this.food_type = food_type;
+        this.notifyPropertyChanged(BR.food_type);
     }
 
     @Bindable
@@ -158,9 +103,19 @@ public class ItemInfoModel extends BaseObservable {
         return is_available;
     }
 
+    public void setIs_available(String is_available) {
+        this.is_available = is_available;
+        this.notifyPropertyChanged(BR.is_available);
+    }
+
     @Bindable
     public String getItem_id() {
         return item_id;
+    }
+
+    public void setItem_id(String item_id) {
+        this.item_id = item_id;
+        this.notifyPropertyChanged(BR.item_id);
     }
 
     @Bindable
@@ -168,9 +123,19 @@ public class ItemInfoModel extends BaseObservable {
         return restaurent_id;
     }
 
+    public void setRestaurent_id(String restaurent_id) {
+        this.restaurent_id = restaurent_id;
+        this.notifyPropertyChanged(BR.restaurent_id);
+    }
+
     @Bindable
     public String getCategory_id() {
         return category_id;
+    }
+
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
+        this.notifyPropertyChanged(BR.category_id);
     }
 
     @Bindable
@@ -178,9 +143,19 @@ public class ItemInfoModel extends BaseObservable {
         return full_price;
     }
 
+    public void setFull_price(String full_price) {
+        this.full_price = full_price;
+        this.notifyPropertyChanged(BR.full_price);
+    }
+
     @Bindable
     public String getAttribute_id() {
         return attribute_id;
+    }
+
+    public void setAttribute_id(String attribute_id) {
+        this.attribute_id = attribute_id;
+        this.notifyPropertyChanged(BR.attribute_id);
     }
 
     @Bindable
@@ -188,9 +163,19 @@ public class ItemInfoModel extends BaseObservable {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+        this.notifyPropertyChanged(BR.description);
+    }
+
     @Bindable
     public String getIs_delete() {
         return is_delete;
+    }
+
+    public void setIs_delete(String is_delete) {
+        this.is_delete = is_delete;
+        this.notifyPropertyChanged(BR.is_delete);
     }
 
     @Bindable
@@ -198,13 +183,28 @@ public class ItemInfoModel extends BaseObservable {
         return createdAt;
     }
 
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+        this.notifyPropertyChanged(BR.createdAt);
+    }
+
     @Bindable
     public String getUpdatedAt() {
         return updatedAt;
     }
 
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+        this.notifyPropertyChanged(BR.updatedAt);
+    }
+
     @Bindable
     public String get__v() {
         return __v;
+    }
+
+    public void set__v(String __v) {
+        this.__v = __v;
+        this.notifyPropertyChanged(BR.__v);
     }
 }

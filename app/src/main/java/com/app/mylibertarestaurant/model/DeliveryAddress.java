@@ -5,7 +5,7 @@ import android.location.Location;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.app.mylibertarestaurant.BR;
+import androidx.databinding.library.baseAdapters.BR;
 
 
 public class DeliveryAddress extends BaseObservable {
