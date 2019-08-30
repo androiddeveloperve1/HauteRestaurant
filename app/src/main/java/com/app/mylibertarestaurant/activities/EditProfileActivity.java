@@ -230,7 +230,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
         }
 
         public void rangeIncrement(View v) {
-            if (range < 10) {
+            if (range < 15) {
                 range++;
             }
             binder.tvRange.setText("" + range);

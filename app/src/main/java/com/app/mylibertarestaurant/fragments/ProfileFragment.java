@@ -308,7 +308,7 @@ public class ProfileFragment extends Fragment {
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime() + " Mins.");
-        binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Km.");
+        binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Mi.");
         binder.tvDeliveryFee.setText("$ "+restaurantDetailModel.getRestaurants().getDeliveryfees());
         if(restaurantDetailModel.getRestaurants().getComm()!=null)
         {

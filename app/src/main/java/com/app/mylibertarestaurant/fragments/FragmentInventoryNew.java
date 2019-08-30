@@ -18,6 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.activities.ActivitySearchItem;
 import com.app.mylibertarestaurant.activities.CopyItemActivity;
+import com.app.mylibertarestaurant.activities.EnterOtpActivity;
 import com.app.mylibertarestaurant.activities.ItemDescriptionActivity;
 import com.app.mylibertarestaurant.activities.ItemModificationActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
@@ -36,6 +37,7 @@ import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -80,9 +82,11 @@ public class FragmentInventoryNew extends Fragment {
     }
 
     private void getInventory() {
+        HashMap<String, String> param = new HashMap<>();
+        param.put("category", "");
         binder.pullRefresh.setRefreshing(true);
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
-        apiInterface.getInventoryNew()
+        apiInterface.getInventoryNew(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel<ArrayList<InventoryModelNew>>>() {

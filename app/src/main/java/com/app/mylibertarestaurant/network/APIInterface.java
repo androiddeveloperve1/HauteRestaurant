@@ -142,8 +142,8 @@ public interface APIInterface {
     @PUT(UrlConstants.READY_FOR_PICKUP_VERIFY)
     Observable<ApiResponseModel> readyForPickupVerify(@Body HashMap<String, String> body);
 
-
-    @GET(UrlConstants.INVENTORY)
-    Observable<ApiResponseModel<ArrayList<InventoryModelNew>>> getInventoryNew();
+    @Headers("Content-Type: application/json")
+    @POST(UrlConstants.INVENTORY)
+    Observable<ApiResponseModel<ArrayList<InventoryModelNew>>> getInventoryNew(@Body HashMap<String, String> body);
 
 }

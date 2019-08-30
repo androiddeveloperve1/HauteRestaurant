@@ -243,7 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="05 Km"
+                            android:text="05 Mi."
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12_px"
                             app:layout_constraintLeft_toLeftOf="@id/tv_delivery_range__text"

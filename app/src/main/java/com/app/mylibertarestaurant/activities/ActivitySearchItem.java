@@ -24,6 +24,7 @@ import com.app.mylibertarestaurant.utils.StatusbarUtils;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -106,7 +107,9 @@ public class ActivitySearchItem extends AppCompatActivity {
     private void getInventory() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ActivitySearchItem.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ActivitySearchItem.this);
-        apiInterface.getInventoryNew()
+        HashMap<String, String> param = new HashMap<>();
+        param.put("category", "");
+        apiInterface.getInventoryNew(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel<ArrayList<InventoryModelNew>>>() {
