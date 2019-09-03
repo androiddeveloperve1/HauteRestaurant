@@ -1,83 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-
-    </data>
-
-
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10_px"
-        android:background="@color/white"
-        android:elevation="@dimen/_5_px"
-        app:contentPadding="@dimen/_5_px"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10_px"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:padding="@dimen/_20_px">
+            android:elevation="@dimen/_5_px"
+            app:contentPadding="@dimen/_5_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-
-            <TextView
-                android:id="@+id/tv_number"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_20_px"
-                android:layout_marginTop="@dimen/_30_px"
-                android:layout_marginRight="@dimen/_20_px"
-                android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text="+1888-246-7125"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_15_px"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_call_us" />
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/_20_px">
 
-            <TextView
-                android:id="@+id/tv_mob"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:text="support@mail.com"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14_px"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_number" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_profile"
-                android:layout_width="@dimen/_70_px"
-                android:layout_height="@dimen/_70_px"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/ic_support"
-                app:civ_border_color="@color/black"
-                app:civ_border_width="@dimen/_1_px"
+                <TextView
+                    android:id="@+id/tv_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_20_px"
+                    android:layout_marginTop="@dimen/_30_px"
+                    android:layout_marginRight="@dimen/_20_px"
+                    android:call='@{@string/support_no}'
+                    android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                    android:text="@string/support_no"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_call_us" />
+
+                <TextView
+                    android:id="@+id/tv_mob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                    android:text="support@mail.com"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_number" />
+
+                <TextView
+                    android:id="@+id/tv_call_us"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10_px"
+                    android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                    android:text="Call us 24 X 7"
+                    android:textColor="@color/gray_text"
+                    android:textSize="@dimen/_13_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="@dimen/_70_px"
+                    android:layout_height="@dimen/_70_px"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/ic_support"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="@dimen/_1_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+
+            <View
+                android:id="@+id/toolbar_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48_px"
+                android:background="@drawable/toolbar_drop_shadow"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/_5_px"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+            <ImageView
+                android:id="@+id/toolbar_close"
+                android:layout_width="@dimen/_30_px"
+                android:layout_height="@dimen/_35_px"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5_px"
+                android:onClick="@{(v)->click.onBack(v)}"
+                android:padding="@dimen/_5_px"
+                android:src="@drawable/ic_back_black"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
 
             <TextView
-                android:id="@+id/tv_call_us"
+                android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10_px"
-                android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                android:text="Call us 24 X 7"
-                android:textColor="@color/gray_text"
-                android:textSize="@dimen/_13_px"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_10_px"
+                android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                android:text="Help"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14_px"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_close"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_close" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <data>
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.activities.HalpActivity.MyClick" />
+
+    </data>
 
 </layout>

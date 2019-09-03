@@ -1,12 +1,16 @@
 package com.app.mylibertarestaurant.utils;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingMethod;
@@ -91,6 +95,20 @@ public class BindingAdapters {
         } else {
             textView.setTextColor(textView.getContext().getResources().getColor(R.color.red));
         }
+    }
+
+    @BindingAdapter("android:call")
+    public static void callNow(@Nullable TextView view, final String number) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("@@@@@@",""+number);
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null));
+                view.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 
 

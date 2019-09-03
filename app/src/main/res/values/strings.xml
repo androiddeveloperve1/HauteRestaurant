@@ -11,7 +11,7 @@
     <string name="non_veg">Non veg</string>
     <string name="available">available</string>
     <string name="un_available">unavailable</string>
-
+    <string name="support_no">(888) 342-1067</string>
 
     <string name="permission_require">For access the application functionality you have to enable the required permission. otherwise application functionality will not work.
  Are you sure want to enable permission?</string>

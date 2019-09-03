@@ -209,7 +209,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
                 Toast.makeText(EditProfileActivity.this, "Please enter the zip code", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (binder.tvZip.getText().toString().trim().length() < 6) {
+            if (binder.tvZip.getText().toString().trim().length() < 5) {
                 Toast.makeText(EditProfileActivity.this, "Please enter valid  zip code", Toast.LENGTH_SHORT).show();
                 return;
             }

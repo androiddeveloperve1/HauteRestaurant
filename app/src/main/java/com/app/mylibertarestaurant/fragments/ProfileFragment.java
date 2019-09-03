@@ -71,13 +71,9 @@ public class ProfileFragment extends Fragment {
         });
         binder.setClick(new MyClick());
         mResources = getActivity().getResources();
-
         colorGreen = mResources.getColor(R.color.greenColorAlpha);
         colorRed = mResources.getColor(R.color.redAlpha);
-
         getProfile();
-
-
         View view = binder.getRoot();
         return view;
     }
