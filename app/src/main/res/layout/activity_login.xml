@@ -175,6 +175,7 @@
                             android:fontStyleName="@{`Roboto_Black.ttf`}"
                             android:onClick="@{(v)->click.contactNow(v)}"
                             android:padding="@dimen/_2_px"
+                            android:visibility="gone"
                             android:text="Not yet on board, CONTACT US NOW!"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12_px"
