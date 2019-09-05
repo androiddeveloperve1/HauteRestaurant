@@ -104,13 +104,26 @@ public class FragmentInventoryNew extends Fragment {
                     public void onNext(ApiResponseModel<ArrayList<InventoryModelNew>> response) {
                         Log.e("@@@@@@@@", new Gson().toJson(response));
                         binder.pullRefresh.setRefreshing(false);
+
+
                         if (response.getStatus().equals("200")) {
                             originalList.clear();
                             originalList.addAll(response.getData());
                             list.clear();
                             list.addAll(response.getData());
-                            inventoryItemAdapter.notifyDataSetChanged();
-                            allSelection();
+                            if(response.getData().size()>0)
+                            {
+                                binder.tvNoData.setVisibility(View.GONE);
+                                binder.pullRefresh.setVisibility(View.VISIBLE);
+
+                                inventoryItemAdapter.notifyDataSetChanged();
+                                allSelection();
+                            }else {
+                                binder.tvNoData.setVisibility(View.VISIBLE);
+                                binder.pullRefresh.setVisibility(View.GONE);
+                            }
+
+
                         } else {
                             ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
                         }

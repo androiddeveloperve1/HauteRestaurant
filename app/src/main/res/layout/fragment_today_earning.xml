@@ -107,6 +107,7 @@
                 android:layout_gravity="center"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
                 android:text="No Order Found"
+                android:visibility="gone"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_18_px" />
         </androidx.cardview.widget.CardView>

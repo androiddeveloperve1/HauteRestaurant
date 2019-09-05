@@ -16,6 +16,7 @@ import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.fragments.EarningFragment;
 import com.app.mylibertarestaurant.fragments.FragmentInventoryNew;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
+import com.app.mylibertarestaurant.fragments.HelpFragment;
 import com.app.mylibertarestaurant.fragments.InventoryFragment;
 import com.app.mylibertarestaurant.fragments.ProfileFragment;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private NavigationView nav_view;
     private ProfileFragment profileFragment;
     private EarningFragment earningFragment;
+    private HelpFragment helpFragment;
     private RestaurantDetailModel restaurantDetailModel;
     private TextView tv_name_restaurant;
     private ImageView iv_on_off_line;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         profileFragment = new ProfileFragment();
         earningFragment = new EarningFragment();
+        helpFragment = new HelpFragment();
         initView();
 
 
@@ -236,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             iv_profile.setImageResource(R.drawable.ic_my_profile_off);
             iv_help.setImageResource(R.drawable.ic_support_on);
             drawer.closeDrawer(GravityCompat.START);
+            FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, helpFragment);
         });
         FragmentTransactionUtils.replaceFragmnet(MainActivity.this, R.id.container, new FragmentOrders());
     }
