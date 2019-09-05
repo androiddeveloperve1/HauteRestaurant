@@ -378,7 +378,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10_px"
                         android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                        android:text='@{"$ "+model.amount}'
+                        android:setText="@{model.amount}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_15_px"
                         app:layout_constraintRight_toRightOf="@id/img_paid"

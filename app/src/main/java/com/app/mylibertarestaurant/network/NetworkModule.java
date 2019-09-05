@@ -74,7 +74,7 @@ public class NetworkModule {
 
                             MySharedPreference.getInstance(applicationContext).clearMyPreference();
                             Intent mIntent = new Intent(applicationContext, LoginActivity.class);
-                            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             applicationContext.startActivity(mIntent);
                             ((Activity) applicationContext).finishAffinity();
 

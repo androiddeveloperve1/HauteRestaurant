@@ -102,7 +102,7 @@ public class BindingAdapters {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("@@@@@@",""+number);
+                Log.e("@@@@@@", "" + number);
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", number, null));
                 view.getContext().startActivity(intent);
             }
@@ -111,5 +111,17 @@ public class BindingAdapters {
 
     }
 
+
+    @BindingAdapter("android:setText")
+    public static void setText(@Nullable TextView view, final String amount) {
+
+        if (amount != null && amount.trim().length() > 0) {
+            view.setText("$ " + amount);
+        } else {
+            view.setText("");
+        }
+
+
+    }
 
 }

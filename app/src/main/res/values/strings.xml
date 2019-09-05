@@ -24,6 +24,6 @@
         <item>Attribute 4</item>
 
     </string-array>
-
+    <string name="blank"></string>
 
 </resources>
