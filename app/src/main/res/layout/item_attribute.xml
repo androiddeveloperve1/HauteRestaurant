@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
-
     <data>
 
         <variable
@@ -31,7 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/_10_px"
             android:background="@drawable/edittext_bg"
+            android:enabled="false"
             android:hint="Attribute name"
+            android:textColor="@color/black"
             android:imeOptions="actionNext"
             android:padding="@dimen/_5_px"
             android:text="@={model.attribute_name}"
@@ -47,12 +48,13 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/_10_px"
             android:background="@drawable/edittext_bg"
+            android:enabled="false"
             android:gravity="center"
             android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:padding="@dimen/_5_px"
+            android:textColor="@color/black"
             android:text="@={model.attribute_price}"
-
             android:textSize="@dimen/_10_px"
             app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
             app:layout_constraintRight_toLeftOf="@+id/rl_add_remove"
@@ -62,6 +64,7 @@
         <RelativeLayout
             android:id="@+id/rl_add_remove"
             android:layout_width="@dimen/_50_px"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
             app:layout_constraintRight_toRightOf="parent"
@@ -76,11 +79,14 @@
                 android:onClick="@{(v)->click.onAttributeDelete(position)}"
                 android:text="REMOVE"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_9_px" />
+                android:textSize="@dimen/_9_px"
+               />
 
 
         </RelativeLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

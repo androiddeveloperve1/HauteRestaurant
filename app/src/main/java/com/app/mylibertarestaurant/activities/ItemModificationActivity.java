@@ -112,14 +112,19 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     }
 
     void showAttribute() {
-        binder.tagGroupFav.removeAllTags();
         if (inventoryModelNew.getAttribute() != null && inventoryModelNew.getAttribute().size() > 0) {
+            binder.tvProductAttributeText.setVisibility(View.VISIBLE);
+            StringBuilder st = new StringBuilder();
             for (int i = 0; i < inventoryModelNew.getAttribute().size(); i++) {
-                binder.tagGroupFav.addTag(inventoryModelNew.getAttribute().get(i).getAttribute_name());
+                st.append(inventoryModelNew.getAttribute().get(i).getAttribute_name()).append(",");
             }
+            binder.tvAttribute.setText(st.toString());
+
         } else {
-            binder.tagGroupFav.addTag("No Attribute found");
+            binder.tvProductAttributeText.setVisibility(View.GONE);
         }
+
+
     }
 
     private Target getTarget(final String url) {

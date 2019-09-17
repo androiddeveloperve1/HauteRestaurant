@@ -13,8 +13,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.mylibertarestaurant.R;
+import com.app.mylibertarestaurant.adapter.AttributeAdapterShow;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
@@ -50,18 +52,20 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         data = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModelNew.class);
         binder.setModel(data);
         attributeId = getIntent().getStringExtra("attribute_id");
-
         initMenu();
-        //showAttribute();
+        showAttribute();
     }
 
     void showAttribute() {
+
         if (data.getAttribute() != null && data.getAttribute().size() > 0) {
-            for (int i = 0; i < data.getAttribute().size(); i++) {
-                binder.tagGroupFav.addTag(data.getAttribute().get(i).getAttribute_name());
-            }
+            binder.tvAttributeText.setVisibility(View.VISIBLE);
+            binder.rvAttributeItem.setLayoutManager(new LinearLayoutManager(this));
+            binder.setAdapt(new AttributeAdapterShow(data.getAttribute()));
+
         } else {
-            binder.tagGroupFav.addTag("No Attribute found");
+            binder.tvAttributeText.setVisibility(View.GONE);
+
         }
     }
 
@@ -157,7 +161,6 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     public class Click {
         public void onBack(View v) {
             finish();
-
         }
 
         public void onPopupClick(View v) {

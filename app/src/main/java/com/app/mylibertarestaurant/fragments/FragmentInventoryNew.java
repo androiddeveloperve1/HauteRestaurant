@@ -104,8 +104,6 @@ public class FragmentInventoryNew extends Fragment {
                     public void onNext(ApiResponseModel<ArrayList<InventoryModelNew>> response) {
                         Log.e("@@@@@@@@", new Gson().toJson(response));
                         binder.pullRefresh.setRefreshing(false);
-
-
                         if (response.getStatus().equals("200")) {
                             originalList.clear();
                             originalList.addAll(response.getData());
