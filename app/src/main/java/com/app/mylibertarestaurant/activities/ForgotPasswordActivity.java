@@ -68,7 +68,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
                             finish();
-                            Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPasswordActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
                         } else {
                             ResponseDialog.showErrorDialog(ForgotPasswordActivity.this, response.getMessage());
                         }

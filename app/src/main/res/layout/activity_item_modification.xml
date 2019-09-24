@@ -316,7 +316,6 @@
                                 android:id="@+id/img_go"
                                 android:layout_width="@dimen/_20_px"
                                 android:layout_height="@dimen/_20_px"
-                                android:onClick="@{(v)->click.onClose(v)}"
                                 android:src="@drawable/ic_right_arrow"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"

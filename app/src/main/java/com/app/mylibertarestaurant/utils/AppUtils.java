@@ -54,7 +54,7 @@ public class AppUtils {
         for (int i = 0; i < order.size(); i++) {
             builder.append(order.get(i).getItem_id().getName()).append(",");
         }
-        return builder.toString();
+        return builder.toString().substring(0,builder.toString().length()-1);
     }
 
 
