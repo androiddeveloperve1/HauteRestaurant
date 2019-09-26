@@ -26,7 +26,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#05000000"
+            android:background="@drawable/toolbar_drop_shadow"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -43,6 +43,7 @@
                 android:id="@+id/iv_three_dot"
                 android:layout_width="@dimen/_40_px"
                 android:layout_height="@dimen/_40_px"
+
                 android:layout_alignParentRight="true"
                 android:onClick="@{(v)->click.onPopupClick(v)}"
                 android:padding="@dimen/_10_px"

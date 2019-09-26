@@ -342,7 +342,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/img_pic"
                 android:layout_width="@dimen/_135_px"
                 android:layout_height="@dimen/_135_px"

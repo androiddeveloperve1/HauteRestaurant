@@ -49,8 +49,6 @@ public class OrderDecriptionActivity extends AppCompatActivity {
         binder.rvItem.setLayoutManager(new LinearLayoutManager(this));
         orderDetail(getIntent().getStringExtra("id"));
 
-
-
     }
 
     private void acceptOrderApi() {
