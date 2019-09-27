@@ -13,8 +13,8 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -250,6 +250,32 @@
                             app:layout_constraintTop_toBottomOf="@+id/tv_delivery_range__text" />
 
 
+                        <TextView
+                            android:id="@+id/tv_email__text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Email"
+                            android:layout_marginLeft="@dimen/_30_px"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_range__text"
+                            app:layout_constraintLeft_toRightOf="@+id/tv_delivery_range__text"
+                            app:layout_constraintTop_toTopOf="@+id/tv_delivery_range__text" />
+
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_delivery_range"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_email__text"
+                            app:layout_constraintTop_toTopOf="@+id/tv_delivery_range" />
+
 
                         <TextView
                             android:id="@+id/tv_delivery_fee_text"
@@ -276,7 +302,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/tv_delivery_fee_text" />
 
 
-
                         <TextView
                             android:id="@+id/tv_tax_text"
                             android:layout_width="wrap_content"
@@ -298,8 +323,8 @@
                             android:text="-"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12_px"
-                            app:layout_constraintRight_toRightOf="@+id/tv_tax_text"
                             app:layout_constraintLeft_toLeftOf="@id/tv_tax_text"
+                            app:layout_constraintRight_toRightOf="@+id/tv_tax_text"
                             app:layout_constraintTop_toBottomOf="@+id/tv_tax_text" />
 
 
@@ -307,14 +332,14 @@
                             android:id="@+id/tv_fee_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_40_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
                             android:text="Fee($)"
-                            android:layout_marginLeft="@dimen/_40_px"
                             android:textColor="@color/gray_text"
                             android:textSize="@dimen/_12_px"
-                            app:layout_constraintLeft_toRightOf="@+id/tv_tax_text"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_tax_text"
-                            app:layout_constraintTop_toTopOf="@+id/tv_tax_text"/>
+                            app:layout_constraintLeft_toRightOf="@+id/tv_tax_text"
+                            app:layout_constraintTop_toTopOf="@+id/tv_tax_text" />
 
                         <TextView
                             android:id="@+id/tv_fee"
@@ -324,10 +349,10 @@
                             android:text="-"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_12_px"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_tax"
                             app:layout_constraintLeft_toLeftOf="@id/tv_fee_text"
                             app:layout_constraintRight_toRightOf="@+id/tv_fee_text"
-                            app:layout_constraintTop_toTopOf="@+id/tv_tax"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_tax"/>
+                            app:layout_constraintTop_toTopOf="@+id/tv_tax" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -337,9 +362,9 @@
                         android:id="@+id/iv_profile"
                         android:layout_width="@dimen/_90_px"
                         android:layout_height="@dimen/_90_px"
-                        app:civ_border_width="1px"
                         android:src="@drawable/placeholder_squre"
                         app:civ_border_color="@color/black"
+                        app:civ_border_width="1px"
 
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -428,11 +453,11 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:visibility="gone"
                         android:id="@+id/accountCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_5_px"
+                        android:visibility="gone"
                         app:cardCornerRadius="4dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"

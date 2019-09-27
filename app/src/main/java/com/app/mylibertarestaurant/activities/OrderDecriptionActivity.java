@@ -364,7 +364,6 @@ public class OrderDecriptionActivity extends AppCompatActivity {
 
         public void acceptOrder(View v) {
             acceptOrderApi();
-
         }
 
         public void verifyOtp(View v) {

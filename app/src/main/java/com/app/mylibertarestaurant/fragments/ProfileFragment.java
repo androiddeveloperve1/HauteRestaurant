@@ -129,7 +129,6 @@ public class ProfileFragment extends Fragment {
         binder.includeLayout.tvTue.setTextColor(colorAvailable);
         binder.includeLayout.lineTue.setBackgroundColor(colorAvailable);
 
-
         if (restaurantDetailModel.getRestaurants().getOpenForService().get(2).isIs_selected()) {
             colorAvailable = colorGreen;
         } else {
@@ -144,8 +143,8 @@ public class ProfileFragment extends Fragment {
             colorAvailable = colorGreen;
         } else {
             colorAvailable = colorRed;
-
         }
+
         binder.includeLayout.tvThru.setTextColor(colorAvailable);
         binder.includeLayout.lineThu.setBackgroundColor(colorAvailable);
 
