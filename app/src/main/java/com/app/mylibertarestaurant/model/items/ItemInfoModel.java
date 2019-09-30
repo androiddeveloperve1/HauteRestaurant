@@ -36,7 +36,7 @@ public class ItemInfoModel extends BaseObservable {
     private String updatedAt;
     private String __v;
 
-    private ArrayList<AttributeModelNew> attribute;
+   /* private ArrayList<AttributeModelNew> attribute;
 
     @Bindable
     public ArrayList<AttributeModelNew> getAttribute() {
@@ -46,7 +46,7 @@ public class ItemInfoModel extends BaseObservable {
     public void setAttribute(ArrayList<AttributeModelNew> attribute) {
         this.attribute = attribute;
         this.notifyPropertyChanged(BR.attribute);
-    }
+    }*/
 
     @Bindable
     public String get_id() {

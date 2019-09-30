@@ -124,4 +124,9 @@ public class AppUtils {
         return "10:00";
     }
 
+    public static String getDecimalFormat(String value)
+    {
+       return String.format("%.02f", Float.parseFloat(value));
+    }
+
 }

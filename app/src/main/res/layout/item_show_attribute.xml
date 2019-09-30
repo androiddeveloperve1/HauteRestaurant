@@ -4,6 +4,7 @@
 
     <data>
 
+        <import type="com.app.mylibertarestaurant.utils.AppUtils" />
 
         <variable
             name="model"
@@ -37,11 +38,11 @@
             android:id="@+id/et_attribute_price"
             android:layout_width="@dimen/_50_px"
             android:layout_height="wrap_content"
+            android:gravity="right"
             android:imeOptions="actionNext"
             android:inputType="numberDecimal"
             android:padding="@dimen/_5_px"
-            android:gravity="right"
-            android:text='@{"$"+model.attribute_price}'
+            android:text='@{"$"+AppUtils.getDecimalFormat(model.attribute_price)}'
             android:textSize="@dimen/_10_px"
             app:layout_constraintBottom_toBottomOf="@+id/et_attribute_name"
             app:layout_constraintRight_toRightOf="parent"

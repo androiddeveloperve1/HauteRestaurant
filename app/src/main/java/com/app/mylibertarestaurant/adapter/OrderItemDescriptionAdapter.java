@@ -62,7 +62,7 @@ public class OrderItemDescriptionAdapter extends RecyclerView.Adapter<OrderItemD
 
         public void bind(OrderItemModel data) {
             this.binding.setVariable(BR.model, data);
-            this.binding.setVariable(BR.adapter, new ShowAttributeAdapter(order.get(getAdapterPosition()).getItem_id().getItemInfo().getAttribute()));
+            this.binding.setVariable(BR.adapter, new ShowAttributeAdapter(order.get(getAdapterPosition()).getAttribute()));
             this.binding.executePendingBindings();
         }
 

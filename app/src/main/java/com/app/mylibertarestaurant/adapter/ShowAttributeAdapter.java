@@ -39,7 +39,6 @@ public class ShowAttributeAdapter extends RecyclerView.Adapter<ShowAttributeAdap
     @Override
     public void onBindViewHolder(@NonNull ShowAttributeAdapter.MyViewHolder holder, int i) {
         holder.bind(list.get(i));
-        Log.e("@@@@@@@",""+i);
     }
 
     @Override

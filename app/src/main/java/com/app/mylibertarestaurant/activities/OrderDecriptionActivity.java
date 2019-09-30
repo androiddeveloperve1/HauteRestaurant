@@ -305,7 +305,6 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                     @Override
                     public void onNext(ApiResponseModel<OrderDetailsModel> response) {
                         progressDialog.dismiss();
-                        Log.e("##",new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             orderDetailsModel = response.getData();
                             showDataNow();
