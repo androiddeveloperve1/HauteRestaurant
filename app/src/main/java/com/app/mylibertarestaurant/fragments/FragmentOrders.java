@@ -72,9 +72,14 @@ public class FragmentOrders extends Fragment {
         myPagerAdapter=new  MyPagerAdapter(getChildFragmentManager(), newOrderRequest, onGoingOrder, readyForPickupOrder);
         binder.viewPager.setAdapter(myPagerAdapter);
         binder.viewPager.setOffscreenPageLimit(3);
-        getOrder(0);
         registerRecieverNow();
         View view = binder.getRoot();
+        getOrder(0);
+
+        binder.pullRefresh.setOnRefreshListener(() -> {
+            getOrder(0);
+        });
+
         binder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -142,7 +147,7 @@ public class FragmentOrders extends Fragment {
     }
 
     private void getOrder(int selectposition) {
-        final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
+        binder.pullRefresh.setRefreshing(true);
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
         apiInterface.getUpcommingOrder()
                 .subscribeOn(Schedulers.newThread())
@@ -154,13 +159,13 @@ public class FragmentOrders extends Fragment {
 
                     @Override
                     public void onError(Throwable throwable) {
-                        progressDialog.dismiss();
+                        binder.pullRefresh.setRefreshing(false);
                         ResponseDialog.showErrorDialog(getActivity(), throwable.getLocalizedMessage());
                     }
 
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<OrderDetailsModel>> response) {
-                        progressDialog.dismiss();
+                        binder.pullRefresh.setRefreshing(false);
                         newOrderRequest.clear();
                         onGoingOrder.clear();
                         readyForPickupOrder.clear();

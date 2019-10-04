@@ -8,6 +8,7 @@ import com.app.mylibertarestaurant.model.CommisionModel;
 import com.app.mylibertarestaurant.model.Location;
 import com.app.mylibertarestaurant.model.TimeModel;
 import com.app.mylibertarestaurant.model.TimeSlotModel;
+import com.app.mylibertarestaurant.model.UserModel;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,17 @@ public class RestaurantDetail extends BaseObservable {
     private Location location;
     private ArrayList<TimeModel> openForService;
     private CommisionModel comm;
+    private UserModel user_id;
+
+@Bindable
+    public UserModel getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(UserModel user_id) {
+        this.user_id = user_id;
+        this.notifyPropertyChanged(BR.user_id);
+    }
 
     @Bindable
     public CommisionModel getComm() {

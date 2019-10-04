@@ -97,4 +97,28 @@ public class ResponseDialog {
         termAndConditionDialog.show();
     }
 
+    public static void dialogDismissActivity(final Activity mContext, String message) {
+
+
+        DialogResponseErrorBinding binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.dialog_response_error, null, false);
+        final Dialog termAndConditionDialog = new Dialog(mContext);
+        binding.tvMessage.setText(message);
+        binding.tvHeading.setText("Alert");
+        binding.tvOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                termAndConditionDialog.dismiss();
+                mContext.finish();
+            }
+        });
+        termAndConditionDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        termAndConditionDialog.setContentView(binding.getRoot());
+        termAndConditionDialog.setTitle("Alert");
+        termAndConditionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        termAndConditionDialog.getWindow().setLayout(mContext.getResources().getDimensionPixelOffset(R.dimen._250_px), LinearLayout.LayoutParams.WRAP_CONTENT);
+        termAndConditionDialog.getWindow().setGravity(Gravity.CENTER);
+        termAndConditionDialog.setCancelable(true);
+        termAndConditionDialog.show();
+    }
+
 }

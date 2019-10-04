@@ -244,13 +244,13 @@ public class OrderDecriptionActivity extends AppCompatActivity {
 
     }
 
-    private void otpVerify(String otp) {
+    private void otpVerify() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(OrderDecriptionActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(OrderDecriptionActivity.this);
         HashMap<String, String> param = new HashMap<>();
         param.put("driverId", orderDetailsModel.getDriver_id());
         param.put("orderId", orderDetailsModel.get_id());
-        param.put("otp", otp);
+        param.put("otp", "");
 
 
         apiInterface.readyForPickupVerify(param)
@@ -327,34 +327,28 @@ public class OrderDecriptionActivity extends AppCompatActivity {
         if (tag == Constants.FROM_READY_REQUEST_TAG) {
             binder.llOrderRequest.setVisibility(View.GONE);
             binder.tvPickupReady.setVisibility(View.GONE);
-            binder.tvVerify.setVisibility(View.VISIBLE);
-            binder.clOtp.setVisibility(View.VISIBLE);
+            binder.tvDelivered.setVisibility(View.VISIBLE);
+            //binder.clOtp.setVisibility(View.VISIBLE);
         } else if (tag == Constants.FROM_ONGOING_REQUEST_TAG) {
             binder.llOrderRequest.setVisibility(View.GONE);
             binder.tvPickupReady.setVisibility(View.VISIBLE);
             binder.clOtp.setVisibility(View.GONE);
-            binder.tvVerify.setVisibility(View.GONE);
-            if (orderDetailsModel.getIs_driver_assign().equals("0")) {
-                binder.tvPickupReady.setAlpha(.5f);
-            } else {
-                binder.tvPickupReady.setAlpha(1);
-            }
+            binder.tvDelivered.setVisibility(View.GONE);
         } else {
             binder.llOrderRequest.setVisibility(View.VISIBLE);
             binder.tvPickupReady.setVisibility(View.GONE);
             binder.clOtp.setVisibility(View.GONE);
-            binder.tvVerify.setVisibility(View.GONE);
+            binder.tvDelivered.setVisibility(View.GONE);
         }
     }
 
     public class Click {
         public void readyForPickup(View v) {
-            if (orderDetailsModel.getIs_driver_assign().equals("0")) {
-                ResponseDialog.dialog(OrderDecriptionActivity.this, "Waiting for driver assign");
+            if (orderDetailsModel.getDriver_id()==null ||orderDetailsModel.getDriver_id().trim().length()<=0 ||  orderDetailsModel.getIs_driver_assign().equals("0") ) {
+                ResponseDialog.dialogDismissActivity(OrderDecriptionActivity.this, "Please wait, driver is not yet assign for delivery");
             } else {
                 readyForPickupAPI();
             }
-
         }
 
         public void cancelOrder(View v) {
@@ -365,15 +359,15 @@ public class OrderDecriptionActivity extends AppCompatActivity {
             acceptOrderApi();
         }
 
-        public void verifyOtp(View v) {
-            String otp = "";
+        public void delivered(View v) {
+          /*  String otp = "";
             otp = binder.otp1.getText().toString() + binder.otp2.getText().toString() + binder.otp3.getText().toString() + binder.otp4.getText().toString();
             if (otp.length() >= 4) {
                 otpVerify(otp);
             } else {
                 Toast.makeText(OrderDecriptionActivity.this, "Please enter 4 digit otp", Toast.LENGTH_SHORT).show();
-            }
-
+            }*/
+            otpVerify();
         }
 
 

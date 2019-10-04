@@ -442,7 +442,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_total_price" />
 
                     <TextView
-                        android:id="@+id/tv_verify"
+                        android:id="@+id/tv_delivered"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_15_px"
@@ -450,8 +450,8 @@
                         android:background="@drawable/button_green"
                         android:fontStyleName="@{`Roboto_Regular.ttf`}"
                         android:gravity="center"
-                        android:onClick="@{(v)->clickHandle.verifyOtp(v)}"
-                        android:text="Verify"
+                        android:onClick="@{(v)->clickHandle.delivered(v)}"
+                        android:text="DELIVERED"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14_px"
                         android:visibility="gone"
