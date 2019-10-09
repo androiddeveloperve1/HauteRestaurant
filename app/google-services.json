@@ -1,0 +1,119 @@
+{
+  "project_info": {
+    "project_number": "854809609046",
+    "firebase_url": "https://myliberta-c660f.firebaseio.com",
+    "project_id": "myliberta-c660f",
+    "storage_bucket": "myliberta-c660f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854809609046:android:39817652a98e62c0",
+        "android_client_info": {
+          "package_name": "com.app.myliberta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854809609046-8h4nsspniq99cdlpuocjgfvnmqica6i0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJW2TL6mlGK4xfxpyjFoDW7y6MUxNepuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854809609046-8h4nsspniq99cdlpuocjgfvnmqica6i0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "854809609046-8i74gfh5s2vnfutkfdg0s8vf9fa4p5id.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.myliberta.userApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854809609046:android:b14497e78c2a8011",
+        "android_client_info": {
+          "package_name": "com.app.mylibertadriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854809609046-8h4nsspniq99cdlpuocjgfvnmqica6i0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJW2TL6mlGK4xfxpyjFoDW7y6MUxNepuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854809609046-8h4nsspniq99cdlpuocjgfvnmqica6i0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "854809609046-8i74gfh5s2vnfutkfdg0s8vf9fa4p5id.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.myliberta.userApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854809609046:android:a94438febe8c8ea98b4cf7",
+        "android_client_info": {
+          "package_name": "com.app.mylibertarestaurant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854809609046-8h4nsspniq99cdlpuocjgfvnmqica6i0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJW2TL6mlGK4xfxpyjFoDW7y6MUxNepuA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854809609046-8h4nsspniq99cdlpuocjgfvnmqica6i0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "854809609046-8i74gfh5s2vnfutkfdg0s8vf9fa4p5id.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.myliberta.userApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

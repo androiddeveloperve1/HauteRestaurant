@@ -40,8 +40,8 @@ public interface APIInterface {
     @POST(UrlConstants.LOGIN)
     Observable<ApiResponseModel<RestaurantDetailModel>> login(@Body HashMap<String, String> body);
 
-    @GET(UrlConstants.UPCOMMING)
-    Observable<ApiResponseModel<ArrayList<OrderDetailsModel>>> getUpcommingOrder();
+    @POST(UrlConstants.UPCOMMING)
+    Observable<ApiResponseModel<ArrayList<OrderDetailsModel>>> getUpcommingOrder(@Body HashMap<String, String> body);
 
 
     @GET(UrlConstants.ACCEPT_ORDER + "{id}")

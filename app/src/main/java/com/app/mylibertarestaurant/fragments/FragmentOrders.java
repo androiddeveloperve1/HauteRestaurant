@@ -32,6 +32,7 @@ import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -149,7 +150,10 @@ public class FragmentOrders extends Fragment {
     private void getOrder(int selectposition) {
         binder.pullRefresh.setRefreshing(true);
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
-        apiInterface.getUpcommingOrder()
+        HashMap<String,String> param=new HashMap<>();
+        param.put("deviceType",Constants.ANDROID_KEY);
+        param.put("deviceId",MySharedPreference.getInstance(getActivity()).getFCM());
+        apiInterface.getUpcommingOrder(param)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel<ArrayList<OrderDetailsModel>>>() {
