@@ -32,7 +32,7 @@
                 android:id="@+id/iv_image"
                 android:layout_width="@dimen/_100_px"
                 android:layout_height="0dp"
-                bind:imageUrl="@{model.image}"
+                android:imageUrl="@{model.image}"
                 android:scaleType="fitXY"
                 android:background="@drawable/placeholder_squre"
                 app:layout_constraintBottom_toBottomOf="parent"

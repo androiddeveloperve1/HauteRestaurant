@@ -20,7 +20,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            bind:imageUrl2="@{model.image}" />
+            android:imageUrl2="@{model.image}" />
 
 
         <RelativeLayout

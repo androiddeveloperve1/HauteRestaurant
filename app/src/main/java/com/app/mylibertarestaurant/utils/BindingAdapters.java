@@ -61,14 +61,14 @@ public class BindingAdapters {
     }
 
 
-    @BindingAdapter({"bind:imageUrl"})
+    @BindingAdapter({"android:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
         Picasso.with(view.getContext()).load(imageUrl).resize(250, 250)
                 .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(view);
     }
 
 
-    @BindingAdapter({"bind:imageUrl2"})
+    @BindingAdapter({"android:imageUrl2"})
     public static void loadImage2(ImageView view, String imageUrl) {
         Picasso.with(view.getContext()).load(imageUrl).resize(500, 400)
                 .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(view);
@@ -77,13 +77,21 @@ public class BindingAdapters {
 
     @BindingAdapter("android:setAvailable")
     public static void setAvailable(TextView textView, String tag) {
-        if (tag.equals("1")) {
-            textView.setBackgroundResource(R.drawable.available_bg);
-            textView.setText("Available");
-        } else {
+        if(tag!=null)
+        {
+            if (tag.equals("1")) {
+                textView.setBackgroundResource(R.drawable.available_bg);
+                textView.setText("Available");
+            } else {
+                textView.setBackgroundResource(R.drawable.un_available_bg);
+                textView.setText("Unavailable");
+            }
+        }else {
             textView.setBackgroundResource(R.drawable.un_available_bg);
             textView.setText("Unavailable");
         }
+
+
     }
 
 

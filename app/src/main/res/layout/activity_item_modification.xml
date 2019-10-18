@@ -44,14 +44,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img_close">
 
 
-            <ImageView
-                android:id="@+id/img_capture"
-                android:layout_width="@dimen/_25_px"
-                android:layout_height="@dimen/_25_px"
-                android:onClick="@{(v)->click.onImageCapture(v)}"
-                android:src="@drawable/ic_camera"
-                app:layout_constraintBottom_toBottomOf="@+id/img_pic"
-                app:layout_constraintRight_toRightOf="@+id/img_pic" />
+
 
 
             <androidx.cardview.widget.CardView
@@ -195,7 +188,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Availablity"
+                            android:text="Availability"
                             android:textColor="@color/gray_text"
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -352,6 +345,14 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/img_capture"
+                android:layout_width="@dimen/_25_px"
+                android:layout_height="@dimen/_25_px"
+                android:onClick="@{(v)->click.onImageCapture(v)}"
+                android:src="@drawable/ic_camera"
+                app:layout_constraintBottom_toBottomOf="@+id/img_pic"
+                app:layout_constraintRight_toRightOf="@+id/img_pic" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

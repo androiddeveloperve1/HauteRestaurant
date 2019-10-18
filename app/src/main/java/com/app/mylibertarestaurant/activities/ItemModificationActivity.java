@@ -114,6 +114,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     void showAttribute() {
         if (inventoryModelNew.getAttribute() != null && inventoryModelNew.getAttribute().size() > 0) {
             binder.tvProductAttributeText.setVisibility(View.VISIBLE);
+            binder.llDropDown.setVisibility(View.VISIBLE);
             StringBuilder st = new StringBuilder();
             for (int i = 0; i < inventoryModelNew.getAttribute().size(); i++) {
                 st.append(inventoryModelNew.getAttribute().get(i).getAttribute_name()).append(",");
@@ -122,6 +123,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
         } else {
             binder.tvProductAttributeText.setVisibility(View.GONE);
+            binder.llDropDown.setVisibility(View.GONE);
         }
 
 
