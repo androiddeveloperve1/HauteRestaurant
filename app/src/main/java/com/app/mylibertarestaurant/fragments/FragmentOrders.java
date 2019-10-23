@@ -111,7 +111,10 @@ public class FragmentOrders extends Fragment {
 
         try {
             restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
-            binder.toolbarTitle.setText(restaurantDetailModel.getRestaurants().getName());
+
+
+
+            binder.toolbarTitle.setText(Character.toUpperCase(restaurantDetailModel.getRestaurants().getName().charAt(0)) + restaurantDetailModel.getRestaurants().getName().substring(1));
             Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(100, 100)
                     .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(binder.toolbarImage);
         }catch (Exception e){
