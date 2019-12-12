@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.adapter.InventoryItemAdapter;
+import com.app.mylibertarestaurant.adapter.CategoryItemListAdapter;
 import com.app.mylibertarestaurant.databinding.ActivitySearchItemBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
@@ -40,7 +39,7 @@ public class ActivitySearchItem extends AppCompatActivity {
     private ArrayList<InventoryModelNew> originalList = new ArrayList<>();
     private ArrayList<InventoryModelNew> list = new ArrayList<>();
     private ActivitySearchItemBinding binder;
-    private InventoryItemAdapter inventoryItemAdapter;
+    private CategoryItemListAdapter inventoryItemAdapter;
     private Timer timer;
 
     @Override
@@ -49,14 +48,14 @@ public class ActivitySearchItem extends AppCompatActivity {
         StatusbarUtils.statusBar(this);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_search_item);
         binder.setClick(new MyClick());
-        inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModelNew>() {
+       /* inventoryItemAdapter = new CategoryItemListAdapter(new RecycleItemClickListener<InventoryModelNew>() {
             @Override
             public void onItemClicked(int position, InventoryModelNew data) {
                 Intent mIntent = new Intent(ActivitySearchItem.this, ItemDescriptionActivity.class);
                 mIntent.putExtra("data", new Gson().toJson(data));
                 startActivity(mIntent);
             }
-        }, list);
+        }, list);*/
         binder.rvItems.setLayoutManager(new LinearLayoutManager(this));
         binder.setAdapter(inventoryItemAdapter);
         binder.etSearch.addTextChangedListener(new TextWatcher() {

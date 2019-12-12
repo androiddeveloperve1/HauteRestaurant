@@ -39,7 +39,7 @@ public class FragmentInventoryListChild extends Fragment {
         Log.e("@@@@@@@", "CALLED");
 
 
-        /*inventoryItemAdapter = new InventoryItemAdapter(new RecycleItemClickListener<InventoryModel>() {
+        /*inventoryItemAdapter = new CategoryItemListAdapter(new RecycleItemClickListener<InventoryModel>() {
             @Override
             public void onItemClicked(int position, InventoryModel data) {
                 Intent mIntent = new Intent(getActivity(), ItemDescriptionActivity.class);

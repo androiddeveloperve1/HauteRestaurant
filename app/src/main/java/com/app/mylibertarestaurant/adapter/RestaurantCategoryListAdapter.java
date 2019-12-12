@@ -1,21 +1,21 @@
 package com.app.mylibertarestaurant.adapter;
 
-import android.util.Log;
+
+
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.databinding.library.baseAdapters.BR;
 import androidx.recyclerview.widget.RecyclerView;
 
-import androidx.databinding.library.baseAdapters.BR;
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.databinding.ItemInventoryBinding;
+import com.app.mylibertarestaurant.databinding.ItemRestaurantCategoryBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
-import com.app.mylibertarestaurant.model.InventoryModel;
 import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
-import com.google.gson.Gson;
+import com.app.mylibertarestaurant.model.newP.RestaurantCategoryModel;
 
 import java.util.ArrayList;
 
@@ -24,26 +24,26 @@ import java.util.ArrayList;
  * Project SignupLibrary Screen
  */
 
-public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdapter.MyViewHolder> {
+public class RestaurantCategoryListAdapter extends RecyclerView.Adapter<RestaurantCategoryListAdapter.MyViewHolder> {
     RecycleItemClickListener listenr;
-    private ArrayList<InventoryModelNew> list;
+    private ArrayList<RestaurantCategoryModel> list;
 
-    public InventoryItemAdapter(RecycleItemClickListener listenr, ArrayList<InventoryModelNew> list) {
+    public RestaurantCategoryListAdapter(RecycleItemClickListener listenr, ArrayList<RestaurantCategoryModel> list) {
         this.listenr = listenr;
         this.list =list;
     }
 
     @NonNull
     @Override
-    public InventoryItemAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public RestaurantCategoryListAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        ItemInventoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_inventory, viewGroup, false);
-        binding.setClickListener(listenr);
-        return new InventoryItemAdapter.MyViewHolder(binding);
+        ItemRestaurantCategoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_restaurant_category, viewGroup, false);
+        binding.setListener(listenr);
+        return new RestaurantCategoryListAdapter.MyViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull InventoryItemAdapter.MyViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull RestaurantCategoryListAdapter.MyViewHolder holder, int i) {
         holder.bind(list.get(i));
 
     }
@@ -62,7 +62,7 @@ public class InventoryItemAdapter extends RecyclerView.Adapter<InventoryItemAdap
             this.binding = databinding;
         }
 
-        public void bind(InventoryModelNew data) {
+        public void bind(RestaurantCategoryModel data) {
             this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();

@@ -28,6 +28,9 @@ public class UrlConstants {
     public static final String LOGOUT = "/restaurent/logout";
     public static final String UPDATE_TIME_SLOT = "/restaurent/updateTimeSlot";
     public static final String FORGOT_PASSWORD = "/restaurent/forgot";
+/*-------------------------------------------------------*/
 
-
+    public static final String RESTAURANT_CATEGORY = ADMIN+"/get-categories/";
+    public static final String RESTAURANT_CATEGORY_ITEM = ADMIN+"/get-item-list/";
+    public static final String ADD_EDIT_RESTAURANT_CATEGORY = ADMIN+"/add-update-category";
 }

@@ -1,6 +1,8 @@
 package com.app.mylibertarestaurant.network;
 
 
+import com.app.mylibertarestaurant.activities.ActivityAddCategory;
+import com.app.mylibertarestaurant.activities.ActivityCategoryItem;
 import com.app.mylibertarestaurant.activities.ActivitySearchItem;
 import com.app.mylibertarestaurant.activities.CopyItemActivity;
 import com.app.mylibertarestaurant.activities.EditItemActivity;
@@ -13,7 +15,7 @@ import com.app.mylibertarestaurant.activities.LoginActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.activities.OrderDecriptionActivity;
 import com.app.mylibertarestaurant.fragments.EarningFragment;
-import com.app.mylibertarestaurant.fragments.FragmentInventoryNew;
+import com.app.mylibertarestaurant.fragments.FragmentRestaurantCategory;
 import com.app.mylibertarestaurant.fragments.FragmentOrders;
 import com.app.mylibertarestaurant.fragments.InventoryFragment;
 import com.app.mylibertarestaurant.fragments.ProfileFragment;
@@ -42,9 +44,11 @@ public interface ApplicationComponent {
     void inject(ProfileFragment model);
     void inject(InventoryFragment model);
     void inject(EditServiceDaysActivity model);
-    void inject(FragmentInventoryNew model);
+    void inject(FragmentRestaurantCategory model);
     void inject(ItemModificationActivity model);
     void inject(ActivitySearchItem model);
+    void inject(ActivityCategoryItem model);
+    void inject(ActivityAddCategory model);
 
 
 }

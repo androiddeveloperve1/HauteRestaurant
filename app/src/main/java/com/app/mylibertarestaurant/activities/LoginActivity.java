@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
     public class Presenter {
         public void doContinue(View v) {
             if (binder.etId.getText().toString().trim().length() > 0) {
-                if (AppUtils.eMailValidation(binder.etId.getText().toString().trim())) {
+                //if (AppUtils.eMailValidation(binder.etId.getText().toString().trim())) {
                     if (binder.etPass.getText().toString().trim().length() > 0) {
                         HashMap<String, String> param = new HashMap<>();
                         param.put("email", binder.etId.getText().toString().trim());
@@ -103,9 +103,9 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Please enter the passsword", Toast.LENGTH_SHORT).show();
                     }
 
-                } else {
+                /*} else {
                     Toast.makeText(LoginActivity.this, "Please enter the valid email id", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
             } else {
                 Toast.makeText(LoginActivity.this, "Please enter the email id", Toast.LENGTH_SHORT).show();

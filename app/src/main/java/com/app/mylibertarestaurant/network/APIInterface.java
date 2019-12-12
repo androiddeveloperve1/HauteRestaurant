@@ -12,6 +12,8 @@ import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
+import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
+import com.app.mylibertarestaurant.model.newP.RestaurantCategoryModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,5 +147,33 @@ public interface APIInterface {
     @Headers("Content-Type: application/json")
     @POST(UrlConstants.INVENTORY)
     Observable<ApiResponseModel<ArrayList<InventoryModelNew>>> getInventoryNew(@Body HashMap<String, String> body);
+    /*------------------------------------------------------------------------------------------------------------*/
+
+
+    @GET(UrlConstants.RESTAURANT_CATEGORY + "{id}")
+    Observable<ApiResponseModel<ArrayList<RestaurantCategoryModel>>> restaurantCategory(@Path("id") String id);
+
+    @GET(UrlConstants.RESTAURANT_CATEGORY_ITEM + "{catId}")
+    Observable<ApiResponseModel<ArrayList<RestaurantCategoryItemModel>>> restaurantCategoryItemById(@Path("catId") String id);
+
+    @Multipart
+    @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
+    Observable<ApiResponseModel> saveCategory(@Part MultipartBody.Part image,
+                                              @Part("name") RequestBody name,
+                                              @Part("description") RequestBody description,
+                                              @Part("location") RequestBody location,
+                                              @Part("restaurent_id") RequestBody restaurent_id);
+
+    @Multipart
+    @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
+    Observable<ApiResponseModel> updateCategory(@Part MultipartBody.Part image,
+                                                @Part("name") RequestBody name,
+                                                @Part("description") RequestBody description,
+                                                @Part("location") RequestBody location,
+                                                @Part("restaurent_id") RequestBody restaurent_id,
+                                                @Part("isActive") RequestBody isActive,
+                                                @Part("isImageRemove") RequestBody isImageRemove,
+                                                @Part("category_id") RequestBody category_id,
+                                                @Part("is_update") RequestBody food_type);
 
 }
