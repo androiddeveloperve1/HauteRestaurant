@@ -106,7 +106,7 @@ public class ActivityAddCategory extends ImageUploadingActivity {
             if (binder.etName.getText().toString().trim().length() > 0) {
                 if (binder.etDescription.getText().toString().trim().length() > 0) {
                     if (menuItemImage != null) {
-                        //saveCategory(false);
+                        saveCategory(false);
                     } else {
                         Toast.makeText(ActivityAddCategory.this, "Please select the image for menu", Toast.LENGTH_SHORT).show();
                     }
