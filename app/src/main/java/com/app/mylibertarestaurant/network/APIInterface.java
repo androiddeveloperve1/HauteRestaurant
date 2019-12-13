@@ -174,6 +174,6 @@ public interface APIInterface {
                                                 @Part("isActive") RequestBody isActive,
                                                 @Part("isImageRemove") RequestBody isImageRemove,
                                                 @Part("category_id") RequestBody category_id,
-                                                @Part("is_update") RequestBody food_type);
+                                                @Part("is_update") RequestBody is_update);
 
 }

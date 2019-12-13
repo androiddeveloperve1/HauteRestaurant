@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,19 +17,17 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.adapter.AttributeAdapterShow;
+import com.app.mylibertarestaurant.adapter.AvailibilityDayAdapter;
+import com.app.mylibertarestaurant.adapter.FoodTypeAvailabilityAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
-import com.app.mylibertarestaurant.model.InventoryModel;
-import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
-import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
+import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
@@ -41,33 +40,25 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     PopupMenu popup;
     @Inject
     APIInterface apiInterface;
-    String attributeId;
-    private InventoryModelNew data;
+    private RestaurantCategoryItemModel data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_item_description);
         binder.setClick(new Click());
-        data = new Gson().fromJson(getIntent().getStringExtra("data"), InventoryModelNew.class);
+        data = new Gson().fromJson(getIntent().getStringExtra("data"), RestaurantCategoryItemModel.class);
         binder.setModel(data);
-        attributeId = getIntent().getStringExtra("attribute_id");
+        binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        Log.e("@@@@@@@@", "" + new Gson().toJson(data));
+        Collections.reverse(data.getDaysOfWeek());
+        binder.setDayAdapter(new AvailibilityDayAdapter(data.getDaysOfWeek()));
+        binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
         initMenu();
-        showAttribute();
+
     }
 
-    void showAttribute() {
-
-        if (data.getAttribute() != null && data.getAttribute().size() > 0) {
-            binder.tvAttributeText.setVisibility(View.VISIBLE);
-            binder.rvAttributeItem.setLayoutManager(new LinearLayoutManager(this));
-            binder.setAdapt(new AttributeAdapterShow(data.getAttribute()));
-
-        } else {
-            binder.tvAttributeText.setVisibility(View.GONE);
-
-        }
-    }
 
     void initMenu() {
         popup = new PopupMenu(ItemDescriptionActivity.this, binder.ivThreeDot);
@@ -96,6 +87,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
     private void deleteItem() {

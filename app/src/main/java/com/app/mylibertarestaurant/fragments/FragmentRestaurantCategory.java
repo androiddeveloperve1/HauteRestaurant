@@ -1,6 +1,9 @@
 package com.app.mylibertarestaurant.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,14 +16,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.activities.ActivityAddCategory;
+import com.app.mylibertarestaurant.activities.ActivityAddEditCategory;
 import com.app.mylibertarestaurant.activities.ActivityCategoryItem;
-import com.app.mylibertarestaurant.activities.ItemDescriptionActivity;
-import com.app.mylibertarestaurant.activities.ItemModificationActivity;
 import com.app.mylibertarestaurant.activities.MainActivity;
 import com.app.mylibertarestaurant.activities.MyApplication;
 import com.app.mylibertarestaurant.adapter.RestaurantCategoryListAdapter;
-import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.FragmentRestaurantCategoryBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
@@ -30,6 +30,8 @@ import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
@@ -62,6 +64,11 @@ public class FragmentRestaurantCategory extends Fragment {
                 mIntent.putExtra("id", data.get_id());
                 mIntent.putExtra("catName", data.getName());
                 startActivityForResult(mIntent, 100);
+            }
+
+            @Override
+            public void onItemClickedWithTag(int position, RestaurantCategoryModel data, int tag) {
+                addEditMenu(true, data);
             }
         }, list);
 
@@ -116,6 +123,17 @@ public class FragmentRestaurantCategory extends Fragment {
                 });
     }
 
+    void addEditMenu(boolean isEdit, RestaurantCategoryModel data) {
+        Intent mIntent = new Intent(getActivity(), ActivityAddEditCategory.class);
+        if (isEdit) {
+            mIntent.putExtra("data", new Gson().toJson(data));
+            mIntent.putExtra("isEdit", true);
+        } else {
+            mIntent.putExtra("isEdit", false);
+        }
+
+        startActivity(mIntent);
+    }
 
     public class Click {
         public void onNavigationMenu(View v) {
@@ -124,9 +142,10 @@ public class FragmentRestaurantCategory extends Fragment {
         }
 
         public void onAdd(View v) {
-            Intent mIntent = new Intent(getActivity(), ActivityAddCategory.class);
-            startActivity(mIntent);
+            addEditMenu(false, null);
         }
 
     }
+
+
 }

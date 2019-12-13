@@ -10,8 +10,8 @@ import androidx.databinding.library.baseAdapters.BR;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.databinding.ItemAttributeShowBinding;
-import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
+import com.app.mylibertarestaurant.databinding.ItemAvailDayBinding;
+import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
 
 import java.util.ArrayList;
 
@@ -20,23 +20,23 @@ import java.util.ArrayList;
  * Project SignupLibrary Screen
  */
 
-public class AttributeAdapterShow extends RecyclerView.Adapter<AttributeAdapterShow.MyViewHolder> {
-    private ArrayList<AttributeModelNew> list;
+public class AvailibilityDayAdapter extends RecyclerView.Adapter<AvailibilityDayAdapter.MyViewHolder> {
+    private ArrayList<DayOfWeekModel>  list;
 
-    public AttributeAdapterShow(ArrayList<AttributeModelNew> list) {
+    public AvailibilityDayAdapter(ArrayList<DayOfWeekModel>  list) {
         this.list = list;
     }
 
     @NonNull
     @Override
-    public AttributeAdapterShow.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AvailibilityDayAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        ItemAttributeShowBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_attribute_show, viewGroup, false);
-        return new AttributeAdapterShow.MyViewHolder(binding);
+        ItemAvailDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.item_avail_day, viewGroup, false);
+        return new AvailibilityDayAdapter.MyViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AttributeAdapterShow.MyViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull AvailibilityDayAdapter.MyViewHolder holder, int i) {
 
         holder.bind(list.get(i));
     }
@@ -55,7 +55,7 @@ public class AttributeAdapterShow extends RecyclerView.Adapter<AttributeAdapterS
             this.binding = databinding;
         }
 
-        public void bind(AttributeModelNew data) {
+        public void bind(DayOfWeekModel data) {
             this.binding.setVariable(BR.model, data);
             this.binding.executePendingBindings();
         }

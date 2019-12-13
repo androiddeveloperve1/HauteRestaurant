@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tv_slot1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_5_px"
+        android:background="@drawable/rounded_green"
+        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+        android:paddingLeft="@dimen/_10_px"
+        android:paddingTop="@dimen/_5_px"
+        android:paddingRight="@dimen/_10_px"
+        android:paddingBottom="@dimen/_5_px"
+        android:text='@{model.txtValue}'
+
+
+        android:textColor="@color/black"
+        android:textSize="@dimen/_8_px" />
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.newP.MealAvailabilityModel" />
+
+
+    </data>
+</layout>

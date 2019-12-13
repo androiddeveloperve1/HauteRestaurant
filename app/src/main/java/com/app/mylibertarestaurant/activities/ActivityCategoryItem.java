@@ -1,6 +1,7 @@
 package com.app.mylibertarestaurant.activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.app.mylibertarestaurant.databinding.ActivityCategoryItemBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
+import com.app.mylibertarestaurant.model.newP.RestaurantCategoryModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
@@ -32,8 +34,10 @@ public class ActivityCategoryItem extends AppCompatActivity {
     @Inject
     APIInterface apiInterface;
     private ActivityCategoryItemBinding binder;
+
     private String catId;
     private String catName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class ActivityCategoryItem extends AppCompatActivity {
                         progressDialog.dismiss();
                         ResponseDialog.showErrorDialog(ActivityCategoryItem.this, throwable.getLocalizedMessage());
                     }
+
                     @Override
                     public void onNext(ApiResponseModel<ArrayList<RestaurantCategoryItemModel>> response) {
                         progressDialog.dismiss();
@@ -75,6 +80,11 @@ public class ActivityCategoryItem extends AppCompatActivity {
                                 binder.rvItem.setAdapter(new CategoryItemListAdapter(new RecycleItemClickListener<RestaurantCategoryItemModel>() {
                                     @Override
                                     public void onItemClicked(int position, RestaurantCategoryItemModel data) {
+                                        Intent mIntent = new Intent(ActivityCategoryItem.this, ItemDescriptionActivity.class);
+                                        mIntent.putExtra("data", new Gson().toJson(data));
+                                        startActivity(mIntent);
+
+
                                     }
                                 }, response.getData()));
                             } else {

@@ -18,6 +18,7 @@ import androidx.databinding.InverseBindingMethods;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.model.TimeModel;
+import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -77,8 +78,7 @@ public class BindingAdapters {
 
     @BindingAdapter("android:setAvailable")
     public static void setAvailable(TextView textView, String tag) {
-        if(tag!=null)
-        {
+        if (tag != null) {
             if (tag.equals("1")) {
                 textView.setBackgroundResource(R.drawable.available_bg);
                 textView.setText("Available");
@@ -86,7 +86,7 @@ public class BindingAdapters {
                 textView.setBackgroundResource(R.drawable.un_available_bg);
                 textView.setText("Unavailable");
             }
-        }else {
+        } else {
             textView.setBackgroundResource(R.drawable.un_available_bg);
             textView.setText("Unavailable");
         }
@@ -127,6 +127,20 @@ public class BindingAdapters {
             view.setText("$ " + amount);
         } else {
             view.setText("");
+        }
+
+
+    }
+
+
+    @BindingAdapter("android:setAvailDayText")
+    public static void setText2(@Nullable TextView view, final DayOfWeekModel model) {
+
+        if (model.getValue().equals("true")) {
+            view.setVisibility(View.VISIBLE);
+            view.setText(model.getLabel());
+        } else {
+            view.setVisibility(View.GONE);
         }
 
 

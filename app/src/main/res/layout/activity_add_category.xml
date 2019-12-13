@@ -6,7 +6,7 @@
 
         <variable
             name="click"
-            type="com.app.mylibertarestaurant.activities.ActivityAddCategory.MyClick" />
+            type="com.app.mylibertarestaurant.activities.ActivityAddEditCategory.MyClick" />
 
 
 
