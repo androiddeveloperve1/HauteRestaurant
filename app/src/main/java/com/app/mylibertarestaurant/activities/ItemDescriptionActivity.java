@@ -18,15 +18,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.AvailibilityDayAdapter;
+import com.app.mylibertarestaurant.adapter.CategoryItemListAdapter;
+import com.app.mylibertarestaurant.adapter.DietaryLabelAdapter;
 import com.app.mylibertarestaurant.adapter.FoodTypeAvailabilityAdapter;
+import com.app.mylibertarestaurant.adapter.OptionShowAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
+import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.inject.Inject;
@@ -41,22 +46,29 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     @Inject
     APIInterface apiInterface;
     private RestaurantCategoryItemModel data;
+    private String menuId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_item_description);
         binder.setClick(new Click());
-        data = new Gson().fromJson(getIntent().getStringExtra("data"), RestaurantCategoryItemModel.class);
+        menuId = getIntent().getStringExtra("id");
+        getMenuDetail();
+        initMenu();
+    }
+
+    void initData() {
         binder.setModel(data);
         binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        Log.e("@@@@@@@@", "" + new Gson().toJson(data));
+        binder.rvDietLabel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        binder.rvOptions.setLayoutManager(new LinearLayoutManager(this));
         Collections.reverse(data.getDaysOfWeek());
         binder.setDayAdapter(new AvailibilityDayAdapter(data.getDaysOfWeek()));
         binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
-        initMenu();
-
+        binder.setDietaryAdapter(new DietaryLabelAdapter(data.getDietaryLabels()));
+        binder.setOptionShowAdapter(new OptionShowAdapter(this,data.getOptionsResult()));
     }
 
 
@@ -90,13 +102,23 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     }
 
-    private void deleteItem() {
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data2) {
+        super.onActivityResult(requestCode, resultCode, data2);
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            finish();
+        }
+
+    }
+
+    private void getMenuDetail() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemDescriptionActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemDescriptionActivity.this);
-        apiInterface.deleteFoodItem(data.get_id())
+        apiInterface.getMenuDetail(menuId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel>() {
+                .subscribe(new Subscriber<ApiResponseModel<ArrayList<RestaurantCategoryItemModel>>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -108,46 +130,17 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(ApiResponseModel response) {
+                    public void onNext(ApiResponseModel<ArrayList<RestaurantCategoryItemModel>> response) {
                         progressDialog.dismiss();
+                        Log.e("@@@@@@", new Gson().toJson(response));
                         if (response.getStatus().equals("200")) {
-                            setResult(Activity.RESULT_OK);
-                            finish();
+                            data = response.getData().get(0);
+                            initData();
                         } else {
                             ResponseDialog.showErrorDialog(ItemDescriptionActivity.this, response.getMessage());
                         }
                     }
                 });
-    }
-
-    void deleteAlert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Alert");
-        builder.setMessage("Are you sure, want to delete this item ?");
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                deleteItem();
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        builder.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data2) {
-        super.onActivityResult(requestCode, resultCode, data2);
-        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
-            finish();
-        }
-
     }
 
     public class Click {

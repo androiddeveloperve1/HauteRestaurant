@@ -81,7 +81,7 @@ public class ActivityCategoryItem extends AppCompatActivity {
                                     @Override
                                     public void onItemClicked(int position, RestaurantCategoryItemModel data) {
                                         Intent mIntent = new Intent(ActivityCategoryItem.this, ItemDescriptionActivity.class);
-                                        mIntent.putExtra("data", new Gson().toJson(data));
+                                        mIntent.putExtra("id", data.get_id());
                                         startActivity(mIntent);
 
 

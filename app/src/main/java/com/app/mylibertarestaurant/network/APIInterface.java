@@ -176,4 +176,7 @@ public interface APIInterface {
                                                 @Part("category_id") RequestBody category_id,
                                                 @Part("is_update") RequestBody is_update);
 
+    @GET(UrlConstants.MENU_ITEM_DETAIL + "{id}")
+    Observable<ApiResponseModel<ArrayList<RestaurantCategoryItemModel>>> getMenuDetail(@Path("id") String id);
+
 }

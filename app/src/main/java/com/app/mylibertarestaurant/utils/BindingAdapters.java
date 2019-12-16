@@ -71,8 +71,9 @@ public class BindingAdapters {
 
     @BindingAdapter({"android:imageUrl2"})
     public static void loadImage2(ImageView view, String imageUrl) {
-        Picasso.with(view.getContext()).load(imageUrl).resize(500, 400)
-                .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(view);
+        if (imageUrl != null && imageUrl.trim().length()>0)
+            Picasso.with(view.getContext()).load(imageUrl).resize(500, 400)
+                    .onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(view);
     }
 
 

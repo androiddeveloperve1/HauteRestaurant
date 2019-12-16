@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
-
     <data>
-
         <variable
             name="model"
             type="com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel" />
@@ -15,9 +13,17 @@
         <variable
             name="dayAdapter"
             type="com.app.mylibertarestaurant.adapter.AvailibilityDayAdapter" />
+
         <variable
             name="foodTypeAdapter"
             type="com.app.mylibertarestaurant.adapter.FoodTypeAvailabilityAdapter" />
+
+        <variable
+            name="dietaryAdapter"
+            type="com.app.mylibertarestaurant.adapter.DietaryLabelAdapter" />
+        <variable
+            name="optionShowAdapter"
+            type="com.app.mylibertarestaurant.adapter.OptionShowAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -68,180 +74,290 @@
 
         </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="@dimen/_10_px"
             android:layout_marginTop="@dimen/_130_px"
-            android:layout_marginRight="@dimen/_10_px"
-            android:layout_marginBottom="@dimen/_5_px"
-            app:cardCornerRadius="@dimen/_5_px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintRight_toRightOf="parent">
 
-            <ScrollView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:nestedScrollingEnabled="true"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_one"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_food_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10_px"
-                        android:layout_marginTop="@dimen/_15_px"
-                        android:ellipsize="end"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:maxLines="1"
-                        android:text="Product informaion"
-                        android:textColor="@color/gray_text"
-                        android:textSize="@dimen/_8_px"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10_px"
+                    android:layout_marginTop="@dimen/_130_px"
+                    android:layout_marginRight="@dimen/_10_px"
+                    android:layout_marginBottom="@dimen/_5_px"
+                    app:cardCornerRadius="@dimen/_5_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
-                    <TextView
-                        android:id="@+id/tv_item_name"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10_px"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:ellipsize="end"
-                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                        android:maxLines="1"
-                        android:text="@{model.name}"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12_px"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_food_type" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/tv_availablity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10_px"
-                        android:layout_marginRight="@dimen/_5_px"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:paddingLeft="@dimen/_10_px"
-                        android:paddingTop="@dimen/_5_px"
-                        android:paddingRight="@dimen/_10_px"
-                        android:paddingBottom="@dimen/_5_px"
-                        android:setAvailable="@{model.isActive}"
-                        android:text="Available"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_10_px"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/tv_item_name" />
-
-                    <TextView
-                        android:id="@+id/tv_rs"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                        android:text='@{"$ "+model.price}'
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12_px"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
-
-                    <TextView
-                        android:id="@+id/tv_desc"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:paddingBottom="@dimen/_5_px"
-                        android:text="@{model.description}"
-                        android:textColor="@color/gray_text"
-                        android:textSize="@dimen/_11_px"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
-                        app:layout_constraintRight_toRightOf="@id/tv_availablity"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_rs" />
+                        <TextView
+                            android:id="@+id/tv_food_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_15_px"
+                            android:ellipsize="end"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:maxLines="1"
+                            android:text="Product informaion"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_8_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_1_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@color/gray"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
+                        <TextView
+                            android:id="@+id/tv_item_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:ellipsize="end"
+                            android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                            android:maxLines="1"
+                            android:text="@{model.name}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_food_type" />
 
-                    <TextView
-                        android:id="@+id/tv_avail_day_text"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:text="Available on"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12_px"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view2" />
+                        <TextView
+                            android:id="@+id/tv_availablity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginRight="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:paddingLeft="@dimen/_10_px"
+                            android:paddingTop="@dimen/_5_px"
+                            android:paddingRight="@dimen/_10_px"
+                            android:paddingBottom="@dimen/_5_px"
+                            android:setAvailable="@{model.isActive}"
+                            android:text="Available"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_item_name" />
 
+                        <TextView
+                            android:id="@+id/tv_rs"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                            android:text='@{"$ "+model.price}'
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_avail"
-                        android:layout_width="0dp"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:layout_height="wrap_content"
-                        android:adapter="@{dayAdapter}"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_avail_day_text"
-                        app:layout_constraintRight_toRightOf="@id/tv_desc"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_avail_day_text" />
-
-
-                    <View
-                        android:id="@+id/view3"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/_1_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:background="@color/gray"
-                        app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/rv_avail" />
-
-                    <TextView
-                        android:id="@+id/tv_avail_food_text2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10_px"
-                        android:layout_marginTop="@dimen/_10_px"
-                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                        android:text="Availability"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_12_px"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/view3" />
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_avail2"
-                        android:layout_width="0dp"
-                        android:layout_marginTop="@dimen/_5_px"
-                        android:layout_height="wrap_content"
-                        android:adapter="@{foodTypeAdapter}"
-                        app:layout_constraintLeft_toLeftOf="@id/tv_avail_day_text"
-                        app:layout_constraintRight_toRightOf="@id/tv_desc"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_avail_food_text2" />
+                        <TextView
+                            android:id="@+id/tv_desc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:paddingBottom="@dimen/_5_px"
+                            android:text="@{model.description}"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_11_px"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                            app:layout_constraintRight_toRightOf="@id/tv_availablity"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_rs" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_1_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@color/gray"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
-            </ScrollView>
+                        <TextView
+                            android:id="@+id/tv_avail_day_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Available on"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 
-        </androidx.cardview.widget.CardView>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_avail"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:adapter="@{dayAdapter}"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_avail_day_text"
+                            app:layout_constraintRight_toRightOf="@id/tv_desc"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_avail_day_text" />
 
+
+                        <View
+                            android:id="@+id/view3"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_1_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@color/gray"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_avail" />
+
+                        <TextView
+                            android:id="@+id/tv_avail_food_text2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Availability"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_avail2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:adapter="@{foodTypeAdapter}"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_avail_day_text"
+                            app:layout_constraintRight_toRightOf="@id/tv_desc"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_avail_food_text2" />
+
+                        <View
+                            android:id="@+id/view4"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_1_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:background="@color/gray"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_item_name"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/rv_avail2" />
+
+                        <TextView
+                            android:id="@+id/tv_diet_label_text"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Dietary labels"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_diet_label"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:adapter="@{dietaryAdapter}"
+                            android:paddingBottom="@dimen/_5_px"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_avail_day_text"
+                            app:layout_constraintRight_toRightOf="@id/tv_desc"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_diet_label_text" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100_px"
+                    android:layout_marginLeft="@dimen/_10_px"
+                    android:layout_marginTop="@dimen/_5_px"
+                    android:layout_marginRight="@dimen/_10_px"
+                    android:layout_marginBottom="@dimen/_5_px"
+                    app:cardCornerRadius="@dimen/_5_px"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cv_one">
+
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_5_px"
+                        android:layout_height="match_parent"
+                        android:background="@color/green_button" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_option_txt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_10_px"
+                            android:ellipsize="end"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:maxLines="1"
+                            android:text="Options"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_8_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/next"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/next"
+                            android:layout_width="@dimen/_20_px"
+                            android:layout_height="@dimen/_20_px"
+                            android:background="@drawable/ic_right_arrow_grey"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_option_txt"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_option_txt" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_options"
+                            android:layout_width="0dp"
+                            android:adapter="@{optionShowAdapter}"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="@id/tv_option_txt"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/next" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
