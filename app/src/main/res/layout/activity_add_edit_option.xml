@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.newP.MainOptionModel" />
+
+        <variable
             name="click"
             type="com.app.mylibertarestaurant.activities.AddEditOptionActivity.Click" />
 
@@ -116,6 +120,7 @@
                     android:hint="Title of the option"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
+                    android:text="@={model.name}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -131,6 +136,7 @@
                     android:gravity="top"
                     android:hint="Enter description"
                     android:scrollbars="vertical"
+                    android:text="@={model.description}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -162,6 +168,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:singleLine="true"
+                    android:text="@={model.minSelection}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/et_max"
@@ -178,6 +185,7 @@
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:singleLine="true"
+                    android:text="@={model.maxSelection}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toRightOf="@+id/et_min"
                     app:layout_constraintRight_toRightOf="parent"

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
+
     <data>
+
         <variable
             name="model"
             type="com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel" />
@@ -21,9 +23,8 @@
         <variable
             name="dietaryAdapter"
             type="com.app.mylibertarestaurant.adapter.DietaryLabelAdapter" />
-        <variable
-            name="optionShowAdapter"
-            type="com.app.mylibertarestaurant.adapter.OptionShowAdapter" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -77,16 +78,15 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_130_px"
+            android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:nestedScrollingEnabled="true"
                 android:layout_height="match_parent"
+                android:nestedScrollingEnabled="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent">
@@ -299,14 +299,15 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cv_two"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_100_px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10_px"
                     android:layout_marginTop="@dimen/_5_px"
                     android:layout_marginRight="@dimen/_10_px"
-                    android:layout_marginBottom="@dimen/_5_px"
+                    android:layout_marginBottom="@dimen/_10_px"
                     app:cardCornerRadius="@dimen/_5_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cv_one">
 
 
@@ -317,6 +318,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
+
+                        android:onClick="@{(v)->click.goOptionDetail(v)}"
                         android:layout_height="match_parent">
 
                         <TextView
@@ -338,18 +341,19 @@
 
                         <ImageView
                             android:id="@+id/next"
-                            android:layout_width="@dimen/_20_px"
-                            android:layout_height="@dimen/_20_px"
+                            android:layout_width="@dimen/_25_px"
+                            android:layout_height="@dimen/_25_px"
                             android:background="@drawable/ic_right_arrow_grey"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_option_txt"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="@+id/tv_option_txt" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_options"
+
+                        <LinearLayout
+                            android:id="@+id/ll_option"
                             android:layout_width="0dp"
-                            android:adapter="@{optionShowAdapter}"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             app:layout_constraintLeft_toLeftOf="@id/tv_option_txt"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/next" />

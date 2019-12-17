@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="click"
+            type="com.app.mylibertarestaurant.activities.OptionDetailsActivity.MyClick" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/light_gray"
+        android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tool"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/toolbar_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48_px"
+                android:background="@drawable/toolbar_drop_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="@dimen/_5_px"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="@dimen/_30_px"
+                android:layout_height="@dimen/_35_px"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5_px"
+                android:onClick="@{(v)->click.onBack(v)}"
+                android:padding="@dimen/_5_px"
+                android:src="@drawable/ic_back_black"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+            <TextView
+                android:id="@+id/tv_cat_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_10_px"
+                android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                android:text="Options"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14_px"
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/back" />
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="@dimen/_35_px"
+                android:layout_height="@dimen/_35_px"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_5_px"
+                android:onClick="@{(v)->click.onAdd(v)}"
+                android:padding="@dimen/_5_px"
+                android:src="@drawable/ic_add"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/toolbar_shadow"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar_shadow" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10_px"
+            android:layout_marginTop="@dimen/_5_px"
+            android:layout_marginRight="@dimen/_10_px"
+            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+            android:text="Edit you option &amp; suboption"
+            android:textColor="@color/gray_text"
+            android:textSize="@dimen/_10_px"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tool" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/_5_px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_text">
+
+            <LinearLayout
+                android:id="@+id/ll_manu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

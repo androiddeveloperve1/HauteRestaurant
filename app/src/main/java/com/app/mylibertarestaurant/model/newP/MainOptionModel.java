@@ -26,6 +26,17 @@ public class MainOptionModel extends BaseObservable {
     private String restaurent_id;
     private String item_id;
     private ArrayList<SubOptionModel> subOptionsResult;
+    private String description;
+
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        this.notifyPropertyChanged(BR.description);
+    }
 
 
     public void set_id(String _id) {

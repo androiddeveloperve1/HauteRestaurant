@@ -1,43 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <data>
-
-        <variable
-            name="myModel"
-            type="com.app.mylibertarestaurant.model.newP.MainOptionModel" />
-
-        <variable
-            name="subOptionAdapter"
-            type="com.app.mylibertarestaurant.adapter.SubOptionShowAdapter" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tv_open_text1"
+            android:id="@+id/tv_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-            android:text="@{myModel.customerPrompt}"
-            android:textColor="@color/gray_text"
+            android:layout_marginTop="@dimen/_5_px"
+            android:textColor="@color/blackLight"
             android:textSize="@dimen/_12_px"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_sub_option"
+        <LinearLayout
+            android:id="@+id/ll_sub_option"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5_px"
-            android:nestedScrollingEnabled="false"
-            android:adapter="@{subOptionAdapter}"
-            app:layout_constraintLeft_toLeftOf="@id/tv_open_text1"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="@id/tv_text"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_open_text1" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_text" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/_5_px"
+            android:background="@color/gray_text"
+            android:layout_marginLeft="@dimen/_20_px"
+            app:layout_constraintLeft_toLeftOf="@id/tv_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_sub_option"
+            android:layout_height="1px"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

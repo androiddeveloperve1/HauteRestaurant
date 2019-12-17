@@ -4,6 +4,10 @@
     <data>
 
         <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.newP.SubOptionModel" />
+
+        <variable
             name="click"
             type="com.app.mylibertarestaurant.activities.ActivityAddEditSubOption.Click" />
 
@@ -113,6 +117,7 @@
                     android:layout_marginTop="@dimen/_3_px"
                     android:background="@drawable/edit_text_bg"
                     android:hint="Enter name"
+                    android:text="@={model.name}"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:textSize="@dimen/_12_px"
@@ -152,6 +157,7 @@
                         android:layout_height="match_parent"
                         android:layout_toLeftOf="@+id/iv_arrow"
                         android:background="@null"
+                        android:text="@={model.markupStructure}"
                         android:hint="Markup structure"
                         android:imeOptions="actionNext"
                         android:paddingLeft="@dimen/_10_px"
@@ -215,15 +221,16 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14_px" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/et_price"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@+id/et_doller_sign"
                         android:background="@drawable/spinner_bg"
-                        android:hint="20:00"
+                        android:hint="20.00"
+                        android:text="@={model.bestPrice}"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:paddingLeft="@dimen/_10_px"
                         android:paddingTop="@dimen/_5_px"
                         android:paddingRight="@dimen/_10_px"
@@ -335,6 +342,7 @@
                     android:background="@drawable/edit_text_bg"
                     android:gravity="top"
                     android:hint="Enter description"
+                    android:text="@={model.description}"
                     android:scrollbars="vertical"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"

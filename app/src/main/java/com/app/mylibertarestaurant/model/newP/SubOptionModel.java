@@ -23,10 +23,23 @@ public class SubOptionModel extends BaseObservable {
     private Boolean isActive;
     private String _id;
     private String category_id;
+
     private String restaurent_id;
     private String option_id;
     private String item_id;
 
+
+    private String description;
+
+@Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        this.notifyPropertyChanged(BR.description);
+    }
 
     public void setName(String name) {
         this.name = name;

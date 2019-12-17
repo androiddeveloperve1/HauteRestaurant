@@ -2,15 +2,15 @@ package com.app.mylibertarestaurant.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
@@ -18,21 +18,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.AvailibilityDayAdapter;
-import com.app.mylibertarestaurant.adapter.CategoryItemListAdapter;
 import com.app.mylibertarestaurant.adapter.DietaryLabelAdapter;
 import com.app.mylibertarestaurant.adapter.FoodTypeAvailabilityAdapter;
-import com.app.mylibertarestaurant.adapter.OptionShowAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
+import com.app.mylibertarestaurant.customui.Utils;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
-import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
+import com.app.mylibertarestaurant.model.newP.MainOptionModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
+import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.zip.Inflater;
 
 import javax.inject.Inject;
 
@@ -63,12 +64,11 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         binder.rvDietLabel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        binder.rvOptions.setLayoutManager(new LinearLayoutManager(this));
         Collections.reverse(data.getDaysOfWeek());
         binder.setDayAdapter(new AvailibilityDayAdapter(data.getDaysOfWeek()));
         binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
         binder.setDietaryAdapter(new DietaryLabelAdapter(data.getDietaryLabels()));
-        binder.setOptionShowAdapter(new OptionShowAdapter(this,data.getOptionsResult()));
+        initOptionAndSubOption();
     }
 
 
@@ -99,6 +99,28 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+    }
+
+    void initOptionAndSubOption() {
+        for (int i = 0; i < data.getOptionsResult().size(); i++) {
+            View mainOption = getLayoutInflater().inflate(R.layout.item_option_show, null);
+            mainOption.setId(i);
+            TextView tv = mainOption.findViewById(R.id.tv_text);
+            MainOptionModel mainOptionModel = data.getOptionsResult().get(i);
+            tv.setText(mainOptionModel.getName());
+            LinearLayout ll_sub_option = mainOption.findViewById(R.id.ll_sub_option);
+            for (int j = 0; j < mainOptionModel.getSubOptionsResult().size(); j++) {
+                View subOption = getLayoutInflater().inflate(R.layout.item_sub_option_show, null);
+                subOption.setId(j);
+                TextView tv_name = subOption.findViewById(R.id.tv_name);
+                tv_name.setText(mainOptionModel.getSubOptionsResult().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSubOptionsResult().get(j).getBestPrice()) + ")");
+                ll_sub_option.addView(subOption);
+            }
+            binder.llOption.addView(mainOption);
+
+        }
+
 
     }
 
@@ -146,6 +168,13 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     public class Click {
         public void onBack(View v) {
             finish();
+        }
+
+        public void goOptionDetail(View v) {
+            Intent mIntent = new Intent(ItemDescriptionActivity.this, OptionDetailsActivity.class);
+            mIntent.putExtra("data", new Gson().toJson(data));
+            startActivity(mIntent);
+
         }
 
         public void onPopupClick(View v) {
