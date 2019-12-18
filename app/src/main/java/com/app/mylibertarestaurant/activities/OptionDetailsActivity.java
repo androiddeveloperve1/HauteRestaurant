@@ -77,6 +77,12 @@ public class OptionDetailsActivity extends AppCompatActivity {
 
 
                 TextView tv_name = subOption.findViewById(R.id.tv_name);
+                View devider = subOption.findViewById(R.id.devider);
+
+                if(j==mainOptionModel.getSubOptionsResult().size()-1)
+                {
+                    devider.setVisibility(View.GONE);
+                }
                 tv_name.setText(mainOptionModel.getSubOptionsResult().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSubOptionsResult().get(j).getBestPrice()) + ")");
                 ll_sub_option.addView(subOption);
             }

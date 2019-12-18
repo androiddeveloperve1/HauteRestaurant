@@ -79,6 +79,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_130_px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent">
@@ -97,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_10_px"
-                    android:layout_marginTop="@dimen/_130_px"
+
                     android:layout_marginRight="@dimen/_10_px"
                     android:layout_marginBottom="@dimen/_5_px"
                     app:cardCornerRadius="@dimen/_5_px"
@@ -319,7 +320,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
 
-                        android:onClick="@{(v)->click.goOptionDetail(v)}"
+
                         android:layout_height="match_parent">
 
                         <TextView
@@ -343,6 +344,7 @@
                             android:id="@+id/next"
                             android:layout_width="@dimen/_25_px"
                             android:layout_height="@dimen/_25_px"
+                            android:onClick="@{(v)->click.goOptionDetail(v)}"
                             android:background="@drawable/ic_right_arrow_grey"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_option_txt"
                             app:layout_constraintRight_toRightOf="parent"
