@@ -81,19 +81,16 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                 Intent mIntent;
                 switch (item.getItemId()) {
                     case R.id.edit:
-                        mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
+                        /*mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.EDIT);
-                        startActivityForResult(mIntent, 100);
+                        startActivityForResult(mIntent, 100);*/
                         break;
                    /* case R.id.copy:
                         mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
                         mIntent.putExtra("flag", Constants.COPY);
                         startActivityForResult(mIntent, 100);
-                        break;
-                    case R.id.delete:
-                        deleteAlert();
                         break;*/
                 }
                 return false;
@@ -167,7 +164,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     public class Click {
         public void onBack(View v) {
-            Log.e("@@@@@@@","Clicked");
+            Log.e("@@@@@@@", "Clicked");
             finish();
         }
 

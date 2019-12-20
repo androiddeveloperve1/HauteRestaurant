@@ -18,8 +18,10 @@ import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.OrderItemDescriptionAdapter;
 import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityOrderDecriptionBinding;
+import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
+import com.app.mylibertarestaurant.model.items.OrderItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
@@ -272,7 +274,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                     public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         if (response.getStatus().equals("200")) {
-                            Log.e("@@@@@@@@@",new Gson().toJson(response.getData()));
+                            Log.e("@@@@@@@@@", new Gson().toJson(response.getData()));
                             Intent mIntent = new Intent();
                             mIntent.setAction(Constants.DRIVER_VERIFIED_WITH_OTP);
                             LocalBroadcastManager.getInstance(OrderDecriptionActivity.this).sendBroadcast(mIntent);
@@ -309,7 +311,16 @@ public class OrderDecriptionActivity extends AppCompatActivity {
                             orderDetailsModel = response.getData();
                             showDataNow();
                             binder.toolbarTitle.setText("ORDER ID :" + orderDetailsModel.getOrder_no());
-                            binder.setAdapt(new OrderItemDescriptionAdapter(orderDetailsModel.getOrder()));
+                            binder.setAdapt(new OrderItemDescriptionAdapter(orderDetailsModel.getOrder(), new RecycleItemClickListener<OrderItemModel>() {
+                                @Override
+                                public void onItemClicked(int position, OrderItemModel data) {
+                                    Intent mIntent = new Intent(OrderDecriptionActivity.this, OptionSelectedDetailActivity.class);
+                                    mIntent.putExtra("data", new Gson().toJson(data));
+                                    startActivity(mIntent);
+
+
+                                }
+                            }));
                             binder.setModel(orderDetailsModel);
                             binder.tvTime.setText(AppUtils.getHumanReadableTimeFromUTCString(orderDetailsModel.getCreatedAt()));
                         } else {
@@ -344,7 +355,7 @@ public class OrderDecriptionActivity extends AppCompatActivity {
 
     public class Click {
         public void readyForPickup(View v) {
-            if (orderDetailsModel.getDriver_id()==null ||orderDetailsModel.getDriver_id().trim().length()<=0 ||  orderDetailsModel.getIs_driver_assign().equals("0") ) {
+            if (orderDetailsModel.getDriver_id() == null || orderDetailsModel.getDriver_id().trim().length() <= 0 || orderDetailsModel.getIs_driver_assign().equals("0")) {
                 ResponseDialog.dialogDismissActivity(OrderDecriptionActivity.this, "Please wait, driver is not yet assign for delivery");
             } else {
                 readyForPickupAPI();

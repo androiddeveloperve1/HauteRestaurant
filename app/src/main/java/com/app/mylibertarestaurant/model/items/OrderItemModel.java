@@ -5,6 +5,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
 import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
+import com.app.mylibertarestaurant.model.newP.MainOptionModel;
 
 import java.util.ArrayList;
 
@@ -17,21 +18,42 @@ import java.util.ArrayList;
 public class OrderItemModel extends BaseObservable {
 
     private String quantity;
+    private String description;
+    private String item_name;
     private String price;
     private String item_type;
     private String _id;
     private ItemDataModel item_id;
+    private ArrayList<MainOptionModel> options;
 
-    private ArrayList<AttributeModelNew> attribute;
 
     @Bindable
-    public ArrayList<AttributeModelNew> getAttribute() {
-        return attribute;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAttribute(ArrayList<AttributeModelNew> attribute) {
-        this.attribute = attribute;
-        this.notifyPropertyChanged(BR.attribute);
+    public void setDescription(String description) {
+        this.description = description;
+        this.notifyPropertyChanged(BR.description);
+    }
+    @Bindable
+    public String getItem_name() {
+        return item_name;
+    }
+
+    public void setItem_name(String item_name) {
+        this.item_name = item_name;
+        this.notifyPropertyChanged(BR.item_name);
+    }
+
+    @Bindable
+    public ArrayList<MainOptionModel> getOptions() {
+        return options;
+    }
+
+    public void setOptions(ArrayList<MainOptionModel> options) {
+        this.options = options;
+        this.notifyPropertyChanged(BR.options);
     }
 
 

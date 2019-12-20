@@ -57,49 +57,43 @@ public class OptionDetailsActivity extends AppCompatActivity {
             tv_add_sub_option.setOnClickListener((v) -> {
                 Intent mIntent = new Intent(OptionDetailsActivity.this, ActivityAddEditSubOption.class);
                 mIntent.putExtra("edit", false);
+                mIntent.putExtra("option", new Gson().toJson(restaurantCategoryItemModel.getOptionsResult()));
                 startActivity(mIntent);
             });
             LinearLayout ll_sub_option = mainOption.findViewById(R.id.ll_sub_option);
             for (int j = 0; j < mainOptionModel.getSubOptionsResult().size(); j++) {
                 final int k = j;
                 View subOption = getLayoutInflater().inflate(R.layout.item_suboption_with_arrow, null);
-
-
                 subOption.setId(j);
-
-
                 subOption.setOnClickListener((v) -> {
                     Intent mIntent = new Intent(OptionDetailsActivity.this, ActivityAddEditSubOption.class);
                     mIntent.putExtra("data", new Gson().toJson(mainOptionModel.getSubOptionsResult().get(k)));
+                    mIntent.putExtra("option", new Gson().toJson(restaurantCategoryItemModel.getOptionsResult()));
                     mIntent.putExtra("edit", true);
                     startActivity(mIntent);
                 });
-
-
                 TextView tv_name = subOption.findViewById(R.id.tv_name);
                 View devider = subOption.findViewById(R.id.devider);
 
-                if(j==mainOptionModel.getSubOptionsResult().size()-1)
-                {
+                if (j == mainOptionModel.getSubOptionsResult().size() - 1) {
                     devider.setVisibility(View.GONE);
                 }
                 tv_name.setText(mainOptionModel.getSubOptionsResult().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSubOptionsResult().get(j).getBestPrice()) + ")");
                 ll_sub_option.addView(subOption);
             }
             binder.llManu.addView(mainOption);
-
         }
-
-
     }
 
     public class MyClick {
         public void onBack(View v) {
             finish();
         }
-
-
         public void onAdd(View v) {
+            Intent mIntent = new Intent(OptionDetailsActivity.this, AddEditOptionActivity.class);
+            mIntent.putExtra("edit", false);
+            startActivity(mIntent);
+
         }
 
     }

@@ -13,6 +13,18 @@ public class TagModel extends BaseObservable {
     private String _id;
     private String display;
     private String value;
+    private boolean hasSelect1;
+
+
+    @Bindable
+    public boolean isHasSelect1() {
+        return hasSelect1;
+    }
+
+    public void setHasSelect1(boolean hasSelect1) {
+        this.hasSelect1 = hasSelect1;
+        this.notifyPropertyChanged(BR.hasSelect1);
+    }
 
     @Bindable
     public String get_id() {

@@ -42,7 +42,6 @@ public class ActivityCategoryItem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_item);
         binder = DataBindingUtil.setContentView(this, R.layout.activity_category_item);
         binder.setClick(new MyClick());
         catId = getIntent().getStringExtra("id");

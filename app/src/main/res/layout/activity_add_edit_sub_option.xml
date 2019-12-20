@@ -117,9 +117,9 @@
                     android:layout_marginTop="@dimen/_3_px"
                     android:background="@drawable/edit_text_bg"
                     android:hint="Enter name"
-                    android:text="@={model.name}"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
+                    android:text="@={model.name}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -145,26 +145,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_4_px"
                     android:background="@drawable/spinner_bg"
+                    android:onClick="@{(v)->click.onMarkupClick(v)}"
                     android:orientation="horizontal"
+                    android:padding="@dimen/_4_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_markup_text">
 
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/et_markup"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/iv_arrow"
                         android:background="@null"
-                        android:text="@={model.markupStructure}"
-                        android:hint="Markup structure"
-                        android:imeOptions="actionNext"
-                        android:paddingLeft="@dimen/_10_px"
-                        android:paddingTop="@dimen/_5_px"
-                        android:paddingRight="@dimen/_10_px"
-                        android:paddingBottom="@dimen/_5_px"
-                        android:singleLine="true"
+                        android:entries="@array/markup"
                         android:textSize="@dimen/_12_px" />
 
 
@@ -182,12 +178,12 @@
 
 
                 <TextView
-                    android:id="@+id/tv_price_text"
+                    android:id="@+id/tv_best_price_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10_px"
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                    android:text="Product price in doller"
+                    android:text="Best Price ($)"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10_px"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -195,14 +191,14 @@
 
 
                 <RelativeLayout
-                    android:id="@+id/rl_price"
+                    android:id="@+id/rl_best_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3_px"
                     android:orientation="horizontal"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_price_text">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_best_price_text">
 
 
                     <TextView
@@ -227,8 +223,7 @@
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@+id/et_doller_sign"
                         android:background="@drawable/spinner_bg"
-                        android:hint="20.00"
-                        android:text="@={model.bestPrice}"
+                        android:hint="Enter best price"
                         android:imeOptions="actionNext"
                         android:inputType="numberDecimal"
                         android:paddingLeft="@dimen/_10_px"
@@ -236,11 +231,82 @@
                         android:paddingRight="@dimen/_10_px"
                         android:paddingBottom="@dimen/_5_px"
                         android:singleLine="true"
+                        android:text="@={model.bestPrice}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14_px" />
 
 
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_Regular_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10_px"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rl_best_price">
+
+
+                    <TextView
+                        android:id="@+id/tv_regular_price_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                        android:text="Regular Price ($)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10_px" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/rl_regular_price"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3_px"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/et_doller_sign2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:background="@null"
+                            android:imeOptions="actionNext"
+                            android:paddingLeft="@dimen/_10_px"
+                            android:paddingTop="@dimen/_5_px"
+                            android:paddingRight="@dimen/_10_px"
+                            android:paddingBottom="@dimen/_5_px"
+                            android:singleLine="true"
+                            android:text="$"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px" />
+
+                        <EditText
+                            android:id="@+id/et__regular_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@+id/et_doller_sign2"
+                            android:background="@drawable/spinner_bg"
+                            android:hint="Enter regular price"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:paddingLeft="@dimen/_10_px"
+                            android:paddingTop="@dimen/_5_px"
+                            android:paddingRight="@dimen/_10_px"
+                            android:paddingBottom="@dimen/_5_px"
+                            android:singleLine="true"
+                            android:text="@={model.price}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14_px" />
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
 
 
                 <TextView
@@ -253,17 +319,17 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10_px"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/rl_price" />
+                    app:layout_constraintTop_toBottomOf="@+id/ll_Regular_price" />
 
-                <EditText
-                    android:id="@+id/et_tag"
+                <TextView
+                    android:id="@+id/tv_tag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3_px"
                     android:background="@drawable/edit_text_bg"
-                    android:hint="Type you tag here"
+                    android:hint="Tag here"
                     android:imeOptions="actionNext"
-                    android:singleLine="true"
+                    android:onClick="@{(v)->click.onTagClick(v)}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -279,7 +345,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10_px"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_tag" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tag" />
 
 
                 <RelativeLayout
@@ -288,6 +354,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3_px"
                     android:background="@drawable/spinner_bg"
+                    android:onClick="@{(v)->click.onCalender(v)}"
                     android:orientation="horizontal"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -295,7 +362,7 @@
 
 
                     <TextView
-                        android:id="@+id/et_date"
+                        android:id="@+id/tv_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toLeftOf="@+id/iv_cal"
@@ -317,7 +384,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/_5_px"
-                        android:background="@drawable/ic_arrow_drop_down" />
+                        android:padding="@dimen/_3_px"
+                        android:src="@drawable/ic_calendar" />
 
 
                 </RelativeLayout>
@@ -334,20 +402,47 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rl_date" />
 
-                <EditText
-                    android:id="@+id/et_description"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_100_px"
-                    android:layout_marginTop="@dimen/_3_px"
-                    android:background="@drawable/edit_text_bg"
-                    android:gravity="top"
-                    android:hint="Enter description"
-                    android:text="@={model.description}"
-                    android:scrollbars="vertical"
-                    android:textSize="@dimen/_12_px"
+
+                <RelativeLayout
+                    android:id="@+id/rl_linked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4_px"
+                    android:onClick="@{(v)->click.onLinkedOptionClicked(v)}"
+                    android:background="@drawable/spinner_bg"
+                    android:orientation="horizontal"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_linked_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_linked_text">
+
+
+                    <TextView
+                        android:id="@+id/tv_linked_option"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/iv_arrow2"
+                        android:background="@null"
+                        android:hint="Linked Option"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="@dimen/_10_px"
+                        android:paddingTop="@dimen/_5_px"
+                        android:paddingRight="@dimen/_10_px"
+                        android:paddingBottom="@dimen/_5_px"
+                        android:singleLine="true"
+                        android:textSize="@dimen/_12_px" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_arrow2"
+                        android:layout_width="@dimen/_20_px"
+                        android:layout_height="@dimen/_20_px"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_5_px"
+                        android:background="@drawable/ic_arrow_drop_down" />
+
+
+                </RelativeLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

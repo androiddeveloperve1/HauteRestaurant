@@ -34,4 +34,6 @@ public class UrlConstants {
     public static final String RESTAURANT_CATEGORY_ITEM = ADMIN+"/get-item-list/";
     public static final String ADD_EDIT_RESTAURANT_CATEGORY = ADMIN+"/add-update-category";
     public static final String MENU_ITEM_DETAIL = ADMIN+"/itemDetailsByid/";
+    public static final String UPDATE_MENU_STATUS = ADMIN+"/updatMenuStatus";
+    public static final String DELETE_MENU_ITEM = ADMIN+"/categories/";
 }

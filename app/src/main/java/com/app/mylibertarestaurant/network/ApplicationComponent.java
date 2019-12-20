@@ -4,6 +4,7 @@ package com.app.mylibertarestaurant.network;
 import com.app.mylibertarestaurant.activities.ActivityAddEditCategory;
 import com.app.mylibertarestaurant.activities.ActivityCategoryItem;
 import com.app.mylibertarestaurant.activities.ActivitySearchItem;
+import com.app.mylibertarestaurant.activities.AddEditOptionActivity;
 import com.app.mylibertarestaurant.activities.CopyItemActivity;
 import com.app.mylibertarestaurant.activities.EditItemActivity;
 import com.app.mylibertarestaurant.activities.EditProfileActivity;
@@ -49,6 +50,7 @@ public interface ApplicationComponent {
     void inject(ActivitySearchItem model);
     void inject(ActivityCategoryItem model);
     void inject(ActivityAddEditCategory model);
+    void inject(AddEditOptionActivity model);
 
 
 }

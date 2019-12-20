@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener" />
+
+        <variable
+            name="position"
+            type="Integer" />
+
+        <variable
+            name="model"
+            type="com.app.mylibertarestaurant.model.newP.TagModel" />
+
+    </data>
+
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background='@{model.hasSelect1 ? @color/gray :  @color/white}'
+        android:onClick="@{(v)->listener.onItemClicked(position,model)}"
+        android:padding="@dimen/_5_px"
+        android:text="@{model.display}"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12_px">
+
+    </TextView>
+</layout>

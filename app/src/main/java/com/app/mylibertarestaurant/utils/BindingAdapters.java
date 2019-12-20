@@ -80,7 +80,7 @@ public class BindingAdapters {
     @BindingAdapter("android:setAvailable")
     public static void setAvailable(TextView textView, String tag) {
         if (tag != null) {
-            if (tag.equals("1")) {
+            if (tag.equals("true")) {
                 textView.setBackgroundResource(R.drawable.available_bg);
                 textView.setText("Available");
             } else {

@@ -1,5 +1,7 @@
 package com.app.mylibertarestaurant.fragments;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +37,7 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -69,6 +74,32 @@ public class FragmentRestaurantCategory extends Fragment {
             @Override
             public void onItemClickedWithTag(int position, RestaurantCategoryModel data, int tag) {
                 addEditMenu(true, data);
+            }
+
+            @Override
+            public void onDel(int position, RestaurantCategoryModel data) {
+
+                delAlert(data.get_id(), position);
+
+            }
+
+            @Override
+            public void onSwitchOnOff(View v, int position, RestaurantCategoryModel data) {
+
+                if (data.getIs_active() != null) {
+                    if (data.getIs_active()) {
+                        data.setIs_active(false);
+                        v.setBackgroundResource(R.drawable.ic_switch_off);
+                    } else {
+                        data.setIs_active(true);
+                        v.setBackgroundResource(R.drawable.ic_switch_on);
+                    }
+
+                } else {
+                    data.setIs_active(true);
+                    v.setBackgroundResource(R.drawable.ic_switch_on);
+                }
+                setIsActiveStatus(data.get_id(), data.getIs_active());
             }
         }, list);
 
@@ -122,6 +153,95 @@ public class FragmentRestaurantCategory extends Fragment {
                     }
                 });
     }
+
+    private void delMenu(String id, int pos) {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
+        ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
+        apiInterface.delMenuItem(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(getActivity(), throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel response) {
+                        progressDialog.dismiss();
+                        Log.e("@@@@@@@@", new Gson().toJson(response));
+                        if (response.getStatus().equals("200")) {
+                            list.remove(pos);
+                            menuListAdapter.notifyDataSetChanged();
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
+                        }
+
+                    }
+                });
+    }
+
+
+    void delAlert(String id, int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("MyLiberta");
+        builder.setMessage("Are you sure want to delete this catagory?");
+        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                delMenu(id, pos);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void setIsActiveStatus(String id, Boolean status) {
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
+        HashMap<String, String> param = new HashMap<>();
+        param.put("cateId", id);
+        param.put("status", "" + status);
+        ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
+        apiInterface.updateMenuStatus(param)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ApiResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        progressDialog.dismiss();
+                        ResponseDialog.showErrorDialog(getActivity(), throwable.getLocalizedMessage());
+                    }
+
+                    @Override
+                    public void onNext(ApiResponseModel response) {
+                        progressDialog.dismiss();
+                        Log.e("@@@@@@@@", new Gson().toJson(response));
+                        if (response.getStatus().equals("200")) {
+                            Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            ResponseDialog.showErrorDialog(getActivity(), response.getMessage());
+                        }
+
+                    }
+                });
+    }
+
 
     void addEditMenu(boolean isEdit, RestaurantCategoryModel data) {
         Intent mIntent = new Intent(getActivity(), ActivityAddEditCategory.class);

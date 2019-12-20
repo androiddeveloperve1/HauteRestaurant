@@ -65,8 +65,6 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
     protected void onImageCaptured(Bitmap mBitmap) {
         menuItemImage = mBitmap;
         showCaptureView();
-
-
     }
 
     private void saveCategory() {

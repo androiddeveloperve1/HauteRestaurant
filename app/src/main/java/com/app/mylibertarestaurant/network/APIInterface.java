@@ -179,4 +179,14 @@ public interface APIInterface {
     @GET(UrlConstants.MENU_ITEM_DETAIL + "{id}")
     Observable<ApiResponseModel<ArrayList<RestaurantCategoryItemModel>>> getMenuDetail(@Path("id") String id);
 
+
+
+    @Headers("Content-Type: application/json")
+    @POST(UrlConstants.UPDATE_MENU_STATUS)
+    Observable<ApiResponseModel> updateMenuStatus(@Body HashMap<String, String> body);
+
+
+    @DELETE(UrlConstants.DELETE_MENU_ITEM + "{id}")
+    Observable<ApiResponseModel> delMenuItem(@Path("id") String id);
+
 }

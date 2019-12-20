@@ -24,6 +24,13 @@
         <item>Attribute 4</item>
 
     </string-array>
+
+
+    <string-array name="markup">
+        <item>Based on Restaurant Markup </item>
+        <item>Specify Price</item>
+
+    </string-array>
     <string name="blank"></string>
 
 </resources>

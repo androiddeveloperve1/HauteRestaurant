@@ -54,7 +54,7 @@ public class AppUtils {
         for (int i = 0; i < order.size(); i++) {
             builder.append(order.get(i).getItem_id().getName()).append(",");
         }
-        return builder.toString().substring(0,builder.toString().length()-1);
+        return builder.toString().substring(0, builder.toString().length() - 1);
     }
 
 
@@ -124,9 +124,41 @@ public class AppUtils {
         return "10:00";
     }
 
-    public static String getDecimalFormat(String value)
-    {
-       return String.format("%.02f", Float.parseFloat(value));
+    public static String getDecimalFormat(String value) {
+        return String.format("%.02f", Float.parseFloat(value));
+    }
+
+    public static String getPrice(String qty, String price) {
+
+        int qty1 = Integer.parseInt(qty);
+        float price1 = Float.parseFloat(price);
+
+        return getDecimalFormat("" + (qty1 * price1));
+
+
+    }
+
+    public static String convertToTitleCaseIteratingChars(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        StringBuilder converted = new StringBuilder();
+
+        boolean convertNext = true;
+        for (char ch : text.toCharArray()) {
+            if (Character.isSpaceChar(ch)) {
+                convertNext = true;
+            } else if (convertNext) {
+                ch = Character.toTitleCase(ch);
+                convertNext = false;
+            } else {
+                ch = Character.toLowerCase(ch);
+            }
+            converted.append(ch);
+        }
+
+        return converted.toString();
     }
 
 }
