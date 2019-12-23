@@ -1,9 +1,12 @@
 package com.app.mylibertarestaurant.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +43,7 @@ public class AddEditOptionActivity extends AppCompatActivity {
         binder.setClick(new Click());
         isEdit = getIntent().getBooleanExtra("edit", false);
         if (isEdit) {
+            binder.tvDel.setVisibility(View.VISIBLE);
             mainOptionModel = new Gson().fromJson(getIntent().getStringExtra("data"), MainOptionModel.class);
         } else {
             mainOptionModel.setCustomerPrompt("");
@@ -94,10 +98,60 @@ public class AddEditOptionActivity extends AppCompatActivity {
                 });
     }
 
+    void del() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddEditOptionActivity.this);
+        builder.setTitle("MyLiberta");
+        builder.setMessage("Are you sure want to delete this Option?");
+        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                final Dialog progressDialog = ResponseDialog.showProgressDialog(AddEditOptionActivity.this);
+                ((MyApplication) AddEditOptionActivity.this.getApplication()).getConfiguration().inject(AddEditOptionActivity.this);
+                apiInterface.delOption(mainOptionModel.get_id())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<ApiResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                progressDialog.dismiss();
+                                ResponseDialog.showErrorDialog(AddEditOptionActivity.this, throwable.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onNext(ApiResponseModel response) {
+                                progressDialog.dismiss();
+                                Log.e("@@@@@@@@", new Gson().toJson(response));
+                                if (response.getStatus().equals("200")) {
+                                    Toast.makeText(AddEditOptionActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(AddEditOptionActivity.this, ItemDescriptionActivity.class));
+                                    finish();
+                                } else {
+                                    ResponseDialog.showErrorDialog(AddEditOptionActivity.this, response.getMessage());
+                                }
+
+                            }
+                        });
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
     public class Click {
         public void onBack(View v) {
             finish();
         }
+
         public void onSave(View v) {
             if (mainOptionModel.getName().trim().length() > 0) {
                 if (mainOptionModel.getCustomerPrompt().trim().length() > 0) {
@@ -120,6 +174,12 @@ public class AddEditOptionActivity extends AppCompatActivity {
 
 
         }
+
+        public void onDel(View v) {
+            del();
+        }
+
+
     }
 
 }

@@ -36,4 +36,7 @@ public class UrlConstants {
     public static final String MENU_ITEM_DETAIL = ADMIN+"/itemDetailsByid/";
     public static final String UPDATE_MENU_STATUS = ADMIN+"/updatMenuStatus";
     public static final String DELETE_MENU_ITEM = ADMIN+"/categories/";
+
+    public static final String DELETE_OPTION = ADMIN+"/del-option/";
+    public static final String DELETE_SUB_OPTION = ADMIN+"/del-sub-option/";
 }

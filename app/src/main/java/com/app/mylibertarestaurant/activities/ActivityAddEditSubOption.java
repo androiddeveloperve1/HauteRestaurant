@@ -1,12 +1,16 @@
 package com.app.mylibertarestaurant.activities;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.nfc.Tag;
@@ -22,15 +26,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.LinkedOptionAdapter;
 import com.app.mylibertarestaurant.adapter.TagAdapter;
 import com.app.mylibertarestaurant.databinding.ActivityAddEditSubOptionBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
+import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.newP.MainOptionModel;
 import com.app.mylibertarestaurant.model.newP.SubOptionModel;
 import com.app.mylibertarestaurant.model.newP.TagModel;
+import com.app.mylibertarestaurant.network.APIInterface;
+import com.app.mylibertarestaurant.prefes.MySharedPreference;
+import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,9 +47,20 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 public class ActivityAddEditSubOption extends AppCompatActivity {
+
+
+    @Inject
+    APIInterface apiInterface;
 
     TagAdapter tagAdapter = null;
     LinkedOptionAdapter optionAdpter = null;
@@ -60,6 +80,7 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         mainOptionModelsList = new Gson().fromJson(getIntent().getStringExtra("option"), new TypeToken<ArrayList<MainOptionModel>>() {
         }.getType());
         if (isEdit) {
+            binder.tvDel.setVisibility(View.VISIBLE);
             subOptionModel = new Gson().fromJson(getIntent().getStringExtra("data"), SubOptionModel.class);
         }
         binder.setModel(subOptionModel);
@@ -121,6 +142,56 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
 
     }
 
+    void del() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAddEditSubOption.this);
+        builder.setTitle("MyLiberta");
+        builder.setMessage("Are you sure want to delete this Sub-Option?");
+        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                final Dialog progressDialog = ResponseDialog.showProgressDialog(ActivityAddEditSubOption.this);
+                ((MyApplication) getApplication()).getConfiguration().inject(ActivityAddEditSubOption.this);
+                apiInterface.delSubOption(subOptionModel.get_id())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<ApiResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                progressDialog.dismiss();
+                                ResponseDialog.showErrorDialog(ActivityAddEditSubOption.this, throwable.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onNext(ApiResponseModel response) {
+                                progressDialog.dismiss();
+                                Log.e("@@@@@@@@", new Gson().toJson(response));
+                                if (response.getStatus().equals("200")) {
+                                    Toast.makeText(ActivityAddEditSubOption.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                    startActivity(new Intent(ActivityAddEditSubOption.this, ItemDescriptionActivity.class));
+                                    finish();
+                                } else {
+                                    ResponseDialog.showErrorDialog(ActivityAddEditSubOption.this, response.getMessage());
+                                }
+
+                            }
+                        });
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
     public class Click {
         public void onBack(View v) {
             finish();
@@ -128,6 +199,7 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
 
         public void onSave(View v) {
         }
+
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         public void onLinkedOptionClicked(View v) {
@@ -193,7 +265,6 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
             mPopupWindow.setOutsideTouchable(true);
             mPopupWindow.setFocusable(true);
             mPopupWindow.showAsDropDown(v, Gravity.CENTER, 0, 0);
-
         }
 
         public void onMarkupClick(View v) {
@@ -205,12 +276,21 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
             int mDay = c.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog dp = new DatePickerDialog(ActivityAddEditSubOption.this, (view, year, monthOfYear, dayOfMonth) -> {
-                binder.tvDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-            }, mYear, mMonth, mDay);
+            DatePickerDialog dp = new DatePickerDialog(
+                    ActivityAddEditSubOption.this,
+                    (view, year, monthOfYear, dayOfMonth) ->binder.tvDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year),
+                    mYear, mMonth, mDay);
             dp.show();
             dp.getDatePicker().setMinDate(new Date().getTime());
 
         }
+
+
+        public void onDel(View v) {
+            del();
+        }
+
     }
+
+
 }

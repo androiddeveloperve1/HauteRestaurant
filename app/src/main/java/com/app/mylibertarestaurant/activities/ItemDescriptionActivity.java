@@ -55,8 +55,13 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         binder = DataBindingUtil.setContentView(this, R.layout.activity_item_description);
         binder.setClick(new Click());
         menuId = getIntent().getStringExtra("id");
-        getMenuDetail();
         initMenu();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getMenuDetail();
     }
 
     void initData() {
@@ -100,6 +105,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
     }
 
     void initOptionAndSubOption() {
+        binder.llOption.removeAllViews();
         for (int i = 0; i < data.getOptionsResult().size(); i++) {
             View mainOption = getLayoutInflater().inflate(R.layout.item_option_show, null);
             mainOption.setId(i);

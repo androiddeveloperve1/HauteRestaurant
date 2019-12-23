@@ -37,7 +37,7 @@
                 android:layout_marginRight="@dimen/_5_px"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
                 android:padding="@dimen/_5_px"
-                android:text="EDIT OPTION"
+                android:text="OPTION DETAILS"
                 android:textColor="@color/green_button"
                 android:textSize="@dimen/_13_px"
                 app:layout_constraintBottom_toBottomOf="parent"

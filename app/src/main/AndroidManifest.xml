@@ -82,6 +82,7 @@
             android:theme="@style/NoActionbarNoStatusbar" />
         <activity
             android:name=".activities.ItemDescriptionActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
