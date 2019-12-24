@@ -28,6 +28,9 @@ public class AppUtils {
     static SimpleDateFormat _24HourSDF = new SimpleDateFormat("HH:mm");
     static SimpleDateFormat _12HourSDF = new SimpleDateFormat("hh:mm a");
 
+
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
     public static boolean eMailValidation(CharSequence target) {
         if (target == null) {
             return false;
@@ -159,6 +162,16 @@ public class AppUtils {
         }
 
         return converted.toString();
+    }
+
+    public static String getDate(String time) {
+        try {
+            Date _24HourDt = utcFormat.parse(time);
+            return dateFormat.format(_24HourDt);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

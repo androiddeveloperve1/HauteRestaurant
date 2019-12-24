@@ -3,9 +3,7 @@
 
     <data>
 
-        <variable
-            name="model"
-            type="com.app.mylibertarestaurant.model.newP.SubOptionModel" />
+
 
         <variable
             name="click"
@@ -70,7 +68,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/_10_px"
                 android:fontStyleName="@{`Roboto_Bold.ttf`}"
-                android:text="Add/edit sub-option"
+                android:text="Add sub-option"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14_px"
                 app:layout_constraintBottom_toBottomOf="@+id/back"
@@ -133,7 +131,6 @@
                     android:hint="Enter name"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
-                    android:text="@={model.name}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -245,7 +242,6 @@
                         android:paddingRight="@dimen/_10_px"
                         android:paddingBottom="@dimen/_5_px"
                         android:singleLine="true"
-                        android:text="@={model.bestPrice}"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14_px" />
 
@@ -312,7 +308,6 @@
                             android:paddingRight="@dimen/_10_px"
                             android:paddingBottom="@dimen/_5_px"
                             android:singleLine="true"
-                            android:text="@={model.price}"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14_px" />
 
@@ -330,6 +325,7 @@
                     android:layout_marginTop="@dimen/_10_px"
                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
                     android:text="Tags"
+                    android:visibility="gone"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_10_px"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -340,6 +336,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3_px"
+                    android:visibility="gone"
                     android:background="@drawable/edit_text_bg"
                     android:hint="Tag here"
                     android:imeOptions="actionNext"

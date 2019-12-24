@@ -39,4 +39,7 @@ public class UrlConstants {
 
     public static final String DELETE_OPTION = ADMIN+"/del-option/";
     public static final String DELETE_SUB_OPTION = ADMIN+"/del-sub-option/";
+
+    public static final String ADD_UPDATE_OPTION = ADMIN+"/add-update-option";
+    public static final String ADD_UPDATE_SUB_OPTION = ADMIN+"/add-update-sub-option";
 }

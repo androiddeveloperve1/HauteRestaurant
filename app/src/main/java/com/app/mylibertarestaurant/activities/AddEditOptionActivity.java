@@ -35,6 +35,9 @@ public class AddEditOptionActivity extends AppCompatActivity {
     private ActivityAddEditOptionBinding binder;
     private MainOptionModel mainOptionModel = new MainOptionModel();
     private boolean isEdit = false;
+    private String catId;
+    private String itemId;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +47,21 @@ public class AddEditOptionActivity extends AppCompatActivity {
         isEdit = getIntent().getBooleanExtra("edit", false);
         if (isEdit) {
             binder.tvDel.setVisibility(View.VISIBLE);
+            binder.tvCatName.setText("Edit Option");
             mainOptionModel = new Gson().fromJson(getIntent().getStringExtra("data"), MainOptionModel.class);
         } else {
+            binder.tvCatName.setText("Add Option");
             mainOptionModel.setCustomerPrompt("");
             mainOptionModel.setName("");
             mainOptionModel.setMaxSelection("" + 1);
             mainOptionModel.setMinSelection("" + 0);
+            mainOptionModel.setLocation("");
         }
+        catId = getIntent().getStringExtra("catId");
+        itemId = getIntent().getStringExtra("itemId");
+        location = getIntent().getStringExtra("location");
+
+
         binder.setModel(mainOptionModel);
     }
 
@@ -62,15 +73,15 @@ public class AddEditOptionActivity extends AppCompatActivity {
         param.put("minSelection", "" + mainOptionModel.getMinSelection());
         param.put("maxSelection", "" + mainOptionModel.getMaxSelection());
         param.put("restaurent_id", "" + MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
-        param.put("location", "" + mainOptionModel.getLocation());
-        param.put("item_id", "" + mainOptionModel.getItem_id());
-        param.put("category_id", "" + mainOptionModel.getCategory_id());
+        param.put("location", "" + location);
+        param.put("item_id", "" + itemId);
+        param.put("category_id", "" + catId);
         if (isEdit) {
             param.put("is_update", "1");
             param.put("option_id", mainOptionModel.get_id());
         }
         ((MyApplication) AddEditOptionActivity.this.getApplication()).getConfiguration().inject(AddEditOptionActivity.this);
-        apiInterface.updateMenuStatus(param)
+        apiInterface.addUpdateOption(param)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -90,10 +101,11 @@ public class AddEditOptionActivity extends AppCompatActivity {
                         Log.e("@@@@@@@@", new Gson().toJson(response));
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(AddEditOptionActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AddEditOptionActivity.this, ItemDescriptionActivity.class));
+                            finish();
                         } else {
                             ResponseDialog.showErrorDialog(AddEditOptionActivity.this, response.getMessage());
                         }
-
                     }
                 });
     }

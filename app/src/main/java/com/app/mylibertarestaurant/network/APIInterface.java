@@ -14,6 +14,9 @@ import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryModel;
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +26,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -195,6 +200,18 @@ public interface APIInterface {
 
     @DELETE(UrlConstants.DELETE_SUB_OPTION + "{id}")
     Observable<ApiResponseModel> delSubOption(@Path("id") String id);
+
+    @Headers("Content-Type: application/json")
+    @POST(UrlConstants.ADD_UPDATE_OPTION)
+    Observable<ApiResponseModel> addUpdateOption(@Body HashMap<String, String> body);
+
+
+    @Headers("Content-Type: application/json")
+    @POST(UrlConstants.ADD_UPDATE_SUB_OPTION)
+    Observable<ApiResponseModel> addUpdateSubOption(@Body HashMap<String, Object> body);
+
+
+
 
 
 }

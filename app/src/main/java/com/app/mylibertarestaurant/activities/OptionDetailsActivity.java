@@ -50,6 +50,9 @@ public class OptionDetailsActivity extends AppCompatActivity {
             tv_text_edit.setOnClickListener((v) -> {
                 Intent mIntent = new Intent(OptionDetailsActivity.this, AddEditOptionActivity.class);
                 mIntent.putExtra("data", new Gson().toJson(mainOptionModel));
+                mIntent.putExtra("catId", restaurantCategoryItemModel.getCategory_id());
+                mIntent.putExtra("itemId", restaurantCategoryItemModel.get_id());
+                mIntent.putExtra("location", restaurantCategoryItemModel.getLocation());
                 mIntent.putExtra("edit", true);
                 startActivity(mIntent);
 
@@ -57,7 +60,10 @@ public class OptionDetailsActivity extends AppCompatActivity {
             tv_add_sub_option.setOnClickListener((v) -> {
                 Intent mIntent = new Intent(OptionDetailsActivity.this, ActivityAddEditSubOption.class);
                 mIntent.putExtra("edit", false);
-                mIntent.putExtra("option", new Gson().toJson(restaurantCategoryItemModel.getOptionsResult()));
+                mIntent.putExtra("mainOptionList", new Gson().toJson(restaurantCategoryItemModel.getOptionsResult()));
+                mIntent.putExtra("restaurantCategoryItemModel", new Gson().toJson(restaurantCategoryItemModel));
+                mIntent.putExtra("optionId", mainOptionModel.get_id());
+
                 startActivity(mIntent);
             });
             LinearLayout ll_sub_option = mainOption.findViewById(R.id.ll_sub_option);
@@ -67,9 +73,12 @@ public class OptionDetailsActivity extends AppCompatActivity {
                 subOption.setId(j);
                 subOption.setOnClickListener((v) -> {
                     Intent mIntent = new Intent(OptionDetailsActivity.this, ActivityAddEditSubOption.class);
-                    mIntent.putExtra("data", new Gson().toJson(mainOptionModel.getSubOptionsResult().get(k)));
-                    mIntent.putExtra("option", new Gson().toJson(restaurantCategoryItemModel.getOptionsResult()));
                     mIntent.putExtra("edit", true);
+                    mIntent.putExtra("mainOptionList", new Gson().toJson(restaurantCategoryItemModel.getOptionsResult()));
+                    mIntent.putExtra("subOptionModel", new Gson().toJson(mainOptionModel.getSubOptionsResult().get(k)));
+                    mIntent.putExtra("restaurantCategoryItemModel", new Gson().toJson(restaurantCategoryItemModel));
+                    mIntent.putExtra("optionId", mainOptionModel.get_id());
+
                     startActivity(mIntent);
                 });
                 TextView tv_name = subOption.findViewById(R.id.tv_name);
@@ -92,6 +101,9 @@ public class OptionDetailsActivity extends AppCompatActivity {
         public void onAdd(View v) {
             Intent mIntent = new Intent(OptionDetailsActivity.this, AddEditOptionActivity.class);
             mIntent.putExtra("edit", false);
+            mIntent.putExtra("catId", restaurantCategoryItemModel.getCategory_id());
+            mIntent.putExtra("itemId", restaurantCategoryItemModel.get_id());
+            mIntent.putExtra("location", restaurantCategoryItemModel.getLocation());
             startActivity(mIntent);
 
         }
