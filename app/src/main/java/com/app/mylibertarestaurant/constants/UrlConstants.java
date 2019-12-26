@@ -35,11 +35,13 @@ public class UrlConstants {
     public static final String ADD_EDIT_RESTAURANT_CATEGORY = ADMIN+"/add-update-category";
     public static final String MENU_ITEM_DETAIL = ADMIN+"/itemDetailsByid/";
     public static final String UPDATE_MENU_STATUS = ADMIN+"/updatMenuStatus";
-    public static final String DELETE_MENU_ITEM = ADMIN+"/categories/";
+    public static final String DELETE_MENU = ADMIN+"/categories/";
+    public static final String DELETE_MENU_ITEM = ADMIN+"/deleteItem/";
 
     public static final String DELETE_OPTION = ADMIN+"/del-option/";
     public static final String DELETE_SUB_OPTION = ADMIN+"/del-sub-option/";
 
     public static final String ADD_UPDATE_OPTION = ADMIN+"/add-update-option";
     public static final String ADD_UPDATE_SUB_OPTION = ADMIN+"/add-update-sub-option";
+    public static final String ADD_UPDATE_MENU_ITEM = ADMIN+"/add-menu-item";
 }

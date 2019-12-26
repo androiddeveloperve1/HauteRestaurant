@@ -2,6 +2,7 @@ package com.app.mylibertarestaurant.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
@@ -86,23 +89,71 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                 Intent mIntent;
                 switch (item.getItemId()) {
                     case R.id.edit:
-                        /*mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
-                        mIntent.putExtra("data", new Gson().toJson(data));
-                        mIntent.putExtra("flag", Constants.EDIT);
-                        startActivityForResult(mIntent, 100);*/
-                        break;
-                   /* case R.id.copy:
                         mIntent = new Intent(ItemDescriptionActivity.this, ItemModificationActivity.class);
                         mIntent.putExtra("data", new Gson().toJson(data));
-                        mIntent.putExtra("flag", Constants.COPY);
-                        startActivityForResult(mIntent, 100);
-                        break;*/
+                        mIntent.putExtra("isEdit", true);
+                        startActivity(mIntent);
+                        break;
+                    case R.id.del:
+                        del();
+                        break;
+
+
                 }
                 return false;
             }
         });
 
     }
+
+
+    void del() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ItemDescriptionActivity.this);
+        builder.setTitle("MyLiberta");
+        builder.setMessage("Are you sure want to delete this Item?");
+        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemDescriptionActivity.this);
+                ((MyApplication) getApplication()).getConfiguration().inject(ItemDescriptionActivity.this);
+                apiInterface.delMenuItem(menuId)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<ApiResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                progressDialog.dismiss();
+                                ResponseDialog.showErrorDialog(ItemDescriptionActivity.this, throwable.getLocalizedMessage());
+                            }
+
+                            @Override
+                            public void onNext(ApiResponseModel response) {
+                                progressDialog.dismiss();
+                                Log.e("@@@@@@@@", new Gson().toJson(response));
+                                if (response.getStatus().equals("200")) {
+                                    finish();
+                                } else {
+                                    ResponseDialog.showErrorDialog(ItemDescriptionActivity.this, response.getMessage());
+                                }
+
+                            }
+                        });
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
 
     void initOptionAndSubOption() {
         binder.llOption.removeAllViews();

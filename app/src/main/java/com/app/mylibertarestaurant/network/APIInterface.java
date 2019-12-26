@@ -190,8 +190,8 @@ public interface APIInterface {
     Observable<ApiResponseModel> updateMenuStatus(@Body HashMap<String, String> body);
 
 
-    @DELETE(UrlConstants.DELETE_MENU_ITEM + "{id}")
-    Observable<ApiResponseModel> delMenuItem(@Path("id") String id);
+    @DELETE(UrlConstants.DELETE_MENU + "{id}")
+    Observable<ApiResponseModel> delMenu(@Path("id") String id);
 
 
     @DELETE(UrlConstants.DELETE_OPTION + "{id}")
@@ -211,7 +211,20 @@ public interface APIInterface {
     Observable<ApiResponseModel> addUpdateSubOption(@Body HashMap<String, Object> body);
 
 
+    @DELETE(UrlConstants.DELETE_MENU_ITEM + "{id}")
+    Observable<ApiResponseModel> delMenuItem(@Path("id") String id);
 
+
+    @Multipart
+    @PUT(UrlConstants.ADD_UPDATE_MENU_ITEM)
+    Observable<ApiResponseModel<RestaurantDetail>> addUpdateMenuItem(@Part MultipartBody.Part image,
+                                                                 @Part("name") RequestBody name,
+                                                                 @Part("address") RequestBody address,
+                                                                 @Part("pincode") RequestBody pincode,
+                                                                 @Part("deliverykm") RequestBody deliverykm,
+                                                                 @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
+                                                                 @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime
+            , @Part("deliveryfees") RequestBody deliveryfees);
 
 
 }

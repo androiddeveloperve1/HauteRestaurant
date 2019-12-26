@@ -6,14 +6,14 @@
         android:orderInCategory="100"
         android:title="Edit"
         app:showAsAction="never" />
-   <!-- <item
-        android:id="@+id/copy"
-        android:orderInCategory="100"
-        android:title="Make Copy"
-        app:showAsAction="never" />
     <item
-        android:id="@+id/delete"
+        android:id="@+id/del"
         android:orderInCategory="100"
         android:title="Delete"
-        app:showAsAction="never" />-->
+        app:showAsAction="never" />
+    <!-- <item
+         android:id="@+id/delete"
+         android:orderInCategory="100"
+         android:title="Delete"
+         app:showAsAction="never" />-->
 </menu>

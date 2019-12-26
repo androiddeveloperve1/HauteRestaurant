@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -34,7 +36,7 @@ public class ActivityCategoryItem extends AppCompatActivity {
     @Inject
     APIInterface apiInterface;
     private ActivityCategoryItemBinding binder;
-
+    PopupMenu popup;
     private String catId;
     private String catName;
 
@@ -47,6 +49,37 @@ public class ActivityCategoryItem extends AppCompatActivity {
         catId = getIntent().getStringExtra("id");
         catName = getIntent().getStringExtra("catName");
         binder.tvCatName.setText(catName);
+        initMenu();
+
+
+    }
+
+    void initMenu() {
+        popup = new PopupMenu(ActivityCategoryItem.this, binder.more);
+        popup.getMenuInflater().inflate(R.menu.main, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent mIntent;
+                switch (item.getItemId()) {
+                    case R.id.add:
+                        mIntent = new Intent(ActivityCategoryItem.this, ItemModificationActivity.class);
+                        mIntent.putExtra("isEdit",false);
+                        startActivity(mIntent);
+                        break;
+
+
+
+                }
+                return false;
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getItem();
     }
 
@@ -99,6 +132,7 @@ public class ActivityCategoryItem extends AppCompatActivity {
 
     public class MyClick {
         public void more(View v) {
+            popup.show();
         }
 
         public void onBack(View v) {

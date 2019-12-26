@@ -5,9 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_text"
-        android:padding="@dimen/_5_px"
-        tools:context=".activities.EditItemActivity">
+        android:background="@color/light_gray2"
+        android:padding="@dimen/_5_px">
 
         <ImageView
             android:id="@+id/img_close"
@@ -26,7 +25,6 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="@dimen/_10_px"
             android:fontStyleName="@{`Roboto_Bold.ttf`}"
-            android:text="Header"
             android:textColor="@color/black"
             android:textSize="@dimen/_14_px"
             app:layout_constraintBottom_toBottomOf="@+id/img_close"
@@ -35,41 +33,68 @@
             app:layout_constraintTop_toTopOf="@+id/img_close" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/tv_save"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_close">
 
 
-
-
-
-            <androidx.cardview.widget.CardView
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_5_px"
-                app:cardCornerRadius="@dimen/_5_px"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_capture">
 
-                <androidx.core.widget.NestedScrollView
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/img_pic"
+                    android:layout_width="@dimen/_125_px"
+                    android:layout_height="@dimen/_125_px"
+                    android:layout_marginTop="@dimen/_5_px"
+                    android:src="@drawable/placeholder_squre"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/img_capture"
+                    android:layout_width="@dimen/_25_px"
+                    android:layout_height="@dimen/_25_px"
+                    android:onClick="@{(v)->click.onImageCapture(v)}"
+                    android:src="@drawable/ic_camera"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_pic"
+                    app:layout_constraintRight_toRightOf="@+id/img_pic" />
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fillViewport="true"
+                    android:layout_marginTop="@dimen/_5_px"
+                    app:cardCornerRadius="@dimen/_5_px"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/img_capture">
 
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="@dimen/_10_px">
+                        android:layout_marginLeft="@dimen/_10_px"
+                        android:layout_marginTop="@dimen/_10_px"
+                        android:layout_marginRight="@dimen/_10_px">
 
+
+                        <TextView
+                            android:id="@+id/tv_product_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:text="Menu Item name"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <EditText
                             android:id="@+id/et_product_name"
@@ -77,54 +102,24 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5_px"
                             android:background="@drawable/edit_text_bg"
+                            android:hint="Menu item name"
                             android:imeOptions="actionNext"
                             android:singleLine="true"
-                            android:text=""
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_name_text"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_name_text" />
 
-                        <EditText
-                            android:id="@+id/et_product_price"
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/tv_product_avail_text"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_10_px"
                             android:layout_marginTop="@dimen/_5_px"
-                            android:background="@drawable/edit_text_bg"
-                            android:imeOptions="actionNext"
-                            android:inputType="numberDecimal"
-                            android:singleLine="true"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toRightOf="@+id/tv_doller_mark"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_price_text" />
-
-                        <EditText
-                            android:id="@+id/tv_desc"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/_100_px"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:background="@drawable/edit_text_bg"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:gravity="top"
-
-                            android:paddingBottom="@dimen/_5_px"
-                            android:textColor="@color/gray_text"
+                            android:text="Availability"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_desc_text"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_desc_text" />
-
-                        <ImageView
-                            android:id="@+id/img_veg_nonveg_switch"
-                            android:layout_width="@dimen/_90_px"
-                            android:layout_height="@dimen/_25_px"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:background="@drawable/ic_toggle_veg"
-                            android:onClick="@{(v)->click.ontoogleVegNonVeg(v)}"
-                            android:tag="@string/veg"
-                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_type_text"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_type_text" />
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/et_product_name" />
 
                         <ImageView
                             android:id="@+id/tv_product_avail_switch"
@@ -136,64 +131,6 @@
                             android:tag="@string/available"
                             app:layout_constraintLeft_toLeftOf="@+id/tv_product_type_text"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_avail_text" />
-
-                        <LinearLayout
-                            android:id="@+id/ll_drop_down_category"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:layout_marginRight="@dimen/_10_px"
-                            android:background="@drawable/edittext_bg"
-                            android:padding="@dimen/_5_px"
-                            android:visibility="gone"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_category_text">
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/spnr_category"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:entries="@array/attribute" />
-                        </LinearLayout>
-
-
-                        <TextView
-                            android:id="@+id/tv_product_type_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10_px"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Food Type"
-                            android:textColor="@color/gray_text"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/tv_product_name_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10_px"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Menu Item name"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/img_veg_nonveg_switch" />
-
-                        <TextView
-                            android:id="@+id/tv_product_avail_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Availability"
-                            android:textColor="@color/gray_text"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/et_product_name" />
-
 
                         <TextView
                             android:id="@+id/tv_product_price_text"
@@ -207,6 +144,21 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_product_avail_switch" />
 
+                        <EditText
+                            android:id="@+id/et_product_price"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10_px"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:hint="Price($)"
+                            android:imeOptions="actionNext"
+                            android:inputType="numberDecimal"
+                            android:singleLine="true"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toRightOf="@+id/tv_doller_mark"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_price_text" />
 
                         <TextView
                             android:id="@+id/tv_doller_mark"
@@ -233,130 +185,57 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/et_product_price" />
 
+                        <EditText
+                            android:id="@+id/tv_desc"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_100_px"
+                            android:layout_marginTop="@dimen/_5_px"
+                            android:background="@drawable/edit_text_bg"
+                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                            android:gravity="top"
+                            android:paddingBottom="@dimen/_5_px"
+                            android:textColor="@color/gray_text"
+                            android:textSize="@dimen/_10_px"
+                            app:layout_constraintLeft_toLeftOf="@+id/tv_product_desc_text"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_product_desc_text" />
+
                         <TextView
-                            android:id="@+id/tv_product_category_text"
+                            android:id="@+id/tv_week_day_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Category"
+                            android:text="Select available weekdays"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10_px"
-                            android:visibility="gone"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/tv_desc" />
 
-                        <TextView
-                            android:id="@+id/tv_product_attribute_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10_px"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Attribute"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_10_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/ll_drop_down_category" />
 
-
-                        <TextView
-                            android:id="@+id/tv_new_attribute"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:onClick="@{(v)->click.goAttribute(v)}"
-                            android:text="Add Attribute"
-                            android:textColor="@color/greencolor"
-                            android:textSize="@dimen/_12_px"
-                            android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_product_attribute_text"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="@+id/tv_product_attribute_text" />
-
-                        <TextView
-                            android:id="@+id/tv_save"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10_px"
-                            android:background="@drawable/button_green"
-                            android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:gravity="center"
-                            android:onClick="@{(v)->click.save(v)}"
-                            android:text="SAVE"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_14_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/ll_drop_down" />
-
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/ll_drop_down"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_5_px"
-                            android:layout_marginRight="@dimen/_10_px"
-                            android:background="@drawable/edittext_bg"
-                            android:gravity="center"
-                            android:onClick="@{(v)->click.goAttribute(v)}"
-                            android:padding="@dimen/_5_px"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/tv_new_attribute"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_product_attribute_text">
-
-
-                            <ImageView
-                                android:id="@+id/img_go"
-                                android:layout_width="@dimen/_20_px"
-                                android:layout_height="@dimen/_20_px"
-                                android:src="@drawable/ic_right_arrow"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/tv_attribute"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="end"
-                                android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                                android:singleLine="true"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_10_px"
-                                app:layout_constraintBottom_toBottomOf="@+id/img_go"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/img_go"
-                                app:layout_constraintTop_toTopOf="@+id/img_go" />
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.core.widget.NestedScrollView>
 
-            </androidx.cardview.widget.CardView>
-
-            <ImageView
-                android:id="@+id/img_pic"
-                android:layout_width="@dimen/_135_px"
-                android:layout_height="@dimen/_135_px"
-                android:layout_marginTop="@dimen/_5_px"
-                android:src="@drawable/placeholder_squre"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/img_capture"
-                android:layout_width="@dimen/_25_px"
-                android:layout_height="@dimen/_25_px"
-                android:onClick="@{(v)->click.onImageCapture(v)}"
-                android:src="@drawable/ic_camera"
-                app:layout_constraintBottom_toBottomOf="@+id/img_pic"
-                app:layout_constraintRight_toRightOf="@+id/img_pic" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10_px"
+            android:background="@drawable/button_green"
+            android:fontStyleName="@{`Roboto_Regular.ttf`}"
+            android:gravity="center"
+            android:onClick="@{(v)->click.save(v)}"
+            android:text="SAVE"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14_px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <data>

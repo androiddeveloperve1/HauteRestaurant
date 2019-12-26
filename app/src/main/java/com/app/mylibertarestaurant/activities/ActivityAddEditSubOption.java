@@ -57,11 +57,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class ActivityAddEditSubOption extends AppCompatActivity {
-
-
     @Inject
     APIInterface apiInterface;
-
     TagAdapter tagAdapter = null;
     LinkedOptionAdapter optionAdpter = null;
     private ActivityAddEditSubOptionBinding binder;
@@ -82,6 +79,8 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         isEdit = getIntent().getBooleanExtra("edit", false);
         mainOptionModelsList = new Gson().fromJson(getIntent().getStringExtra("mainOptionList"), new TypeToken<ArrayList<MainOptionModel>>() {
         }.getType());
+
+
         restaurantCategoryItemModel = new Gson().fromJson(getIntent().getStringExtra("restaurantCategoryItemModel"), RestaurantCategoryItemModel.class);
         optionId = getIntent().getStringExtra("optionId");
         if (isEdit) {
@@ -92,6 +91,10 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
             binder.etPrice.setText("" + subOptionModel.getBestPrice());
             binder.etRegularPrice.setText("" + subOptionModel.getPrice());
             binder.tvDate.setText("" + AppUtils.getDate(subOptionModel.getDisabledUntilDate()));
+            if (subOptionModel.getMarkupStructure().equalsIgnoreCase("y")) {
+                binder.etMarkup.setSelection(1);
+            }
+            setSelectionOnOptionIftheyAdded();
         }
         binder.etMarkup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,10 +113,8 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
     }
 
     void initTagDummy() {
-
         listTag.clear();
         TagModel model;
-
         model = new TagModel();
         model.setDisplay("Classic comfort food");
         model.setValue("Classic comfort food");
@@ -199,6 +200,23 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+
+    void setSelectionOnOptionIftheyAdded() {
+        try {
+            for (int i = 0; i < subOptionModel.getOptionLinked().size(); i++) {
+                LinkedOptionRequestModel subModel = subOptionModel.getOptionLinked().get(i);
+                for (int j = 0; j < mainOptionModelsList.size(); j++) {
+                    if (subModel.getId().equalsIgnoreCase(mainOptionModelsList.get(j).get_id())) {
+                        mainOptionModelsList.get(j).setHasSelect1(true);
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+
+
     }
 
     private void addUpdateOption() {

@@ -157,7 +157,7 @@ public class FragmentRestaurantCategory extends Fragment {
     private void delMenu(String id, int pos) {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(getActivity());
         ((MyApplication) getActivity().getApplication()).getConfiguration().inject(this);
-        apiInterface.delMenuItem(id)
+        apiInterface.delMenu(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
