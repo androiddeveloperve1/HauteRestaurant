@@ -9,9 +9,11 @@ import androidx.databinding.library.baseAdapters.BR;
  * Project SignupLibrary Screen
  */
 
-public class DayOfWeekModel extends BaseObservable {
+public class DietaryItemModel extends BaseObservable {
+
+    private String is_delete;
     private String _id;
-    private String label;
+    private String name;
     private String value;
     private boolean hasSelect;
 
@@ -26,6 +28,16 @@ public class DayOfWeekModel extends BaseObservable {
     }
 
     @Bindable
+    public String getIs_delete() {
+        return is_delete;
+    }
+
+    public void setIs_delete(String is_delete) {
+        this.is_delete = is_delete;
+        this.notifyPropertyChanged(BR.is_delete);
+    }
+
+    @Bindable
     public String get_id() {
         return _id;
     }
@@ -36,13 +48,13 @@ public class DayOfWeekModel extends BaseObservable {
     }
 
     @Bindable
-    public String getLabel() {
-        return label;
+    public String getName() {
+        return name;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
-        this.notifyPropertyChanged(BR.label);
+    public void setName(String name) {
+        this.name = name;
+        this.notifyPropertyChanged(BR.name);
     }
 
     @Bindable

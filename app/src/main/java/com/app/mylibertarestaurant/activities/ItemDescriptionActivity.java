@@ -221,7 +221,6 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     public class Click {
         public void onBack(View v) {
-            Log.e("@@@@@@@", "Clicked");
             finish();
         }
 

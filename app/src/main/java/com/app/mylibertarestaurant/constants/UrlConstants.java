@@ -44,4 +44,6 @@ public class UrlConstants {
     public static final String ADD_UPDATE_OPTION = ADMIN+"/add-update-option";
     public static final String ADD_UPDATE_SUB_OPTION = ADMIN+"/add-update-sub-option";
     public static final String ADD_UPDATE_MENU_ITEM = ADMIN+"/add-menu-item";
+    public static final String GET_FOOD_AVAILABILITY = ADMIN+"/getFoodAvailability";
+    public static final String GET_DIETARY_LIST = "/users/get-dietary-list";
 }

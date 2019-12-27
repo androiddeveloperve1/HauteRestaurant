@@ -6,6 +6,7 @@ import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.model.TimeModel;
 import com.app.mylibertarestaurant.model.TimeSlotModel;
 import com.app.mylibertarestaurant.model.items.OrderItemModel;
+import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,6 +31,7 @@ public class AppUtils {
 
 
     static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 
     public static boolean eMailValidation(CharSequence target) {
         if (target == null) {
@@ -172,6 +174,57 @@ public class AppUtils {
             e.printStackTrace();
         }
         return "";
+    }
+
+
+    public static ArrayList<DayOfWeekModel> getWeekDayArrayList() {
+
+        ArrayList<DayOfWeekModel> weekList = new ArrayList<>();
+        DayOfWeekModel day = null;
+
+        day = new DayOfWeekModel();
+        day.setLabel("Sunday");
+        day.setValue("true");
+        weekList.add(day);
+
+        day = new DayOfWeekModel();
+        day.setLabel("Saturday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Friday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Thursday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Wednesday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Tuesday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Monday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        return weekList;
+
     }
 
 }

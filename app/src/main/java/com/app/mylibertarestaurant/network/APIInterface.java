@@ -12,6 +12,8 @@ import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
+import com.app.mylibertarestaurant.model.newP.DietaryItemModel;
+import com.app.mylibertarestaurant.model.newP.FoodAvailModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryModel;
 import com.google.gson.JsonArray;
@@ -225,6 +227,15 @@ public interface APIInterface {
                                                                  @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
                                                                  @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime
             , @Part("deliveryfees") RequestBody deliveryfees);
+
+
+    @GET(UrlConstants.GET_FOOD_AVAILABILITY)
+    Observable<ApiResponseModel<ArrayList<FoodAvailModel>>> getFoodAvailability();
+
+
+    @GET(UrlConstants.GET_DIETARY_LIST)
+    Observable<ApiResponseModel<ArrayList<DietaryItemModel>>> getDietary();
+
 
 
 }

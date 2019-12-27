@@ -35,8 +35,8 @@ public class ActivityCategoryItem extends AppCompatActivity {
 
     @Inject
     APIInterface apiInterface;
-    private ActivityCategoryItemBinding binder;
     PopupMenu popup;
+    private ActivityCategoryItemBinding binder;
     private String catId;
     private String catName;
 
@@ -64,10 +64,9 @@ public class ActivityCategoryItem extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.add:
                         mIntent = new Intent(ActivityCategoryItem.this, ItemModificationActivity.class);
-                        mIntent.putExtra("isEdit",false);
+                        mIntent.putExtra("isEdit", false);
                         startActivity(mIntent);
                         break;
-
 
 
                 }
@@ -115,8 +114,6 @@ public class ActivityCategoryItem extends AppCompatActivity {
                                         Intent mIntent = new Intent(ActivityCategoryItem.this, ItemDescriptionActivity.class);
                                         mIntent.putExtra("id", data.get_id());
                                         startActivity(mIntent);
-
-
                                     }
                                 }, response.getData()));
                             } else {
@@ -134,7 +131,6 @@ public class ActivityCategoryItem extends AppCompatActivity {
         public void more(View v) {
             popup.show();
         }
-
         public void onBack(View v) {
             finish();
         }
