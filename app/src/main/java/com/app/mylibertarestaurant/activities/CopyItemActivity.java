@@ -187,7 +187,7 @@ public class CopyItemActivity extends ImageUploadingActivity {
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(CopyItemActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(CopyItemActivity.this);
-        apiInterface.addFoodItem(image, item_id, restaurent_id, category_id, price_devide, full_price, half_price, food_type, attribute_id, description, is_available)
+     /*   apiInterface.addFoodItem(image, item_id, restaurent_id, category_id, price_devide, full_price, half_price, food_type, attribute_id, description, is_available)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -207,16 +207,16 @@ public class CopyItemActivity extends ImageUploadingActivity {
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             setResult(Activity.RESULT_OK);
-                           /* if (flag == Constants.ADD_NEW) {
+                           *//* if (flag == Constants.ADD_NEW) {
                                 setResult(Activity.RESULT_OK);
-                            }*/
+                            }*//*
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(CopyItemActivity.this, response.getMessage());
                         }
 
                     }
-                });
+                });*/
     }
 
     void copyItemData() {

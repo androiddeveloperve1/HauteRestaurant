@@ -170,7 +170,7 @@ public class EditItemActivity extends ImageUploadingActivity {
 
     private void editFoodItem() {
 
-        MultipartBody.Part image = MultipartUtils.createFile(EditItemActivity.this, restaurantImage, "food_image", "food_image.jpg");
+       /* MultipartBody.Part image = MultipartUtils.createFile(EditItemActivity.this, restaurantImage, "food_image", "food_image.jpg");
         RequestBody item_id = RequestBody.create(MediaType.parse("text/plain"), binder.etProductName.getText().toString().trim());
 
         RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), restaurantDetailModel.get_id());
@@ -230,7 +230,7 @@ public class EditItemActivity extends ImageUploadingActivity {
                         }
 
                     }
-                });
+                });*/
     }
 
     public class Click {

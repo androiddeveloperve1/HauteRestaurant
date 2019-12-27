@@ -69,9 +69,9 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     void initData() {
         binder.setModel(data);
-        binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
-        binder.rvDietLabel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
+        binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        binder.rvDietLabel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         Collections.reverse(data.getDaysOfWeek());
         binder.setDayAdapter(new AvailibilityDayAdapter(data.getDaysOfWeek()));
         binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
@@ -157,22 +157,26 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     void initOptionAndSubOption() {
         binder.llOption.removeAllViews();
-        for (int i = 0; i < data.getOptionsResult().size(); i++) {
-            View mainOption = getLayoutInflater().inflate(R.layout.item_option_show, null);
-            mainOption.setId(i);
-            TextView tv = mainOption.findViewById(R.id.tv_text);
-            MainOptionModel mainOptionModel = data.getOptionsResult().get(i);
-            tv.setText(mainOptionModel.getName());
-            LinearLayout ll_sub_option = mainOption.findViewById(R.id.ll_sub_option);
-            for (int j = 0; j < mainOptionModel.getSubOptionsResult().size(); j++) {
-                View subOption = getLayoutInflater().inflate(R.layout.item_sub_option_show, null);
-                subOption.setId(j);
-                TextView tv_name = subOption.findViewById(R.id.tv_name);
-                tv_name.setText(mainOptionModel.getSubOptionsResult().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSubOptionsResult().get(j).getBestPrice()) + ")");
-                ll_sub_option.addView(subOption);
-            }
-            binder.llOption.addView(mainOption);
+        if (data.getOptionsResult() != null) {
+            for (int i = 0; i < data.getOptionsResult().size(); i++) {
+                View mainOption = getLayoutInflater().inflate(R.layout.item_option_show, null);
+                mainOption.setId(i);
+                TextView tv = mainOption.findViewById(R.id.tv_text);
+                MainOptionModel mainOptionModel = data.getOptionsResult().get(i);
+                tv.setText(mainOptionModel.getName());
+                LinearLayout ll_sub_option = mainOption.findViewById(R.id.ll_sub_option);
+                for (int j = 0; j < mainOptionModel.getSubOptionsResult().size(); j++) {
+                    View subOption = getLayoutInflater().inflate(R.layout.item_sub_option_show, null);
+                    subOption.setId(j);
+                    TextView tv_name = subOption.findViewById(R.id.tv_name);
+                    tv_name.setText(mainOptionModel.getSubOptionsResult().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSubOptionsResult().get(j).getBestPrice()) + ")");
+                    ll_sub_option.addView(subOption);
+                }
+                binder.llOption.addView(mainOption);
 
+            }
+        } else {
+            binder.cvTwo.setVisibility(View.GONE);
         }
 
 
