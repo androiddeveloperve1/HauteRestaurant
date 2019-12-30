@@ -65,6 +65,7 @@ public class ActivityCategoryItem extends AppCompatActivity {
                     case R.id.add:
                         mIntent = new Intent(ActivityCategoryItem.this, ItemModificationActivity.class);
                         mIntent.putExtra("isEdit", false);
+                        mIntent.putExtra("catId", catId);
                         startActivity(mIntent);
                         break;
 

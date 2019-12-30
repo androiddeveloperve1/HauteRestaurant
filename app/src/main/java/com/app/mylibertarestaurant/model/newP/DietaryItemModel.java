@@ -16,6 +16,16 @@ public class DietaryItemModel extends BaseObservable {
     private String name;
     private String value;
     private boolean hasSelect;
+    private String dietary_id;
+
+
+    public String getDietary_id() {
+        return dietary_id;
+    }
+
+    public void setDietary_id(String dietary_id) {
+        this.dietary_id = dietary_id;
+    }
 
     @Bindable
     public boolean isHasSelect() {

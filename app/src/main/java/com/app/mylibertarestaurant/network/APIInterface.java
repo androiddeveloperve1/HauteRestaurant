@@ -110,7 +110,7 @@ public interface APIInterface {
                                              @Part("isHidden") RequestBody isHidden);
 
     @Multipart
-    @PUT(UrlConstants.ADD_UPDATE_MENU_ITEM)
+    @POST(UrlConstants.ADD_UPDATE_MENU_ITEM)
     Observable<ApiResponseModel> editMenuItem(@Part MultipartBody.Part image,
                                               @Part("name") RequestBody name,
                                               @Part("item_id") RequestBody item_id,

@@ -80,6 +80,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     private DietaryItemAdapter dietaryItemAdapter = null;
     private ArrayList<DayOfWeekModel> dayOfWeekModelArrayList;
     private WeekdayAdapter weekdayAdapter;
+    private String catId;
 
 
     @Override
@@ -91,12 +92,14 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         dayOfWeekModelArrayList = AppUtils.getWeekDayArrayList();
         if (isEdit) {
             data = new Gson().fromJson(getIntent().getStringExtra("data"), RestaurantCategoryItemModel.class);
+            catId=data.getCategory_id();
             Log.e("@@@@@@@", getIntent().getStringExtra("data"));
             binder.header.setText(data.getName());
             binder.tvSave.setText("Update");
             binder.etMax.setText(data.getMaxQuantity());
             binder.etMin.setText(data.getMinQuantity());
         } else {
+            catId=getIntent().getStringExtra("catId");
             binder.header.setText("Add Item");
             binder.tvSave.setText("Save");
         }
@@ -415,30 +418,30 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
     private void editFoodItem() {
         MultipartBody.Part image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), binder.etProductName.getText().toString().trim());
-        RequestBody item_id = RequestBody.create(MediaType.parse("text/plain"), data.get_id());
-        RequestBody isUpdate = RequestBody.create(MediaType.parse("text/plain"), "1");
-        RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
-        RequestBody category_id = RequestBody.create(MediaType.parse("text/plain"), data.getCategory_id());
-        RequestBody price = RequestBody.create(MediaType.parse("text/plain"), binder.etProductPrice.getText().toString().trim());
-
+        RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductName.getText().toString().trim());
+        RequestBody item_id = RequestBody.create(MediaType.parse("multipart/form-data"), data.get_id());
+        //RequestBody isUpdate = RequestBody.create(MediaType.parse("text/plain"), "1");
+        RequestBody isUpdate = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        RequestBody restaurent_id = RequestBody.create(MediaType.parse("multipart/form-data"), MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
+        RequestBody category_id = RequestBody.create(MediaType.parse("multipart/form-data"), catId);
+        RequestBody price = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductPrice.getText().toString().trim());
         String isActive = "1";
         if (binder.tvProductAvailSwitch.getTag().equals(getResources().getString(R.string.un_available))) {
             isActive = "0";
         }
-        RequestBody is_available = RequestBody.create(MediaType.parse("text/plain"), isActive);
-        RequestBody mealAvail = RequestBody.create(MediaType.parse("text/plain"), new Gson().toJson(foodAvailModelArrayList));
-        RequestBody minQty = RequestBody.create(MediaType.parse("text/plain"), binder.etMin.getText().toString().trim());
-        RequestBody maxQty = RequestBody.create(MediaType.parse("text/plain"), binder.etMax.getText().toString().trim());
-        RequestBody dietaryLebel = RequestBody.create(MediaType.parse("text/plain"), new Gson().toJson(dietaryItemModelArrayList));
-        RequestBody dayOfweek = RequestBody.create(MediaType.parse("text/plain"), new Gson().toJson(dayOfWeekModelArrayList));
-        RequestBody date = RequestBody.create(MediaType.parse("text/plain"), binder.tvDisableDate.getText().toString().trim());
+        RequestBody is_available = RequestBody.create(MediaType.parse("multipart/form-data"), isActive);
+        RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(foodAvailModelArrayList));
+        RequestBody minQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMin.getText().toString().trim());
+        RequestBody maxQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMax.getText().toString().trim());
+        RequestBody dietaryLebel = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getDietList()));
+        RequestBody dayOfweek = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(dayOfWeekModelArrayList));
+        RequestBody date = RequestBody.create(MediaType.parse("multipart/form-data"), binder.tvDisableDate.getText().toString().trim());
         String isHide = "false";
         if (binder.ivDisableDate.getTag().equals(getResources().getString(R.string.available))) {
             isHide = "true";
         }
-        RequestBody isHidden = RequestBody.create(MediaType.parse("text/plain"), isHide);
-        RequestBody imageRemoved = RequestBody.create(MediaType.parse("text/plain"), "0");
+        RequestBody isHidden = RequestBody.create(MediaType.parse("multipart/form-data"), isHide);
+        RequestBody imageRemoved = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
 
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
@@ -463,7 +466,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
-
+                            finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
                         }
@@ -472,38 +475,52 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 });
     }
 
-    private void addFoodItem() {
-/*
-        MultipartBody.Part image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
-        RequestBody item_id = RequestBody.create(MediaType.parse("text/plain"), binder.etProductName.getText().toString().trim());
 
-        RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), "");
-
-        RequestBody category_id = RequestBody.create(MediaType.parse("text/plain"), "");
-
-        RequestBody price_devide = RequestBody.create(MediaType.parse("text/plain"), "0");
-
-        RequestBody full_price = RequestBody.create(MediaType.parse("text/plain"), binder.etProductPrice.getText().toString().trim());
-
-        RequestBody half_price = RequestBody.create(MediaType.parse("text/plain"), "0");
-        RequestBody attribute = RequestBody.create(MediaType.parse("text/plain"), "");
-
-        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), binder.tvDesc.getText().toString().trim());
-
-        String foodType = "veg";
-
-        RequestBody food_type = RequestBody.create(MediaType.parse("text/plain"), foodType);
+    ArrayList<DietaryItemModel> getDietList() {
+        ArrayList<DietaryItemModel> list = new ArrayList<>();
+        for (int i = 0; i < dietaryItemModelArrayList.size(); i++) {
+            DietaryItemModel model = new DietaryItemModel();
+            if (dietaryItemModelArrayList.get(i).isHasSelect()) {
+                model.setDietary_id(dietaryItemModelArrayList.get(i).get_id());
+                model.setValue("" + dietaryItemModelArrayList.get(i).isHasSelect());
+                model.setName(dietaryItemModelArrayList.get(i).getName());
+                list.add(model);
+            }
 
 
-        String isAvailbale = "1";
-        if (binder.tvProductAvailSwitch.getTag().equals(getResources().getString(R.string.un_available))) {
-            isAvailbale = "0";
         }
-        RequestBody is_available = RequestBody.create(MediaType.parse("text/plain"), isAvailbale);
+        return list;
+
+    }
+
+    private void addFoodItem() {
+
+        MultipartBody.Part image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+        RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductName.getText().toString().trim());
+        RequestBody restaurent_id = RequestBody.create(MediaType.parse("multipart/form-data"), MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
+        RequestBody category_id = RequestBody.create(MediaType.parse("multipart/form-data"), catId);
+        RequestBody price = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductPrice.getText().toString().trim());
+        String isActive = "1";
+        if (binder.tvProductAvailSwitch.getTag().equals(getResources().getString(R.string.un_available))) {
+            isActive = "0";
+        }
+        RequestBody is_available = RequestBody.create(MediaType.parse("multipart/form-data"), isActive);
+        RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(foodAvailModelArrayList));
+        RequestBody minQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMin.getText().toString().trim());
+        RequestBody maxQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMax.getText().toString().trim());
+        RequestBody dietaryLebel = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getDietList()));
+        RequestBody dayOfweek = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(dayOfWeekModelArrayList));
+        RequestBody date = RequestBody.create(MediaType.parse("multipart/form-data"), binder.tvDisableDate.getText().toString().trim());
+        String isHide = "false";
+        if (binder.ivDisableDate.getTag().equals(getResources().getString(R.string.available))) {
+            isHide = "true";
+        }
+        RequestBody isHidden = RequestBody.create(MediaType.parse("multipart/form-data"), isHide);
+
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemModificationActivity.this);
-        apiInterface.addFoodItem(image, item_id, restaurent_id, category_id, price_devide, full_price, half_price, food_type, attribute, description, is_available)
+        apiInterface.addFoodItem(image, name,  restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -523,13 +540,13 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
                             Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
-                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
                             ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
                         }
+
                     }
-                });*/
+                });
     }
 
     public class Click {
@@ -598,7 +615,14 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item description", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Toast.makeText(ItemModificationActivity.this, "We are working on it", Toast.LENGTH_SHORT).show();
+            if (binder.etMin.getText().toString().trim().length() <= 0) {
+                Toast.makeText(ItemModificationActivity.this, "Please enter the minimum qty.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (binder.etMin.getText().toString().trim().equalsIgnoreCase("0")) {
+                Toast.makeText(ItemModificationActivity.this, "Minimum qty. should be 1 or more than 1", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (isEdit) {
                 editFoodItem();
             } else {
