@@ -14,7 +14,7 @@
         android:paddingTop="@dimen/_5_px"
         android:paddingRight="@dimen/_10_px"
         android:paddingBottom="@dimen/_5_px"
-        android:text='@{model.txtValue}'
+        android:text='@{model.name}'
 
 
         android:textColor="@color/black"

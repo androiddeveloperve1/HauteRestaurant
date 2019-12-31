@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemDayofweekBinding;
-import com.app.mylibertarestaurant.databinding.ItemDietaryBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
-import com.app.mylibertarestaurant.model.newP.DietaryItemModel;
 
 import java.util.ArrayList;
 

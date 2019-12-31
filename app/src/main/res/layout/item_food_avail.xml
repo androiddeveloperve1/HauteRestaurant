@@ -13,7 +13,7 @@
 
         <variable
             name="model"
-            type="com.app.mylibertarestaurant.model.newP.FoodAvailModel" />
+            type="com.app.mylibertarestaurant.model.newP.MealAvailabilityModel" />
 
     </data>
 

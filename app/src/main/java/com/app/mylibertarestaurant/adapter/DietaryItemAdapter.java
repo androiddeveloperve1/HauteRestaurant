@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemDietaryBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
-import com.app.mylibertarestaurant.model.newP.DietaryItemModel;
+import com.app.mylibertarestaurant.model.newP.DietryLabelModel;
 
 import java.util.ArrayList;
 
@@ -22,10 +22,10 @@ import java.util.ArrayList;
  */
 
 public class DietaryItemAdapter extends RecyclerView.Adapter<DietaryItemAdapter.MyViewHolder> {
-    private ArrayList<DietaryItemModel> list;
+    private ArrayList<DietryLabelModel> list;
     RecycleItemClickListener listenr;
 
-    public DietaryItemAdapter(RecycleItemClickListener listenr,ArrayList<DietaryItemModel>  list) {
+    public DietaryItemAdapter(RecycleItemClickListener listenr,ArrayList<DietryLabelModel>  list) {
         this.list = list;
         this.listenr=listenr;
     }
@@ -59,7 +59,7 @@ public class DietaryItemAdapter extends RecyclerView.Adapter<DietaryItemAdapter.
             this.binding = databinding;
         }
 
-        public void bind(DietaryItemModel data) {
+        public void bind(DietryLabelModel data) {
             this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();

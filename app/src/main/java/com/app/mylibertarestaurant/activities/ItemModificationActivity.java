@@ -1,14 +1,11 @@
 package com.app.mylibertarestaurant.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -23,26 +20,15 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.app.mylibertarestaurant.R;
-import com.app.mylibertarestaurant.adapter.AttributeAdapter;
-import com.app.mylibertarestaurant.adapter.CategoryAdapter;
 import com.app.mylibertarestaurant.adapter.DietaryItemAdapter;
 import com.app.mylibertarestaurant.adapter.FoodAvailAdapter;
-import com.app.mylibertarestaurant.adapter.LinkedOptionAdapter;
 import com.app.mylibertarestaurant.adapter.WeekdayAdapter;
-import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityItemModificationBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
-import com.app.mylibertarestaurant.model.AttributeModel;
-import com.app.mylibertarestaurant.model.CategoryModel;
-import com.app.mylibertarestaurant.model.InventoryModel;
-import com.app.mylibertarestaurant.model.RestaurantDetailModel;
-import com.app.mylibertarestaurant.model.inventorynew.AttributeModelNew;
-import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
-import com.app.mylibertarestaurant.model.newP.DietaryItemModel;
-import com.app.mylibertarestaurant.model.newP.FoodAvailModel;
-import com.app.mylibertarestaurant.model.newP.MainOptionModel;
+import com.app.mylibertarestaurant.model.newP.DietryLabelModel;
+import com.app.mylibertarestaurant.model.newP.MealAvailabilityModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
@@ -50,7 +36,6 @@ import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.MultipartUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -74,13 +59,14 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     private ActivityItemModificationBinding binder;
     private boolean isEdit;
     private RestaurantCategoryItemModel data;
-    private ArrayList<FoodAvailModel> foodAvailModelArrayList;
-    private ArrayList<DietaryItemModel> dietaryItemModelArrayList;
+    private ArrayList<MealAvailabilityModel> foodAvailModelArrayList;
+    private ArrayList<DietryLabelModel> dietaryItemModelArrayList;
     private FoodAvailAdapter foodAvailAdapter = null;
     private DietaryItemAdapter dietaryItemAdapter = null;
     private ArrayList<DayOfWeekModel> dayOfWeekModelArrayList;
     private WeekdayAdapter weekdayAdapter;
     private String catId;
+    private Bitmap emptyBitmap;
 
 
     @Override
@@ -92,19 +78,19 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         dayOfWeekModelArrayList = AppUtils.getWeekDayArrayList();
         if (isEdit) {
             data = new Gson().fromJson(getIntent().getStringExtra("data"), RestaurantCategoryItemModel.class);
-            catId=data.getCategory_id();
+            catId = data.getCategory_id();
             Log.e("@@@@@@@", getIntent().getStringExtra("data"));
             binder.header.setText(data.getName());
             binder.tvSave.setText("Update");
             binder.etMax.setText(data.getMaxQuantity());
             binder.etMin.setText(data.getMinQuantity());
         } else {
-            catId=getIntent().getStringExtra("catId");
+            catId = getIntent().getStringExtra("catId");
             binder.header.setText("Add Item");
             binder.tvSave.setText("Save");
         }
         getFoodAvailibility();
-
+        createEmptyBitmap();
     }
 
     @Override
@@ -152,6 +138,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 if (dayOfWeekModelArrayList.get(i).getLabel().equalsIgnoreCase(data.getDaysOfWeek().get(j).getLabel())) {
                     if (data.getDaysOfWeek().get(j).getValue().equalsIgnoreCase("true")) {
                         dayOfWeekModelArrayList.get(i).setHasSelect(true);
+                        dayOfWeekModelArrayList.get(i).setValue("true");
                         workDay.append(dayOfWeekModelArrayList.get(i).getLabel()).append(",");
                         break;
                     }
@@ -168,7 +155,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         StringBuilder dietary = new StringBuilder();
         for (int i = 0; i < dietaryItemModelArrayList.size(); i++) {
             for (int j = 0; j < data.getDietaryLabels().size(); j++) {
-                if (dietaryItemModelArrayList.get(i).getName().equalsIgnoreCase(data.getDietaryLabels().get(j).getLabel())) {
+                if (dietaryItemModelArrayList.get(i).getName().equalsIgnoreCase(data.getDietaryLabels().get(j).getName())) {
                     if (data.getDietaryLabels().get(j).getValue().equalsIgnoreCase("true")) {
                         dietaryItemModelArrayList.get(i).setHasSelect(true);
                         dietary.append(dietaryItemModelArrayList.get(i).getName()).append(",");
@@ -186,7 +173,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         StringBuilder foodavailability = new StringBuilder();
         for (int i = 0; i < foodAvailModelArrayList.size(); i++) {
             for (int j = 0; j < data.getMealAvailability().size(); j++) {
-                if (foodAvailModelArrayList.get(i).getName().equalsIgnoreCase(data.getMealAvailability().get(j).getTxtValue())) {
+                if (foodAvailModelArrayList.get(i).getName().equalsIgnoreCase(data.getMealAvailability().get(j).getName())) {
                     foodAvailModelArrayList.get(i).setHasSelect(true);
                     foodavailability.append(foodAvailModelArrayList.get(i).getName()).append(",");
                     break;
@@ -228,7 +215,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         apiInterface.getFoodAvailability()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel<ArrayList<FoodAvailModel>>>() {
+                .subscribe(new Subscriber<ApiResponseModel<ArrayList<MealAvailabilityModel>>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -241,7 +228,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                     }
 
                     @Override
-                    public void onNext(ApiResponseModel<ArrayList<FoodAvailModel>> response) {
+                    public void onNext(ApiResponseModel<ArrayList<MealAvailabilityModel>> response) {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
@@ -262,7 +249,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         apiInterface.getDietary()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel<ArrayList<DietaryItemModel>>>() {
+                .subscribe(new Subscriber<ApiResponseModel<ArrayList<DietryLabelModel>>>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -274,7 +261,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                     }
 
                     @Override
-                    public void onNext(ApiResponseModel<ArrayList<DietaryItemModel>> response) {
+                    public void onNext(ApiResponseModel<ArrayList<DietryLabelModel>> response) {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
@@ -304,9 +291,9 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         }
         RecyclerView rv = customView.findViewById(R.id.rv_tag);
         rv.setLayoutManager(new LinearLayoutManager(ItemModificationActivity.this));
-        foodAvailAdapter = new FoodAvailAdapter(new RecycleItemClickListener<FoodAvailModel>() {
+        foodAvailAdapter = new FoodAvailAdapter(new RecycleItemClickListener<MealAvailabilityModel>() {
             @Override
-            public void onItemClicked(int position, FoodAvailModel data) {
+            public void onItemClicked(int position, MealAvailabilityModel data) {
                 data.setHasSelect(!data.isHasSelect());
                 foodAvailAdapter.notifyDataSetChanged();
                 binder.tvAvailibility.setText("");
@@ -338,9 +325,9 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         }
         RecyclerView rv = customView.findViewById(R.id.rv_tag);
         rv.setLayoutManager(new LinearLayoutManager(ItemModificationActivity.this));
-        dietaryItemAdapter = new DietaryItemAdapter(new RecycleItemClickListener<DietaryItemModel>() {
+        dietaryItemAdapter = new DietaryItemAdapter(new RecycleItemClickListener<DietryLabelModel>() {
             @Override
-            public void onItemClicked(int position, DietaryItemModel data) {
+            public void onItemClicked(int position, DietryLabelModel data) {
                 data.setHasSelect(!data.isHasSelect());
                 dietaryItemAdapter.notifyDataSetChanged();
                 binder.tvDietLevel.setText("");
@@ -375,7 +362,9 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         weekdayAdapter = new WeekdayAdapter(new RecycleItemClickListener<DayOfWeekModel>() {
             @Override
             public void onItemClicked(int position, DayOfWeekModel data) {
-                data.setHasSelect(!data.isHasSelect());
+                boolean b = data.isHasSelect();
+                data.setHasSelect(!b);
+                data.setValue("" + (!b));
                 weekdayAdapter.notifyDataSetChanged();
                 binder.tvAvailWeek.setText("");
                 StringBuilder sb = new StringBuilder();
@@ -416,11 +405,25 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         dp.getDatePicker().setMinDate(new Date().getTime());
     }
 
+    void createEmptyBitmap() {
+        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
+        emptyBitmap = Bitmap.createBitmap(1, 1, conf);
+    }
+
     private void editFoodItem() {
-        MultipartBody.Part image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+        MultipartBody.Part image = null;
+        if (restaurantImage == null) {
+            image = MultipartUtils.createFile(ItemModificationActivity.this, emptyBitmap, "item_image", "food_image.jpg");
+        } else {
+            image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+        }
+
+
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductName.getText().toString().trim());
         RequestBody item_id = RequestBody.create(MediaType.parse("multipart/form-data"), data.get_id());
-        //RequestBody isUpdate = RequestBody.create(MediaType.parse("text/plain"), "1");
+        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), binder.tvDesc.getText().toString().trim());
+
+
         RequestBody isUpdate = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
         RequestBody restaurent_id = RequestBody.create(MediaType.parse("multipart/form-data"), MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
         RequestBody category_id = RequestBody.create(MediaType.parse("multipart/form-data"), catId);
@@ -430,9 +433,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             isActive = "0";
         }
         RequestBody is_available = RequestBody.create(MediaType.parse("multipart/form-data"), isActive);
-        RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(foodAvailModelArrayList));
+
         RequestBody minQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMin.getText().toString().trim());
         RequestBody maxQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMax.getText().toString().trim());
+        RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getAvailList()));
         RequestBody dietaryLebel = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getDietList()));
         RequestBody dayOfweek = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(dayOfWeekModelArrayList));
         RequestBody date = RequestBody.create(MediaType.parse("multipart/form-data"), binder.tvDisableDate.getText().toString().trim());
@@ -441,12 +445,18 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             isHide = "true";
         }
         RequestBody isHidden = RequestBody.create(MediaType.parse("multipart/form-data"), isHide);
-        RequestBody imageRemoved = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+
+        RequestBody imageRemoved = null;
+        if (restaurantImage == null) {
+            imageRemoved = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+        } else {
+            imageRemoved = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+        }
 
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemModificationActivity.this);
-        apiInterface.editMenuItem(image, name, item_id, isUpdate, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, imageRemoved)
+        apiInterface.editMenuItem(image, name, item_id, isUpdate, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, imageRemoved, description)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -476,10 +486,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     }
 
 
-    ArrayList<DietaryItemModel> getDietList() {
-        ArrayList<DietaryItemModel> list = new ArrayList<>();
+    ArrayList<DietryLabelModel> getDietList() {
+        ArrayList<DietryLabelModel> list = new ArrayList<>();
         for (int i = 0; i < dietaryItemModelArrayList.size(); i++) {
-            DietaryItemModel model = new DietaryItemModel();
+            DietryLabelModel model = new DietryLabelModel();
             if (dietaryItemModelArrayList.get(i).isHasSelect()) {
                 model.setDietary_id(dietaryItemModelArrayList.get(i).get_id());
                 model.setValue("" + dietaryItemModelArrayList.get(i).isHasSelect());
@@ -493,24 +503,50 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
     }
 
-    private void addFoodItem() {
 
-        MultipartBody.Part image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+    ArrayList<MealAvailabilityModel> getAvailList() {
+        ArrayList<MealAvailabilityModel> list = new ArrayList<>();
+        for (int i = 0; i < foodAvailModelArrayList.size(); i++) {
+            MealAvailabilityModel model = new MealAvailabilityModel();
+            if (foodAvailModelArrayList.get(i).isHasSelect()) {
+                model.set_id(foodAvailModelArrayList.get(i).get_id());
+                model.setName(foodAvailModelArrayList.get(i).getName());
+                list.add(model);
+            }
+
+
+        }
+        return list;
+
+
+    }
+
+    private void addFoodItem() {
+        MultipartBody.Part image = null;
+        if (restaurantImage == null) {
+            image = MultipartUtils.createFile(ItemModificationActivity.this, emptyBitmap, "item_image", "food_image.jpg");
+        } else {
+            image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+        }
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductName.getText().toString().trim());
         RequestBody restaurent_id = RequestBody.create(MediaType.parse("multipart/form-data"), MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
         RequestBody category_id = RequestBody.create(MediaType.parse("multipart/form-data"), catId);
+        RequestBody description = RequestBody.create(MediaType.parse("text/plain"), binder.tvDesc.getText().toString().trim());
         RequestBody price = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductPrice.getText().toString().trim());
         String isActive = "1";
         if (binder.tvProductAvailSwitch.getTag().equals(getResources().getString(R.string.un_available))) {
             isActive = "0";
         }
         RequestBody is_available = RequestBody.create(MediaType.parse("multipart/form-data"), isActive);
-        RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(foodAvailModelArrayList));
         RequestBody minQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMin.getText().toString().trim());
         RequestBody maxQty = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etMax.getText().toString().trim());
+        RequestBody date = RequestBody.create(MediaType.parse("multipart/form-data"), binder.tvDisableDate.getText().toString().trim());
+
+        RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getAvailList()));
         RequestBody dietaryLebel = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getDietList()));
         RequestBody dayOfweek = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(dayOfWeekModelArrayList));
-        RequestBody date = RequestBody.create(MediaType.parse("multipart/form-data"), binder.tvDisableDate.getText().toString().trim());
+
+
         String isHide = "false";
         if (binder.ivDisableDate.getTag().equals(getResources().getString(R.string.available))) {
             isHide = "true";
@@ -520,7 +556,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemModificationActivity.this);
-        apiInterface.addFoodItem(image, name,  restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden)
+        apiInterface.addFoodItem(image, name, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, description)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -598,10 +634,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
 
         public void save(View v) {
-            if (restaurantImage == null) {
-                Toast.makeText(ItemModificationActivity.this, "Please select the item image", Toast.LENGTH_SHORT).show();
-                return;
-            }
+
             if (binder.etProductName.getText().toString().trim().length() <= 0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item name", Toast.LENGTH_SHORT).show();
                 return;

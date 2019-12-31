@@ -5,31 +5,24 @@ import com.app.mylibertarestaurant.constants.UrlConstants;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.AttributeModel;
 import com.app.mylibertarestaurant.model.CategoryModel;
-import com.app.mylibertarestaurant.model.InventoryModel;
 import com.app.mylibertarestaurant.model.InventoryResponseModel;
 import com.app.mylibertarestaurant.model.TimeSlotUpdate;
 import com.app.mylibertarestaurant.model.inventorynew.InventoryModelNew;
 import com.app.mylibertarestaurant.model.items.OrderDetailsModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
 import com.app.mylibertarestaurant.model.items.RestaurantDetail;
-import com.app.mylibertarestaurant.model.newP.DietaryItemModel;
-import com.app.mylibertarestaurant.model.newP.FoodAvailModel;
+import com.app.mylibertarestaurant.model.newP.DietryLabelModel;
+import com.app.mylibertarestaurant.model.newP.MealAvailabilityModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryModel;
-import com.google.gson.JsonArray;
-
-import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -107,7 +100,8 @@ public interface APIInterface {
                                              @Part("dietaryLabels") RequestBody dietaryLabels,
                                              @Part("daysOfWeek") RequestBody daysOfWeek,
                                              @Part("hiddenDate") RequestBody availableDate,
-                                             @Part("isHidden") RequestBody isHidden);
+                                             @Part("isHidden") RequestBody isHidden,
+                                             @Part("description") RequestBody description);
 
     @Multipart
     @POST(UrlConstants.ADD_UPDATE_MENU_ITEM)
@@ -126,7 +120,8 @@ public interface APIInterface {
                                               @Part("daysOfWeek") RequestBody daysOfWeek,
                                               @Part("hiddenDate") RequestBody availableDate,
                                               @Part("isHidden") RequestBody isHidden,
-                                              @Part("isImageRemove") RequestBody isImageRemove
+                                              @Part("isImageRemove") RequestBody isImageRemove,
+                                              @Part("description") RequestBody description
     );
 
 
@@ -224,11 +219,11 @@ public interface APIInterface {
 
 
     @GET(UrlConstants.GET_FOOD_AVAILABILITY)
-    Observable<ApiResponseModel<ArrayList<FoodAvailModel>>> getFoodAvailability();
+    Observable<ApiResponseModel<ArrayList<MealAvailabilityModel>>> getFoodAvailability();
 
 
     @GET(UrlConstants.GET_DIETARY_LIST)
-    Observable<ApiResponseModel<ArrayList<DietaryItemModel>>> getDietary();
+    Observable<ApiResponseModel<ArrayList<DietryLabelModel>>> getDietary();
 
 
 }

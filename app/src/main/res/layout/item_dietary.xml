@@ -13,7 +13,7 @@
 
         <variable
             name="model"
-            type="com.app.mylibertarestaurant.model.newP.DietaryItemModel" />
+            type="com.app.mylibertarestaurant.model.newP.DietryLabelModel" />
 
     </data>
 

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ItemFoodAvailBinding;
 import com.app.mylibertarestaurant.itnerfaces.RecycleItemClickListener;
-import com.app.mylibertarestaurant.model.newP.FoodAvailModel;
+import com.app.mylibertarestaurant.model.newP.MealAvailabilityModel;
 
 import java.util.ArrayList;
 
@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class FoodAvailAdapter extends RecyclerView.Adapter<FoodAvailAdapter.MyViewHolder> {
     RecycleItemClickListener listenr;
-    private ArrayList<FoodAvailModel> list;
+    private ArrayList<MealAvailabilityModel> list;
 
-    public FoodAvailAdapter(RecycleItemClickListener listenr, ArrayList<FoodAvailModel> list) {
+    public FoodAvailAdapter(RecycleItemClickListener listenr, ArrayList<MealAvailabilityModel> list) {
         this.listenr = listenr;
         this.list = list;
     }
@@ -59,7 +59,7 @@ public class FoodAvailAdapter extends RecyclerView.Adapter<FoodAvailAdapter.MyVi
             this.binding = databinding;
         }
 
-        public void bind(FoodAvailModel data) {
+        public void bind(MealAvailabilityModel data) {
             this.binding.setVariable(BR.model, data);
             this.binding.setVariable(BR.position, getAdapterPosition());
             this.binding.executePendingBindings();

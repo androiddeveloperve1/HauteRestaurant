@@ -12,22 +12,25 @@ import androidx.databinding.library.baseAdapters.BR;
 public class MealAvailabilityModel extends BaseObservable {
 
     private String _id;
-    private String valueTxt;
-    private String txtValue;
+    private String name;
+    private String value;
+    private boolean hasSelect;
 
-    @Bindable
+@Bindable
     public String get_id() {
         return _id;
     }
-
     @Bindable
-    public String getValueTxt() {
-        return valueTxt;
+    public String getName() {
+        return name;
     }
-
     @Bindable
-    public String getTxtValue() {
-        return txtValue;
+    public String getValue() {
+        return value;
+    }
+    @Bindable
+    public boolean isHasSelect() {
+        return hasSelect;
     }
 
     public void set_id(String _id) {
@@ -35,13 +38,18 @@ public class MealAvailabilityModel extends BaseObservable {
         this.notifyPropertyChanged(BR._id);
     }
 
-    public void setValueTxt(String valueTxt) {
-        this.valueTxt = valueTxt;
-        this.notifyPropertyChanged(BR.valueTxt);
+    public void setName(String name) {
+        this.name = name;
+        this.notifyPropertyChanged(BR.name);
     }
 
-    public void setTxtValue(String txtValue) {
-        this.txtValue = txtValue;
-        this.notifyPropertyChanged(BR.txtValue);
+    public void setValue(String value) {
+        this.value = value;
+        this.notifyPropertyChanged(BR.value);
+    }
+
+    public void setHasSelect(boolean hasSelect) {
+        this.hasSelect = hasSelect;
+        this.notifyPropertyChanged(BR.hasSelect);
     }
 }
