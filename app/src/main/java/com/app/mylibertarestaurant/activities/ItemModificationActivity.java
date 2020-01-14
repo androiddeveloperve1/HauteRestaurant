@@ -634,12 +634,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
 
         public void save(View v) {
-
             if (binder.etProductName.getText().toString().trim().length() <= 0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item name", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             if (binder.etProductPrice.getText().toString().trim().length() <= 0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item price", Toast.LENGTH_SHORT).show();
                 return;
@@ -661,10 +659,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             } else {
                 addFoodItem();
             }
-
         }
-
-
     }
 
 }
