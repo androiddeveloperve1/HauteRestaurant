@@ -134,17 +134,6 @@ public class BindingAdapters {
     }
 
 
-    @BindingAdapter("android:setAvailDayText")
-    public static void setText2(@Nullable TextView view, final DayOfWeekModel model) {
 
-        if (model.getValue().equals("true")) {
-            view.setVisibility(View.VISIBLE);
-            view.setText(model.getLabel());
-        } else {
-            view.setVisibility(View.GONE);
-        }
-
-
-    }
 
 }

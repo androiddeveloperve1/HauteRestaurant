@@ -28,7 +28,11 @@ public class OptionDetailsActivity extends AppCompatActivity {
         binder = DataBindingUtil.setContentView(this, R.layout.activity_option_details);
         binder.setClick(new MyClick());
         restaurantCategoryItemModel = new Gson().fromJson(getIntent().getStringExtra("data"), RestaurantCategoryItemModel.class);
-        initOptionAndSubOption();
+        if (restaurantCategoryItemModel.getOptionsResult() != null) {
+            initOptionAndSubOption();
+        }
+
+
     }
 
     void initOptionAndSubOption() {
@@ -98,6 +102,7 @@ public class OptionDetailsActivity extends AppCompatActivity {
         public void onBack(View v) {
             finish();
         }
+
         public void onAdd(View v) {
             Intent mIntent = new Intent(OptionDetailsActivity.this, AddEditOptionActivity.class);
             mIntent.putExtra("edit", false);

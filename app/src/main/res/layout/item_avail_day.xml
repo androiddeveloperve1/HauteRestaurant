@@ -12,9 +12,7 @@
         android:paddingTop="@dimen/_5_px"
         android:paddingRight="@dimen/_10_px"
         android:paddingBottom="@dimen/_5_px"
-        android:setAvailDayText='@{model}'
-
-
+        android:text="@{model.label}"
         android:textColor="@color/black"
         android:textSize="@dimen/_8_px" />
 

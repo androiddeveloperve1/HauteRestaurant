@@ -192,7 +192,7 @@ public class FragmentRestaurantCategory extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("MyLiberta");
         builder.setMessage("Are you sure want to delete this catagory?");
-        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

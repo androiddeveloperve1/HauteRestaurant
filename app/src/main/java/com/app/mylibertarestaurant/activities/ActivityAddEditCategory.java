@@ -70,43 +70,74 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
     private void saveCategory() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ActivityAddEditCategory.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ActivityAddEditCategory.this);
-        MultipartBody.Part image = MultipartUtils.createFile(ActivityAddEditCategory.this, menuItemImage, "category_image", "food_image.jpg");
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), binder.etName.getText().toString().trim());
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), binder.etDescription.getText().toString());
         RequestBody location = RequestBody.create(MediaType.parse("text/plain"), restaurantDetail.getAddress());
         RequestBody restaurent_id = RequestBody.create(MediaType.parse("text/plain"), restaurantDetail.get_id());
-        apiInterface.saveCategory(image, name, description, location, restaurent_id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        progressDialog.dismiss();
-                        ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, throwable.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onNext(ApiResponseModel response) {
-                        progressDialog.dismiss();
-                        if (response.getStatus().equals("200")) {
-                            Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
+        if (menuItemImage != null) {
+            MultipartBody.Part image = MultipartUtils.createFile(ActivityAddEditCategory.this, menuItemImage, "category_image", "food_image.jpg");
+            apiInterface.saveCategoryWithImage(image, name, description, location, restaurent_id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
                         }
 
-                    }
-                });
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
+                            }
+
+                        }
+                    });
+        } else {
+            apiInterface.saveCategoryWithoutImage(name, description, location, restaurent_id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
+                            }
+
+                        }
+                    });
+        }
+
+
     }
 
     private void updateCategory() {
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ActivityAddEditCategory.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ActivityAddEditCategory.this);
-        MultipartBody.Part image = MultipartUtils.createFile(ActivityAddEditCategory.this, menuItemImage, "category_image", "food_image.jpg");
+
         RequestBody name = RequestBody.create(MediaType.parse("text/plain"), binder.etName.getText().toString().trim());
         RequestBody description = RequestBody.create(MediaType.parse("text/plain"), binder.etDescription.getText().toString());
         RequestBody location = RequestBody.create(MediaType.parse("text/plain"), restaurantDetail.getAddress());
@@ -115,32 +146,64 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
         RequestBody isImageRemove = RequestBody.create(MediaType.parse("text/plain"), "0");
         RequestBody categoryId = RequestBody.create(MediaType.parse("text/plain"), editableRestaurantCategoryModel.get_id());
         RequestBody isUpdate = RequestBody.create(MediaType.parse("text/plain"), "1");
-        apiInterface.updateCategory(image, name, description, location, restaurent_id,isActive,isImageRemove,categoryId,isUpdate)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        progressDialog.dismiss();
-                        ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, throwable.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onNext(ApiResponseModel response) {
-                        progressDialog.dismiss();
-                        if (response.getStatus().equals("200")) {
-                            Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
+        if (menuItemImage != null) {
+            MultipartBody.Part image = MultipartUtils.createFile(ActivityAddEditCategory.this, menuItemImage, "category_image", "food_image.jpg");
+            apiInterface.updateCategoryWithImage(image, name, description, location, restaurent_id, isActive, isImageRemove, categoryId, isUpdate)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
                         }
 
-                    }
-                });
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
+                            }
+
+                        }
+                    });
+        } else {
+            apiInterface.updateCategoryWithoutImage(name, description, location, restaurent_id, isActive, isImageRemove, categoryId, isUpdate)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
+                            }
+
+                        }
+                    });
+        }
+
+
     }
 
     void initEditableValue() {
@@ -174,14 +237,10 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
         public void save(View v) {
             if (binder.etName.getText().toString().trim().length() > 0) {
                 if (binder.etDescription.getText().toString().trim().length() > 0) {
-                    if (menuItemImage != null) {
-                        if (isEdit) {
-                            updateCategory();
-                        } else
-                            saveCategory();
-                    } else {
-                        Toast.makeText(ActivityAddEditCategory.this, "Please select the image for menu", Toast.LENGTH_SHORT).show();
-                    }
+                    if (isEdit) {
+                        updateCategory();
+                    } else
+                        saveCategory();
                 } else {
                     Toast.makeText(ActivityAddEditCategory.this, "Please enter the description of menu", Toast.LENGTH_SHORT).show();
                 }

@@ -71,17 +71,17 @@ public class EditProfileActivity extends ImageUploadingActivity {
             public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
                 profilePic = bitmap;
                 binder.ivProfile.setImageBitmap(profilePic);
-                Log.e("@@@@@@","Image loded");
+                Log.e("@@@@@@", "Image loded");
             }
 
             @Override
             public void onBitmapFailed(Drawable errorDrawable) {
-                Log.e("@@@@@@","Image failed");
+                Log.e("@@@@@@", "Image failed");
             }
 
             @Override
             public void onPrepareLoad(Drawable placeHolderDrawable) {
-                Log.e("@@@@@@","prepare Image loded");
+                Log.e("@@@@@@", "prepare Image loded");
 
             }
         };
@@ -142,7 +142,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
         apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime, deliveryFee)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel<RestaurantDetail>>() {
+                .subscribe(new Subscriber<ApiResponseModel>() {
                     @Override
                     public void onCompleted() {
                     }
@@ -154,12 +154,10 @@ public class EditProfileActivity extends ImageUploadingActivity {
                     }
 
                     @Override
-                    public void onNext(ApiResponseModel<RestaurantDetail> response) {
+                    public void onNext(ApiResponseModel response) {
                         progressDialog.dismiss();
                         Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
                         if (response.getStatus().equals("200")) {
-                            restaurantDetailModel.setRestaurants(response.getData());
-                            MySharedPreference.getInstance(EditProfileActivity.this).setUser(restaurantDetailModel);
                             setResult(Activity.RESULT_OK);
                             finish();
                         } else {

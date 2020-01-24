@@ -182,31 +182,10 @@ public class AppUtils {
         ArrayList<DayOfWeekModel> weekList = new ArrayList<>();
         DayOfWeekModel day = null;
 
-        day = new DayOfWeekModel();
-        day.setLabel("Sunday");
-        day.setValue("true");
-        weekList.add(day);
-
-        day = new DayOfWeekModel();
-        day.setLabel("Saturday");
-        day.setValue("true");
-        weekList.add(day);
 
 
         day = new DayOfWeekModel();
-        day.setLabel("Friday");
-        day.setValue("true");
-        weekList.add(day);
-
-
-        day = new DayOfWeekModel();
-        day.setLabel("Thursday");
-        day.setValue("true");
-        weekList.add(day);
-
-
-        day = new DayOfWeekModel();
-        day.setLabel("Wednesday");
+        day.setLabel("Monday");
         day.setValue("true");
         weekList.add(day);
 
@@ -218,7 +197,29 @@ public class AppUtils {
 
 
         day = new DayOfWeekModel();
-        day.setLabel("Monday");
+        day.setLabel("Wednesday");
+        day.setValue("true");
+        weekList.add(day);
+
+        day = new DayOfWeekModel();
+        day.setLabel("Thursday");
+        day.setValue("true");
+        weekList.add(day);
+
+        day = new DayOfWeekModel();
+        day.setLabel("Friday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Saturday");
+        day.setValue("true");
+        weekList.add(day);
+
+
+        day = new DayOfWeekModel();
+        day.setLabel("Sunday");
         day.setValue("true");
         weekList.add(day);
 

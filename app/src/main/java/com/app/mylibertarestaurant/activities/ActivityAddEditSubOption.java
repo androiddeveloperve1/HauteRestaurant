@@ -37,6 +37,7 @@ import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -226,7 +227,7 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         param.put("bestPrice", binder.etPrice.getText().toString());
         param.put("price", binder.etRegularPrice.getText().toString());
         param.put("markupStructure", (binder.etMarkup.getSelectedItemPosition() == 0) ? "N" : "Y");
-        param.put("tags", "");
+        param.put("tags", new JsonArray());
         param.put("disabledUntilDate", binder.tvDate.getText().toString());
         param.put("option_id", optionId);
         param.put("restaurent_id", MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());

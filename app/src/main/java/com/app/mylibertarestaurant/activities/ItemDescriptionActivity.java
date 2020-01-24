@@ -27,6 +27,7 @@ import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.customui.Utils;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
+import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
 import com.app.mylibertarestaurant.model.newP.MainOptionModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
@@ -72,13 +73,23 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binder.rvDietLabel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        Collections.reverse(data.getDaysOfWeek());
-        binder.setDayAdapter(new AvailibilityDayAdapter(data.getDaysOfWeek()));
+        binder.setDayAdapter(new AvailibilityDayAdapter(getAvailableWeekDays()));
         binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
         binder.setDietaryAdapter(new DietaryLabelAdapter(data.getDietaryLabels()));
         initOptionAndSubOption();
     }
 
+
+    ArrayList<DayOfWeekModel> getAvailableWeekDays() {
+
+        ArrayList<DayOfWeekModel> list = new ArrayList<>();
+        for (int i = 0; i < data.getDaysOfWeek().size(); i++) {
+            if (data.getDaysOfWeek().get(i).getValue().equals("true")) {
+                list.add(data.getDaysOfWeek().get(i));
+            }
+        }
+        return list;
+    }
 
     void initMenu() {
         popup = new PopupMenu(ItemDescriptionActivity.this, binder.ivThreeDot);
@@ -175,8 +186,6 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                 binder.llOption.addView(mainOption);
 
             }
-        } else {
-            binder.cvTwo.setVisibility(View.GONE);
         }
 
 

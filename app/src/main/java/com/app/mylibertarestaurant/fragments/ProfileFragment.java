@@ -298,7 +298,6 @@ public class ProfileFragment extends Fragment {
 
     void showInView() {
         Log.e("---Show in view", "------------------");
-
         binder.tvReatsurantName.setText(restaurantDetailModel.getRestaurants().getName());
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
@@ -311,7 +310,6 @@ public class ProfileFragment extends Fragment {
             binder.tvTax.setText(restaurantDetailModel.getRestaurants().getComm().getTaxrate()+"%");
             binder.tvFee.setText("$"+restaurantDetailModel.getRestaurants().getComm().getAdmincom());
         }
-
 
         Picasso.with(getActivity()).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
         if (!(restaurantDetailModel.getRestaurants().getOpenForService() != null && restaurantDetailModel.getRestaurants().getOpenForService().size() > 0)) {
@@ -362,8 +360,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            restaurantDetailModel = MySharedPreference.getInstance(getActivity()).getUser();
-            showInView();
+            getProfile();
         }
 
     }

@@ -103,8 +103,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         binder.etProductName.setText(data.getName());
         binder.tvDesc.setText(data.getDescription());
         binder.etProductPrice.setText(data.getPrice());
-        Picasso.with(this).load(data.getImage()).into(getTarget());
-
+        try {
+            Picasso.with(this).load(data.getImage()).into(getTarget());
+        } catch (Exception e) {
+        }
         if (data.getIsActive().equalsIgnoreCase("true")) {
             binder.tvProductAvailSwitch.setTag(getResources().getString(R.string.available));
             binder.tvProductAvailSwitch.setBackgroundResource(R.drawable.ic_toggle_available);
@@ -397,6 +399,16 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        if (binder.tvDisableDate.getText().toString().trim().length() > 0) {
+
+            String date[] = binder.tvDisableDate.getText().toString().trim().split("-");
+            mYear = Integer.parseInt(date[0]);
+            mMonth = Integer.parseInt(date[1]) - 1;
+            mDay = Integer.parseInt(date[2]);
+        }
+
+
         DatePickerDialog dp = new DatePickerDialog(
                 ItemModificationActivity.this,
                 (view, year, monthOfYear, dayOfMonth) -> binder.tvDisableDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth),

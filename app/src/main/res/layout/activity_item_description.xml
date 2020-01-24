@@ -120,7 +120,7 @@
                             android:ellipsize="end"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
                             android:maxLines="1"
-                            android:text="Product informaion"
+                            android:text="Product information"
                             android:textColor="@color/gray_text"
                             android:textSize="@dimen/_8_px"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -306,9 +306,9 @@
                     android:layout_marginRight="@dimen/_10_px"
                     android:layout_marginBottom="@dimen/_10_px"
                     app:cardCornerRadius="@dimen/_5_px"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cv_one">
 
 
@@ -319,9 +319,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-
-
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:onClick="@{(v)->click.goOptionDetail(v)}">
 
                         <TextView
                             android:id="@+id/tv_option_txt"
@@ -344,7 +343,7 @@
                             android:id="@+id/next"
                             android:layout_width="@dimen/_25_px"
                             android:layout_height="@dimen/_25_px"
-                            android:onClick="@{(v)->click.goOptionDetail(v)}"
+
                             android:background="@drawable/ic_right_arrow_grey"
                             app:layout_constraintBottom_toBottomOf="@+id/tv_option_txt"
                             app:layout_constraintRight_toRightOf="parent"

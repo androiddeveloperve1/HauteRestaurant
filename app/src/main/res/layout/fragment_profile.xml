@@ -116,11 +116,11 @@
 
                         <ImageView
                             android:id="@+id/iv_edit"
-                            android:layout_width="@dimen/_20_px"
-                            android:layout_height="@dimen/_20_px"
+                            android:layout_width="@dimen/_23_px"
+                            android:layout_height="@dimen/_23_px"
                             android:layout_centerHorizontal="true"
                             android:onClick="@{(v)->click.editRestaurant(v)}"
-                            android:padding="@dimen/_3_px"
+                            android:padding="@dimen/_1_px"
                             android:src="@drawable/ic_edit"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -400,11 +400,11 @@
 
                             <ImageView
                                 android:id="@+id/iv_edit_service"
-                                android:layout_width="@dimen/_20_px"
-                                android:layout_height="@dimen/_20_px"
+                                android:layout_width="@dimen/_23_px"
+                                android:layout_height="@dimen/_23_px"
                                 android:layout_centerHorizontal="true"
                                 android:onClick="@{(v)->click.editServices(v)}"
-                                android:padding="@dimen/_3_px"
+                                android:padding="@dimen/_1_px"
                                 android:src="@drawable/ic_edit"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

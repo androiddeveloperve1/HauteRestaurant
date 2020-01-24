@@ -77,7 +77,7 @@ public interface APIInterface {
 
     @Multipart
     @PUT(UrlConstants.UPDATE_RESTAURANT)
-    Observable<ApiResponseModel<RestaurantDetail>> updateProfile(@Part MultipartBody.Part image,
+    Observable<ApiResponseModel> updateProfile(@Part MultipartBody.Part image,
                                                                  @Part("name") RequestBody name,
                                                                  @Part("address") RequestBody address,
                                                                  @Part("pincode") RequestBody pincode,
@@ -166,16 +166,35 @@ public interface APIInterface {
 
     @Multipart
     @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
-    Observable<ApiResponseModel> saveCategory(@Part MultipartBody.Part image,
-                                              @Part("name") RequestBody name,
-                                              @Part("description") RequestBody description,
-                                              @Part("location") RequestBody location,
-                                              @Part("restaurent_id") RequestBody restaurent_id);
+    Observable<ApiResponseModel> saveCategoryWithImage(@Part MultipartBody.Part image,
+                                                       @Part("name") RequestBody name,
+                                                       @Part("description") RequestBody description,
+                                                       @Part("location") RequestBody location,
+                                                       @Part("restaurent_id") RequestBody restaurent_id);
 
     @Multipart
     @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
-    Observable<ApiResponseModel> updateCategory(@Part MultipartBody.Part image,
+    Observable<ApiResponseModel> saveCategoryWithoutImage(@Part("name") RequestBody name,
+                                                       @Part("description") RequestBody description,
+                                                       @Part("location") RequestBody location,
+                                                       @Part("restaurent_id") RequestBody restaurent_id);
+
+    @Multipart
+    @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
+    Observable<ApiResponseModel> updateCategoryWithImage(@Part MultipartBody.Part image,
                                                 @Part("name") RequestBody name,
+                                                @Part("description") RequestBody description,
+                                                @Part("location") RequestBody location,
+                                                @Part("restaurent_id") RequestBody restaurent_id,
+                                                @Part("isActive") RequestBody isActive,
+                                                @Part("isImageRemove") RequestBody isImageRemove,
+                                                @Part("category_id") RequestBody category_id,
+                                                @Part("is_update") RequestBody is_update);
+
+
+    @Multipart
+    @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
+    Observable<ApiResponseModel> updateCategoryWithoutImage(@Part("name") RequestBody name,
                                                 @Part("description") RequestBody description,
                                                 @Part("location") RequestBody location,
                                                 @Part("restaurent_id") RequestBody restaurent_id,

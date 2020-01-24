@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import androidx.databinding.library.baseAdapters.BR;
+
 import com.app.mylibertarestaurant.model.CommisionModel;
 import com.app.mylibertarestaurant.model.Location;
 import com.app.mylibertarestaurant.model.TimeModel;
@@ -18,7 +19,6 @@ import java.util.ArrayList;
  */
 
 public class RestaurantDetail extends BaseObservable {
-
     private String name;
     private String address;
     private String is_profile_complete;
@@ -26,7 +26,6 @@ public class RestaurantDetail extends BaseObservable {
     private String _id;
     private String maxdeliverytime;
     private ArrayList<String> images;
-
     private String contact_no;
     private String country_code;
     private String deliveryfees;
@@ -37,7 +36,7 @@ public class RestaurantDetail extends BaseObservable {
     private CommisionModel comm;
     private UserModel user_id;
 
-@Bindable
+    @Bindable
     public UserModel getUser_id() {
         return user_id;
     }

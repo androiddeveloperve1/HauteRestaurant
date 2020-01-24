@@ -263,7 +263,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10_px"
                             android:fontStyleName="@{`Roboto_Regular.ttf`}"
-                            android:text="Select availablity"
+                            android:text="Select availability"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintLeft_toLeftOf="parent"
