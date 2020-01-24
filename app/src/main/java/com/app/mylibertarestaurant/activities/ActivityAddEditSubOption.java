@@ -289,6 +289,7 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         return null;
     }
 
+
     public class Click {
         public void onBack(View v) {
             finish();
@@ -296,13 +297,12 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
 
         public void onSave(View v) {
             if (binder.etName.getText().toString().trim().length() > 0) {
-                if (binder.etPrice.getText().toString().trim().length() > 0) {
+                if (binder.etPrice.getText().toString().trim().length() > 0 && !binder.etPrice.getText().toString().trim().equals(".")) {
                     addUpdateOption();
                 } else {
                     Toast.makeText(ActivityAddEditSubOption.this, "Please enter the best price", Toast.LENGTH_SHORT).show();
                 }
             } else {
-
                 Toast.makeText(ActivityAddEditSubOption.this, "Please enter the menu name", Toast.LENGTH_SHORT).show();
             }
 
