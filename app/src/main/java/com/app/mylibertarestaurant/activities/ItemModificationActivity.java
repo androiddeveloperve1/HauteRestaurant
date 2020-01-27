@@ -502,12 +502,17 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         ArrayList<DietryLabelModel> list = new ArrayList<>();
         for (int i = 0; i < dietaryItemModelArrayList.size(); i++) {
             DietryLabelModel model = new DietryLabelModel();
-            if (dietaryItemModelArrayList.get(i).isHasSelect()) {
+            model.setDietary_id(dietaryItemModelArrayList.get(i).get_id());
+            model.setValue("" + dietaryItemModelArrayList.get(i).isHasSelect());
+            model.setName(dietaryItemModelArrayList.get(i).getName());
+            list.add(model);
+
+            /*if (dietaryItemModelArrayList.get(i).isHasSelect()) {
                 model.setDietary_id(dietaryItemModelArrayList.get(i).get_id());
                 model.setValue("" + dietaryItemModelArrayList.get(i).isHasSelect());
                 model.setName(dietaryItemModelArrayList.get(i).getName());
                 list.add(model);
-            }
+            }*/
 
 
         }
