@@ -157,7 +157,7 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(ActivityAddEditSubOption.this);
         builder.setTitle("MyLiberta");
         builder.setMessage("Are you sure want to delete this Sub-Option?");
-        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

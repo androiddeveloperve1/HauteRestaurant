@@ -2,6 +2,7 @@ package com.app.mylibertarestaurant.activities;
 
 import androidx.databinding.DataBindingUtil;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -95,6 +96,7 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
                             progressDialog.dismiss();
                             if (response.getStatus().equals("200")) {
                                 Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                setResult(Activity.RESULT_OK);
                                 finish();
                             } else {
                                 ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
@@ -122,6 +124,7 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
                             progressDialog.dismiss();
                             if (response.getStatus().equals("200")) {
                                 Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                setResult(Activity.RESULT_OK);
                                 finish();
                             } else {
                                 ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
@@ -167,6 +170,7 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
                             progressDialog.dismiss();
                             if (response.getStatus().equals("200")) {
                                 Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                setResult(Activity.RESULT_OK);
                                 finish();
                             } else {
                                 ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());
@@ -194,6 +198,7 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
                             progressDialog.dismiss();
                             if (response.getStatus().equals("200")) {
                                 Toast.makeText(ActivityAddEditCategory.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                                setResult(Activity.RESULT_OK);
                                 finish();
                             } else {
                                 ResponseDialog.showErrorDialog(ActivityAddEditCategory.this, response.getMessage());

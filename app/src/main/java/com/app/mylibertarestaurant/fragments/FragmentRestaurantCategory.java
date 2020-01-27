@@ -1,5 +1,6 @@
 package com.app.mylibertarestaurant.fragments;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -252,7 +253,17 @@ public class FragmentRestaurantCategory extends Fragment {
             mIntent.putExtra("isEdit", false);
         }
 
-        startActivity(mIntent);
+        startActivityForResult(mIntent, 1000);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000 && resultCode== Activity.RESULT_OK) {
+            getCategoryList();
+        }
+
+
     }
 
     public class Click {
@@ -266,6 +277,4 @@ public class FragmentRestaurantCategory extends Fragment {
         }
 
     }
-
-
 }

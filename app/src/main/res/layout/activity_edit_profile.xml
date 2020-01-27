@@ -364,8 +364,8 @@
 
                 <ImageView
                     android:id="@+id/iv_cam"
-                    android:layout_width="@dimen/_20_px"
-                    android:layout_height="@dimen/_20_px"
+                    android:layout_width="@dimen/_25_px"
+                    android:layout_height="@dimen/_25_px"
                     android:onClick="@{(v)->click.captureImage(v)}"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_camera"

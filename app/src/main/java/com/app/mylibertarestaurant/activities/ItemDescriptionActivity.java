@@ -122,7 +122,7 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemDescriptionActivity.this);
         builder.setTitle("MyLiberta");
         builder.setMessage("Are you sure want to delete this Item?");
-        builder.setPositiveButton("Del", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();

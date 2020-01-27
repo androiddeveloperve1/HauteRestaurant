@@ -666,6 +666,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 Toast.makeText(ItemModificationActivity.this, "Minimum qty. should be 1 or more than 1", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if (Integer.parseInt(binder.etMin.getText().toString().trim()) > Integer.parseInt(binder.etMax.getText().toString().trim())) {
+                Toast.makeText(ItemModificationActivity.this, "Max qty. can't be less than Min. qty. ", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (isEdit) {
                 editFoodItem();
             } else {
