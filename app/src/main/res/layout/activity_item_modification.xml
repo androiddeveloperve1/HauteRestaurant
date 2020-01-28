@@ -289,7 +289,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_toLeftOf="@+id/iv_arrow2"
                                 android:background="@null"
-                                android:hint="Select Availibility"
+                                android:hint="Select Availability"
                                 android:paddingLeft="@dimen/_10_px"
                                 android:paddingTop="@dimen/_5_px"
                                 android:paddingRight="@dimen/_10_px"

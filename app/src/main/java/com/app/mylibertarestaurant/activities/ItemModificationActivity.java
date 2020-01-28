@@ -66,7 +66,6 @@ public class ItemModificationActivity extends ImageUploadingActivity {
     private ArrayList<DayOfWeekModel> dayOfWeekModelArrayList;
     private WeekdayAdapter weekdayAdapter;
     private String catId;
-    private Bitmap emptyBitmap;
 
 
     @Override
@@ -90,7 +89,6 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             binder.tvSave.setText("Save");
         }
         getFoodAvailibility();
-        createEmptyBitmap();
     }
 
     @Override
@@ -149,8 +147,10 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
             }
         }
-
-        binder.tvAvailWeek.setText(workDay.toString());
+        try {
+            binder.tvAvailWeek.setText(workDay.toString().substring(0, workDay.toString().length() - 1));
+        } catch (Exception e) {
+        }
     }
 
     void fillDietary() {
@@ -166,8 +166,11 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 }
             }
         }
+        try {
+            binder.tvDietLevel.setText(dietary.toString().substring(0, dietary.toString().length() - 1));
+        } catch (Exception e) {
+        }
 
-        binder.tvDietLevel.setText(dietary.toString());
     }
 
 
@@ -183,8 +186,11 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
             }
         }
+        try {
+            binder.tvAvailibility.setText(foodavailability.toString().substring(0, foodavailability.toString().length() - 1));
+        } catch (Exception e) {
+        }
 
-        binder.tvAvailibility.setText(foodavailability.toString());
     }
 
     private Target getTarget() {
@@ -305,7 +311,12 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         sb.append(foodAvailModelArrayList.get(i).getName()).append(",");
                     }
                 }
-                binder.tvAvailibility.setText(sb.toString());
+                try {
+                    binder.tvAvailibility.setText(sb.toString().substring(0, sb.toString().length() - 1));
+
+                } catch (Exception e) {
+                }
+
             }
         }, foodAvailModelArrayList);
         rv.setAdapter(foodAvailAdapter);
@@ -339,7 +350,12 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         sb.append(dietaryItemModelArrayList.get(i).getName()).append(",");
                     }
                 }
-                binder.tvDietLevel.setText(sb.toString());
+                try {
+                    binder.tvDietLevel.setText(sb.toString().substring(0, sb.toString().length() - 1));
+                } catch (Exception e) {
+                }
+
+
             }
         }, dietaryItemModelArrayList);
         rv.setAdapter(dietaryItemAdapter);
@@ -375,7 +391,11 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         sb.append(dayOfWeekModelArrayList.get(i).getLabel()).append(",");
                     }
                 }
-                binder.tvAvailWeek.setText(sb.toString());
+                try {
+                    binder.tvAvailWeek.setText(sb.toString().substring(0, sb.toString().length() - 1));
+                } catch (Exception e) {
+                }
+
             }
         }, dayOfWeekModelArrayList);
         rv.setAdapter(weekdayAdapter);
@@ -417,19 +437,9 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         dp.getDatePicker().setMinDate(new Date().getTime());
     }
 
-    void createEmptyBitmap() {
-        Bitmap.Config conf = Bitmap.Config.ARGB_8888;
-        emptyBitmap = Bitmap.createBitmap(1, 1, conf);
-    }
 
     private void editFoodItem() {
         MultipartBody.Part image = null;
-        if (restaurantImage == null) {
-            image = MultipartUtils.createFile(ItemModificationActivity.this, emptyBitmap, "item_image", "food_image.jpg");
-        } else {
-            image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
-        }
-
 
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductName.getText().toString().trim());
         RequestBody item_id = RequestBody.create(MediaType.parse("multipart/form-data"), data.get_id());
@@ -457,44 +467,72 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             isHide = "true";
         }
         RequestBody isHidden = RequestBody.create(MediaType.parse("multipart/form-data"), isHide);
-
+        final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
+        ((MyApplication) getApplication()).getConfiguration().inject(ItemModificationActivity.this);
         RequestBody imageRemoved = null;
         if (restaurantImage == null) {
             imageRemoved = RequestBody.create(MediaType.parse("multipart/form-data"), "1");
+            apiInterface.editMenuItemWithoutImage(name, item_id, isUpdate, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, imageRemoved, description)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ItemModificationActivity.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
+                            }
+
+                        }
+                    });
         } else {
             imageRemoved = RequestBody.create(MediaType.parse("multipart/form-data"), "0");
+            image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+            apiInterface.editMenuItemWithImage(image, name, item_id, isUpdate, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, imageRemoved, description)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ItemModificationActivity.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
+                            }
+
+                        }
+                    });
+
         }
 
 
-        final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
-        ((MyApplication) getApplication()).getConfiguration().inject(ItemModificationActivity.this);
-        apiInterface.editMenuItem(image, name, item_id, isUpdate, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, imageRemoved, description)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        progressDialog.dismiss();
-                        ResponseDialog.showErrorDialog(ItemModificationActivity.this, throwable.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onNext(ApiResponseModel response) {
-                        progressDialog.dismiss();
-                        Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
-                        if (response.getStatus().equals("200")) {
-                            Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
-                            finish();
-                        } else {
-                            ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
-                        }
-
-                    }
-                });
     }
 
 
@@ -540,11 +578,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
     private void addFoodItem() {
         MultipartBody.Part image = null;
-        if (restaurantImage == null) {
-            image = MultipartUtils.createFile(ItemModificationActivity.this, emptyBitmap, "item_image", "food_image.jpg");
-        } else {
-            image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
-        }
+
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), binder.etProductName.getText().toString().trim());
         RequestBody restaurent_id = RequestBody.create(MediaType.parse("multipart/form-data"), MySharedPreference.getInstance(this).getUser().getRestaurants().get_id());
         RequestBody category_id = RequestBody.create(MediaType.parse("multipart/form-data"), catId);
@@ -569,37 +603,68 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             isHide = "true";
         }
         RequestBody isHidden = RequestBody.create(MediaType.parse("multipart/form-data"), isHide);
-
-
         final Dialog progressDialog = ResponseDialog.showProgressDialog(ItemModificationActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(ItemModificationActivity.this);
-        apiInterface.addFoodItem(image, name, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, description)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ApiResponseModel>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        progressDialog.dismiss();
-                        ResponseDialog.showErrorDialog(ItemModificationActivity.this, throwable.getLocalizedMessage());
-                    }
-
-                    @Override
-                    public void onNext(ApiResponseModel response) {
-                        progressDialog.dismiss();
-                        Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
-                        if (response.getStatus().equals("200")) {
-                            Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
-                            finish();
-                        } else {
-                            ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
+        if (restaurantImage != null) {
+            image = MultipartUtils.createFile(ItemModificationActivity.this, restaurantImage, "item_image", "food_image.jpg");
+            apiInterface.addFoodItem(image, name, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, description)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
                         }
 
-                    }
-                });
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ItemModificationActivity.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
+                            }
+
+                        }
+                    });
+        } else {
+            apiInterface.addFoodItemWithoutImage(name, restaurent_id, category_id, price, is_available, mealAvail, minQty, maxQty, dietaryLebel, dayOfweek, date, isHidden, description)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Subscriber<ApiResponseModel>() {
+                        @Override
+                        public void onCompleted() {
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            progressDialog.dismiss();
+                            ResponseDialog.showErrorDialog(ItemModificationActivity.this, throwable.getLocalizedMessage());
+                        }
+
+                        @Override
+                        public void onNext(ApiResponseModel response) {
+                            progressDialog.dismiss();
+                            Log.e("@@@@@@@@@@@", "" + new Gson().toJson(response.getData()));
+                            if (response.getStatus().equals("200")) {
+                                Toast.makeText(ItemModificationActivity.this, response.getMessage(), Toast.LENGTH_LONG).show();
+                                finish();
+                            } else {
+                                ResponseDialog.showErrorDialog(ItemModificationActivity.this, response.getMessage());
+                            }
+
+                        }
+                    });
+        }
+
+
     }
 
     public class Click {

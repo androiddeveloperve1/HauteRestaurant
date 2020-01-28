@@ -333,7 +333,9 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
                             sb.append(mainOptionModelsList.get(i).getName()).append(",");
                         }
                     }
-                    binder.tvLinkedOption.setText(sb.toString());
+                    try{
+                    binder.tvLinkedOption.setText(sb.toString().substring(0,sb.toString().length()-1));
+                    }catch (Exception e){}
                 }
             }, mainOptionModelsList);
             rv.setAdapter(optionAdpter);

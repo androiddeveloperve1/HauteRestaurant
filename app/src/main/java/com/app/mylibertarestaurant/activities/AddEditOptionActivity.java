@@ -53,7 +53,7 @@ public class AddEditOptionActivity extends AppCompatActivity {
             binder.tvCatName.setText("Add Option");
             mainOptionModel.setCustomerPrompt("");
             mainOptionModel.setName("");
-            mainOptionModel.setMaxSelection("" + 1);
+            mainOptionModel.setMaxSelection("" + 0);
             mainOptionModel.setMinSelection("" + 0);
             mainOptionModel.setLocation("");
         }
@@ -169,7 +169,15 @@ public class AddEditOptionActivity extends AppCompatActivity {
                 if (mainOptionModel.getCustomerPrompt().trim().length() > 0) {
                     if (mainOptionModel.getMinSelection().trim().length() > 0) {
                         if (mainOptionModel.getMaxSelection().trim().length() > 0) {
-                            addUpdateOption();
+                            if (Integer.parseInt(mainOptionModel.getMinSelection().trim()) > 0) {
+                                if (Integer.parseInt(mainOptionModel.getMinSelection().trim()) < Integer.parseInt(mainOptionModel.getMaxSelection().trim())) {
+                                    addUpdateOption();
+                                } else {
+                                    Toast.makeText(AddEditOptionActivity.this, "Max selection should be grater than min selection", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(AddEditOptionActivity.this, "Please enter the minimum selection value", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(AddEditOptionActivity.this, "Please enter the maximum selection value", Toast.LENGTH_SHORT).show();
                         }

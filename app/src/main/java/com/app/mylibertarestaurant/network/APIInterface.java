@@ -78,12 +78,12 @@ public interface APIInterface {
     @Multipart
     @PUT(UrlConstants.UPDATE_RESTAURANT)
     Observable<ApiResponseModel> updateProfile(@Part MultipartBody.Part image,
-                                                                 @Part("name") RequestBody name,
-                                                                 @Part("address") RequestBody address,
-                                                                 @Part("pincode") RequestBody pincode,
-                                                                 @Part("deliverykm") RequestBody deliverykm,
-                                                                 @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
-                                                                 @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime
+                                               @Part("name") RequestBody name,
+                                               @Part("address") RequestBody address,
+                                               @Part("pincode") RequestBody pincode,
+                                               @Part("deliverykm") RequestBody deliverykm,
+                                               @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
+                                               @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime
             , @Part("deliveryfees") RequestBody deliveryfees);
 
     @Multipart
@@ -103,25 +103,63 @@ public interface APIInterface {
                                              @Part("isHidden") RequestBody isHidden,
                                              @Part("description") RequestBody description);
 
+
     @Multipart
     @POST(UrlConstants.ADD_UPDATE_MENU_ITEM)
-    Observable<ApiResponseModel> editMenuItem(@Part MultipartBody.Part image,
-                                              @Part("name") RequestBody name,
-                                              @Part("item_id") RequestBody item_id,
-                                              @Part("is_update") RequestBody is_update,
-                                              @Part("restaurent_id") RequestBody restaurent_id,
-                                              @Part("category_id") RequestBody category_id,
-                                              @Part("price") RequestBody price,
-                                              @Part("isActive") RequestBody isActive,
-                                              @Part("mealAvailability") RequestBody mealAvailability,
-                                              @Part("minQuantity") RequestBody minQuantity,
-                                              @Part("maxQuantity") RequestBody maxQuantity,
-                                              @Part("dietaryLabels") RequestBody dietaryLabels,
-                                              @Part("daysOfWeek") RequestBody daysOfWeek,
-                                              @Part("hiddenDate") RequestBody availableDate,
-                                              @Part("isHidden") RequestBody isHidden,
-                                              @Part("isImageRemove") RequestBody isImageRemove,
-                                              @Part("description") RequestBody description
+    Observable<ApiResponseModel> addFoodItemWithoutImage(@Part("name") RequestBody name,
+                                                         @Part("restaurent_id") RequestBody restaurent_id,
+                                                         @Part("category_id") RequestBody category_id,
+                                                         @Part("price") RequestBody price,
+                                                         @Part("isActive") RequestBody isActive,
+                                                         @Part("mealAvailability") RequestBody mealAvailability,
+                                                         @Part("minQuantity") RequestBody minQuantity,
+                                                         @Part("maxQuantity") RequestBody maxQuantity,
+                                                         @Part("dietaryLabels") RequestBody dietaryLabels,
+                                                         @Part("daysOfWeek") RequestBody daysOfWeek,
+                                                         @Part("hiddenDate") RequestBody availableDate,
+                                                         @Part("isHidden") RequestBody isHidden,
+                                                         @Part("description") RequestBody description);
+
+
+    @Multipart
+    @POST(UrlConstants.ADD_UPDATE_MENU_ITEM)
+    Observable<ApiResponseModel> editMenuItemWithImage(@Part MultipartBody.Part image,
+                                                       @Part("name") RequestBody name,
+                                                       @Part("item_id") RequestBody item_id,
+                                                       @Part("is_update") RequestBody is_update,
+                                                       @Part("restaurent_id") RequestBody restaurent_id,
+                                                       @Part("category_id") RequestBody category_id,
+                                                       @Part("price") RequestBody price,
+                                                       @Part("isActive") RequestBody isActive,
+                                                       @Part("mealAvailability") RequestBody mealAvailability,
+                                                       @Part("minQuantity") RequestBody minQuantity,
+                                                       @Part("maxQuantity") RequestBody maxQuantity,
+                                                       @Part("dietaryLabels") RequestBody dietaryLabels,
+                                                       @Part("daysOfWeek") RequestBody daysOfWeek,
+                                                       @Part("hiddenDate") RequestBody availableDate,
+                                                       @Part("isHidden") RequestBody isHidden,
+                                                       @Part("isImageRemove") RequestBody isImageRemove,
+                                                       @Part("description") RequestBody description
+    );
+
+    @Multipart
+    @POST(UrlConstants.ADD_UPDATE_MENU_ITEM)
+    Observable<ApiResponseModel> editMenuItemWithoutImage(@Part("name") RequestBody name,
+                                                          @Part("item_id") RequestBody item_id,
+                                                          @Part("is_update") RequestBody is_update,
+                                                          @Part("restaurent_id") RequestBody restaurent_id,
+                                                          @Part("category_id") RequestBody category_id,
+                                                          @Part("price") RequestBody price,
+                                                          @Part("isActive") RequestBody isActive,
+                                                          @Part("mealAvailability") RequestBody mealAvailability,
+                                                          @Part("minQuantity") RequestBody minQuantity,
+                                                          @Part("maxQuantity") RequestBody maxQuantity,
+                                                          @Part("dietaryLabels") RequestBody dietaryLabels,
+                                                          @Part("daysOfWeek") RequestBody daysOfWeek,
+                                                          @Part("hiddenDate") RequestBody availableDate,
+                                                          @Part("isHidden") RequestBody isHidden,
+                                                          @Part("isImageRemove") RequestBody isImageRemove,
+                                                          @Part("description") RequestBody description
     );
 
 
@@ -175,33 +213,33 @@ public interface APIInterface {
     @Multipart
     @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
     Observable<ApiResponseModel> saveCategoryWithoutImage(@Part("name") RequestBody name,
-                                                       @Part("description") RequestBody description,
-                                                       @Part("location") RequestBody location,
-                                                       @Part("restaurent_id") RequestBody restaurent_id);
+                                                          @Part("description") RequestBody description,
+                                                          @Part("location") RequestBody location,
+                                                          @Part("restaurent_id") RequestBody restaurent_id);
 
     @Multipart
     @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
     Observable<ApiResponseModel> updateCategoryWithImage(@Part MultipartBody.Part image,
-                                                @Part("name") RequestBody name,
-                                                @Part("description") RequestBody description,
-                                                @Part("location") RequestBody location,
-                                                @Part("restaurent_id") RequestBody restaurent_id,
-                                                @Part("isActive") RequestBody isActive,
-                                                @Part("isImageRemove") RequestBody isImageRemove,
-                                                @Part("category_id") RequestBody category_id,
-                                                @Part("is_update") RequestBody is_update);
+                                                         @Part("name") RequestBody name,
+                                                         @Part("description") RequestBody description,
+                                                         @Part("location") RequestBody location,
+                                                         @Part("restaurent_id") RequestBody restaurent_id,
+                                                         @Part("isActive") RequestBody isActive,
+                                                         @Part("isImageRemove") RequestBody isImageRemove,
+                                                         @Part("category_id") RequestBody category_id,
+                                                         @Part("is_update") RequestBody is_update);
 
 
     @Multipart
     @POST(UrlConstants.ADD_EDIT_RESTAURANT_CATEGORY)
     Observable<ApiResponseModel> updateCategoryWithoutImage(@Part("name") RequestBody name,
-                                                @Part("description") RequestBody description,
-                                                @Part("location") RequestBody location,
-                                                @Part("restaurent_id") RequestBody restaurent_id,
-                                                @Part("isActive") RequestBody isActive,
-                                                @Part("isImageRemove") RequestBody isImageRemove,
-                                                @Part("category_id") RequestBody category_id,
-                                                @Part("is_update") RequestBody is_update);
+                                                            @Part("description") RequestBody description,
+                                                            @Part("location") RequestBody location,
+                                                            @Part("restaurent_id") RequestBody restaurent_id,
+                                                            @Part("isActive") RequestBody isActive,
+                                                            @Part("isImageRemove") RequestBody isImageRemove,
+                                                            @Part("category_id") RequestBody category_id,
+                                                            @Part("is_update") RequestBody is_update);
 
     @GET(UrlConstants.MENU_ITEM_DETAIL + "{id}")
     Observable<ApiResponseModel<ArrayList<RestaurantCategoryItemModel>>> getMenuDetail(@Path("id") String id);
