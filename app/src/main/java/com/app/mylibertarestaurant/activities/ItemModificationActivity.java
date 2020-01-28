@@ -720,10 +720,11 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item name", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (binder.etProductPrice.getText().toString().trim().length() <= 0) {
+            if (binder.etProductPrice.getText().toString().trim().length() <= 0 || Integer.parseInt(binder.etProductPrice.getText().toString().trim())<=0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item price", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             if (binder.tvDesc.getText().toString().trim().length() <= 0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item description", Toast.LENGTH_SHORT).show();
                 return;

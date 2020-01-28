@@ -191,8 +191,6 @@ public class AddEditOptionActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(AddEditOptionActivity.this, "Please enter the title of option", Toast.LENGTH_SHORT).show();
             }
-
-
         }
 
         public void onDel(View v) {
