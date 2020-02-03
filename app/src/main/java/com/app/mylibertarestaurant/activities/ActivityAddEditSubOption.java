@@ -291,6 +291,8 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
 
 
     public class Click {
+
+
         public void onBack(View v) {
             finish();
         }
@@ -298,7 +300,17 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         public void onSave(View v) {
             if (binder.etName.getText().toString().trim().length() > 0) {
                 if (binder.etPrice.getText().toString().trim().length() > 0 && !binder.etPrice.getText().toString().trim().equals(".")) {
-                    addUpdateOption();
+                    if (binder.etMarkup.getSelectedItemPosition() == 0) {
+                        addUpdateOption();
+                    } else {
+                        if (binder.etRegularPrice.getText().toString().trim().length() > 0 && !binder.etRegularPrice.getText().toString().trim().equals(".")) {
+                            addUpdateOption();
+                        }else {
+                            Toast.makeText(ActivityAddEditSubOption.this, "Please enter the regular price", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+
                 } else {
                     Toast.makeText(ActivityAddEditSubOption.this, "Please enter the best price", Toast.LENGTH_SHORT).show();
                 }
@@ -333,9 +345,10 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
                             sb.append(mainOptionModelsList.get(i).getName()).append(",");
                         }
                     }
-                    try{
-                    binder.tvLinkedOption.setText(sb.toString().substring(0,sb.toString().length()-1));
-                    }catch (Exception e){}
+                    try {
+                        binder.tvLinkedOption.setText(sb.toString().substring(0, sb.toString().length() - 1));
+                    } catch (Exception e) {
+                    }
                 }
             }, mainOptionModelsList);
             rv.setAdapter(optionAdpter);

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -112,7 +113,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setupNavigation();
+
+    }
+
+    public void setupNavigation()
+    {
         try {
+
             restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
             tv_name_restaurant.setText(restaurantDetailModel.getRestaurants().getName());
             Picasso.with(MainActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200)
@@ -129,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
         }
-
     }
 
     void navigationIteminitializer() {

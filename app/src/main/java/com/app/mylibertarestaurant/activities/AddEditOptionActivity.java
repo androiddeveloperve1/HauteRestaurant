@@ -54,7 +54,7 @@ public class AddEditOptionActivity extends AppCompatActivity {
             mainOptionModel.setCustomerPrompt("");
             mainOptionModel.setName("");
             mainOptionModel.setMaxSelection("" + 0);
-            mainOptionModel.setMinSelection("" + 0);
+            mainOptionModel.setMinSelection("" + 1);
             mainOptionModel.setLocation("");
         }
         catId = getIntent().getStringExtra("catId");
@@ -169,14 +169,14 @@ public class AddEditOptionActivity extends AppCompatActivity {
                 if (mainOptionModel.getCustomerPrompt().trim().length() > 0) {
                     if (mainOptionModel.getMinSelection().trim().length() > 0) {
                         if (mainOptionModel.getMaxSelection().trim().length() > 0) {
-                            if (Integer.parseInt(mainOptionModel.getMinSelection().trim()) > 0) {
+                            if (Integer.parseInt(mainOptionModel.getMaxSelection())>0) {
                                 if (Integer.parseInt(mainOptionModel.getMinSelection().trim()) < Integer.parseInt(mainOptionModel.getMaxSelection().trim())) {
                                     addUpdateOption();
                                 } else {
-                                    Toast.makeText(AddEditOptionActivity.this, "Max selection should be grater than min selection", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AddEditOptionActivity.this, "Max selection should be greater than min selection", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(AddEditOptionActivity.this, "Please enter the minimum selection value", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddEditOptionActivity.this, "Max selection should be 1 or more than 1", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(AddEditOptionActivity.this, "Please enter the maximum selection value", Toast.LENGTH_SHORT).show();

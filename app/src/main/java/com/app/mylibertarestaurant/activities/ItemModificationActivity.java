@@ -716,11 +716,25 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
 
         public void save(View v) {
+
+            float minQty = 0;
+            float maxQty = 0;
+            try {
+                minQty = Float.parseFloat(binder.etMin.getText().toString().trim());
+            } catch (Exception e) {
+                minQty = 0;
+            }
+            try {
+                maxQty = Float.parseFloat(binder.etMax.getText().toString().trim());
+            } catch (Exception e) {
+                maxQty = 0;
+            }
+
             if (binder.etProductName.getText().toString().trim().length() <= 0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item name", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (binder.etProductPrice.getText().toString().trim().length() <= 0 || Integer.parseInt(binder.etProductPrice.getText().toString().trim())<=0) {
+            if (binder.etProductPrice.getText().toString().trim().length() <= 0 || Float.parseFloat(binder.etProductPrice.getText().toString().trim()) <= 0) {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the item price", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -733,12 +747,16 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 Toast.makeText(ItemModificationActivity.this, "Please enter the minimum qty.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (binder.etMin.getText().toString().trim().equalsIgnoreCase("0")) {
-                Toast.makeText(ItemModificationActivity.this, "Minimum qty. should be 1 or more than 1", Toast.LENGTH_SHORT).show();
+            if (binder.etMax.getText().toString().trim().length() <= 0) {
+                Toast.makeText(ItemModificationActivity.this, "Please enter the maximum qty.", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (Integer.parseInt(binder.etMin.getText().toString().trim()) > Integer.parseInt(binder.etMax.getText().toString().trim())) {
-                Toast.makeText(ItemModificationActivity.this, "Max qty. can't be less than Min. qty. ", Toast.LENGTH_SHORT).show();
+            if (binder.etMax.getText().toString().trim().equalsIgnoreCase("0")) {
+                Toast.makeText(ItemModificationActivity.this, "Maximum quantity should be 1 or more than 1", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (minQty > maxQty) {
+                Toast.makeText(ItemModificationActivity.this, "Maximum quantity. can't be less than Minimum quantity", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (isEdit) {

@@ -108,8 +108,6 @@ public class ItemDescriptionActivity extends AppCompatActivity {
                     case R.id.del:
                         del();
                         break;
-
-
                 }
                 return false;
             }

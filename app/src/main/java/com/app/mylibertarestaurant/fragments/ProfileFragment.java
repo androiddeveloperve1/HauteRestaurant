@@ -286,7 +286,9 @@ public class ProfileFragment extends Fragment {
                         if (response.getStatus().equals("200")) {
                             Log.e("---Response", new Gson().toJson(response.getData()));
                             restaurantDetailModel.setRestaurants(response.getData());
+                            Log.e("@@@@@@@","Setting"+restaurantDetailModel.getRestaurants().getImages().get(0));
                             MySharedPreference.getInstance(getActivity()).setUser(restaurantDetailModel);
+                            ((MainActivity)getActivity()).setupNavigation();
                             showInView();
                         } else {
                             ResponseDialog.showErrorDialog(getActivity(), response.getMessage());

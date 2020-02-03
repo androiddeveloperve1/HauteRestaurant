@@ -182,6 +182,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:singleLine="true"
+
                     android:text="@={model.minSelection}"
                     android:textSize="@dimen/_12_px"
                     app:layout_constraintLeft_toLeftOf="parent"
