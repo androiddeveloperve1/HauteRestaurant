@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -76,7 +77,27 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         binder.setDayAdapter(new AvailibilityDayAdapter(getAvailableWeekDays()));
         binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
         binder.setDietaryAdapter(new DietaryLabelAdapter(data.getDietaryLabels()));
+
+        setAvailable(data.getIsActive());
+
         initOptionAndSubOption();
+    }
+
+    public void setAvailable(String tag) {
+        if (tag != null) {
+            if (tag.equals("true")) {
+                binder.tvAvailablity.setBackgroundResource(R.drawable.available_bg);
+                binder.tvAvailablity.setText("Available");
+            } else {
+                binder.tvAvailablity.setBackgroundResource(R.drawable.un_available_bg);
+                binder.tvAvailablity.setText("Unavailable");
+            }
+        } else {
+            binder.tvAvailablity.setBackgroundResource(R.drawable.un_available_bg);
+            binder.tvAvailablity.setText("Unavailable");
+        }
+
+
     }
 
 

@@ -744,11 +744,11 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 return;
             }
             if (binder.etMin.getText().toString().trim().length() <= 0) {
-                Toast.makeText(ItemModificationActivity.this, "Please enter the minimum qty.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ItemModificationActivity.this, "Please enter the minimum quantity", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (binder.etMax.getText().toString().trim().length() <= 0) {
-                Toast.makeText(ItemModificationActivity.this, "Please enter the maximum qty.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ItemModificationActivity.this, "Please enter the maximum quantity", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (binder.etMax.getText().toString().trim().equalsIgnoreCase("0")) {
@@ -756,7 +756,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 return;
             }
             if (minQty > maxQty) {
-                Toast.makeText(ItemModificationActivity.this, "Maximum quantity. can't be less than Minimum quantity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ItemModificationActivity.this, "Maximum quantity can not be less than Minimum quantity", Toast.LENGTH_SHORT).show();
                 return;
             }
             if (isEdit) {

@@ -1,9 +1,5 @@
 package com.app.mylibertarestaurant.activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.databinding.ActivityAddEditOptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
@@ -20,11 +18,8 @@ import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
-
 import java.util.HashMap;
-
 import javax.inject.Inject;
-
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -53,9 +48,11 @@ public class AddEditOptionActivity extends AppCompatActivity {
             binder.tvCatName.setText("Add Option");
             mainOptionModel.setCustomerPrompt("");
             mainOptionModel.setName("");
-            mainOptionModel.setMaxSelection("" + 0);
-            mainOptionModel.setMinSelection("" + 1);
+            mainOptionModel.setMaxSelection("");
+            mainOptionModel.setMinSelection("");
             mainOptionModel.setLocation("");
+            binder.etMin.setHint("0");
+            binder.etMax.setHint("1");
         }
         catId = getIntent().getStringExtra("catId");
         itemId = getIntent().getStringExtra("itemId");
@@ -150,11 +147,8 @@ public class AddEditOptionActivity extends AppCompatActivity {
                         });
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
+        builder.setNegativeButton("Cancel", (a, b) -> {
+            a.dismiss();
         });
         builder.show();
     }
@@ -169,7 +163,7 @@ public class AddEditOptionActivity extends AppCompatActivity {
                 if (mainOptionModel.getCustomerPrompt().trim().length() > 0) {
                     if (mainOptionModel.getMinSelection().trim().length() > 0) {
                         if (mainOptionModel.getMaxSelection().trim().length() > 0) {
-                            if (Integer.parseInt(mainOptionModel.getMaxSelection())>0) {
+                            if (Integer.parseInt(mainOptionModel.getMaxSelection()) > 0) {
                                 if (Integer.parseInt(mainOptionModel.getMinSelection().trim()) < Integer.parseInt(mainOptionModel.getMaxSelection().trim())) {
                                     addUpdateOption();
                                 } else {

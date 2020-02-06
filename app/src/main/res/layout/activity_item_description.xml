@@ -153,8 +153,7 @@
                             android:paddingTop="@dimen/_5_px"
                             android:paddingRight="@dimen/_10_px"
                             android:paddingBottom="@dimen/_5_px"
-                            android:setAvailable="@{model.isActive}"
-                            android:text="Available"
+
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10_px"
                             app:layout_constraintRight_toRightOf="parent"

@@ -76,7 +76,6 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         binder = DataBindingUtil.setContentView(this, R.layout.activity_add_edit_sub_option);
         binder.setClick(new Click());
         initTagDummy();
-        setInitDate();
         isEdit = getIntent().getBooleanExtra("edit", false);
         mainOptionModelsList = new Gson().fromJson(getIntent().getStringExtra("mainOptionList"), new TypeToken<ArrayList<MainOptionModel>>() {
         }.getType());
@@ -96,6 +95,8 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
                 binder.etMarkup.setSelection(1);
             }
             setSelectionOnOptionIftheyAdded();
+
+
         }
         binder.etMarkup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -111,6 +112,8 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        setDate();
     }
 
     void initTagDummy() {
@@ -144,13 +147,36 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
 
     }
 
-    void setInitDate() {
+    void selectDate() {
+        int mYear;
+        int mMonth;
+        int mDay;
+
+        String date[] = binder.tvDate.getText().toString().trim().split("-");
+        mYear = Integer.parseInt(date[0]);
+        mMonth = Integer.parseInt(date[1]) - 1;
+        mDay = Integer.parseInt(date[2]);
+        DatePickerDialog dp = new DatePickerDialog(ActivityAddEditSubOption.this, (view, year, monthOfYear, dayOfMonth) -> binder.tvDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth),
+                mYear, mMonth, mDay);
+
+        dp.show();
+        dp.getDatePicker().setMinDate(new Date().getTime());
+    }
+
+    void setDate() {
         final Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
+        if (isEdit) {
+            if (subOptionModel.getDisabledUntilDate() != null && subOptionModel.getDisabledUntilDate().trim().length() > 0) {
+                String date[] = AppUtils.getDate(subOptionModel.getDisabledUntilDate()).split("-");
+                mYear = Integer.parseInt(date[0]);
+                mMonth = Integer.parseInt(date[1]) - 1;
+                mDay = Integer.parseInt(date[2]);
+            }
+        }
         binder.tvDate.setText(mYear + "-" + (mMonth + 1) + "-" + mDay);
-
     }
 
     void del() {
@@ -305,7 +331,7 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
                     } else {
                         if (binder.etRegularPrice.getText().toString().trim().length() > 0 && !binder.etRegularPrice.getText().toString().trim().equals(".")) {
                             addUpdateOption();
-                        }else {
+                        } else {
                             Toast.makeText(ActivityAddEditSubOption.this, "Please enter the regular price", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -396,20 +422,13 @@ public class ActivityAddEditSubOption extends AppCompatActivity {
         }
 
         public void onCalender(View v) {
-            final Calendar c = Calendar.getInstance();
-            int mYear = c.get(Calendar.YEAR);
-            int mMonth = c.get(Calendar.MONTH);
-            int mDay = c.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog dp = new DatePickerDialog(
-                    ActivityAddEditSubOption.this,
-                    (view, year, monthOfYear, dayOfMonth) -> binder.tvDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth),
-                    mYear, mMonth, mDay);
-            dp.show();
-            dp.getDatePicker().setMinDate(new Date().getTime());
+            selectDate();
         }
 
         public void onDel(View v) {
             del();
         }
     }
+
+
 }

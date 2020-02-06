@@ -54,6 +54,7 @@
                     android:layout_width="@dimen/_125_px"
                     android:layout_height="@dimen/_125_px"
                     android:layout_marginTop="@dimen/_5_px"
+                    android:scaleType="fitXY"
                     android:src="@drawable/placeholder_squre"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -510,7 +511,7 @@
                                     android:background="@drawable/edit_text_bg"
                                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
                                     android:hint="0"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:textColor="@color/gray_text"
                                     android:textSize="@dimen/_10_px" />
 
@@ -522,7 +523,7 @@
                                     android:background="@drawable/edit_text_bg"
                                     android:fontStyleName="@{`Roboto_Regular.ttf`}"
                                     android:hint="1"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:textColor="@color/gray_text"
                                     android:textSize="@dimen/_10_px" />
 
