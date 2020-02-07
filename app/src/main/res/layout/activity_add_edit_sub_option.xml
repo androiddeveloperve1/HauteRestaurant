@@ -171,7 +171,6 @@
                         android:layout_centerVertical="true"
                         android:layout_toLeftOf="@+id/iv_arrow"
                         android:background="@null"
-
                         android:entries="@array/markup"
                         android:textSize="@dimen/_12_px" />
 
