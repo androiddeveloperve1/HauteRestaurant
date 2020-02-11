@@ -140,9 +140,11 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                         dayOfWeekModelArrayList.get(i).setHasSelect(true);
                         dayOfWeekModelArrayList.get(i).setValue("true");
                         workDay.append(dayOfWeekModelArrayList.get(i).getLabel()).append(",");
-                        break;
+                    } else {
+                        dayOfWeekModelArrayList.get(i).setHasSelect(false);
+                        dayOfWeekModelArrayList.get(i).setValue("false");
                     }
-
+                    break;
                 }
 
             }

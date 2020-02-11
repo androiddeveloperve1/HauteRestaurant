@@ -28,6 +28,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
 
 import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.GooglePlacesAutocompleteAdapter;
@@ -109,8 +110,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,8 +120,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         enter_new_address = findViewById(R.id.enter_new_address);
         googlePlacesAutocompleteAdapter = new GooglePlacesAutocompleteAdapter(this, R.layout.item_places);
         enter_new_address.setAdapter(googlePlacesAutocompleteAdapter);
-
-
 
 
         findViewById(R.id.save_address).setOnClickListener(new View.OnClickListener() {
@@ -145,7 +142,6 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
                 checkResolutionAndProceed();
             }
         });
-
 
 
         PermissionUtils.getInstance().checkAllPermission(LocationActivity.this, PermissionConstants.permissionArrayForLocation, new PermissionHandlerListener() {
@@ -376,12 +372,12 @@ public class LocationActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
 
-
-
-
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
         }
+
         getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback);
         getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper());
     }
