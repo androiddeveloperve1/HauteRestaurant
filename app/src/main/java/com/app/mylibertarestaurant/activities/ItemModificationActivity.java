@@ -162,9 +162,13 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                 if (dietaryItemModelArrayList.get(i).getName().equalsIgnoreCase(data.getDietaryLabels().get(j).getName())) {
                     if (data.getDietaryLabels().get(j).getValue().equalsIgnoreCase("true")) {
                         dietaryItemModelArrayList.get(i).setHasSelect(true);
+                        dietaryItemModelArrayList.get(i).setValue("true");
                         dietary.append(dietaryItemModelArrayList.get(i).getName()).append(",");
-                        break;
+                    } else {
+                        dietaryItemModelArrayList.get(i).setHasSelect(false);
+                        dietaryItemModelArrayList.get(i).setValue("false");
                     }
+                    break;
                 }
             }
         }
@@ -182,10 +186,13 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             for (int j = 0; j < data.getMealAvailability().size(); j++) {
                 if (foodAvailModelArrayList.get(i).getName().equalsIgnoreCase(data.getMealAvailability().get(j).getName())) {
                     foodAvailModelArrayList.get(i).setHasSelect(true);
+                    foodAvailModelArrayList.get(i).setValue("true");
                     foodavailability.append(foodAvailModelArrayList.get(i).getName()).append(",");
-                    break;
+                } else {
+                    foodAvailModelArrayList.get(i).setHasSelect(false);
+                    foodAvailModelArrayList.get(i).setValue("false");
                 }
-
+                break;
             }
         }
         try {
@@ -304,7 +311,9 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         foodAvailAdapter = new FoodAvailAdapter(new RecycleItemClickListener<MealAvailabilityModel>() {
             @Override
             public void onItemClicked(int position, MealAvailabilityModel data) {
-                data.setHasSelect(!data.isHasSelect());
+                boolean b = data.isHasSelect();
+                data.setHasSelect(!b);
+                data.setValue("" + (!b));
                 foodAvailAdapter.notifyDataSetChanged();
                 binder.tvAvailibility.setText("");
                 StringBuilder sb = new StringBuilder();
@@ -343,7 +352,9 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         dietaryItemAdapter = new DietaryItemAdapter(new RecycleItemClickListener<DietryLabelModel>() {
             @Override
             public void onItemClicked(int position, DietryLabelModel data) {
-                data.setHasSelect(!data.isHasSelect());
+                boolean b = data.isHasSelect();
+                data.setHasSelect(!b);
+                data.setValue("" + (!b));
                 dietaryItemAdapter.notifyDataSetChanged();
                 binder.tvDietLevel.setText("");
                 StringBuilder sb = new StringBuilder();
@@ -568,6 +579,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             if (foodAvailModelArrayList.get(i).isHasSelect()) {
                 model.set_id(foodAvailModelArrayList.get(i).get_id());
                 model.setName(foodAvailModelArrayList.get(i).getName());
+                model.setValue("" + foodAvailModelArrayList.get(i).isHasSelect());
                 list.add(model);
             }
 
@@ -577,6 +589,28 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
 
     }
+
+
+    ArrayList<DayOfWeekModel> addNewWeekDays() {
+        ArrayList<DayOfWeekModel> list = new ArrayList<>();
+        for (int i = 0; i < dayOfWeekModelArrayList.size(); i++) {
+            DayOfWeekModel model = new DayOfWeekModel();
+            model.set_id(dayOfWeekModelArrayList.get(i).get_id());
+            model.setLabel(dayOfWeekModelArrayList.get(i).getLabel());
+            if (dayOfWeekModelArrayList.get(i).isHasSelect()) {
+                model.setValue("" + dayOfWeekModelArrayList.get(i).isHasSelect());
+
+            } else {
+                model.setValue("false");
+            }
+            list.add(model);
+
+        }
+        return list;
+
+
+    }
+
 
     private void addFoodItem() {
         MultipartBody.Part image = null;
@@ -597,7 +631,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
         RequestBody mealAvail = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getAvailList()));
         RequestBody dietaryLebel = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(getDietList()));
-        RequestBody dayOfweek = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(dayOfWeekModelArrayList));
+        RequestBody dayOfweek = RequestBody.create(MediaType.parse("multipart/form-data"), new Gson().toJson(addNewWeekDays()));
 
 
         String isHide = "false";

@@ -29,7 +29,9 @@ import com.app.mylibertarestaurant.customui.Utils;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
+import com.app.mylibertarestaurant.model.newP.DietryLabelModel;
 import com.app.mylibertarestaurant.model.newP.MainOptionModel;
+import com.app.mylibertarestaurant.model.newP.MealAvailabilityModel;
 import com.app.mylibertarestaurant.model.newP.RestaurantCategoryItemModel;
 import com.app.mylibertarestaurant.network.APIInterface;
 import com.app.mylibertarestaurant.utils.AppUtils;
@@ -74,9 +76,10 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         binder.rvAvail.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binder.rvAvail2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         binder.rvDietLabel.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
         binder.setDayAdapter(new AvailibilityDayAdapter(getAvailableWeekDays()));
-        binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(data.getMealAvailability()));
-        binder.setDietaryAdapter(new DietaryLabelAdapter(data.getDietaryLabels()));
+        binder.setFoodTypeAdapter(new FoodTypeAvailabilityAdapter(getDietary()));
+        binder.setDietaryAdapter(new DietaryLabelAdapter(getDietaryLabel()));
 
         setAvailable(data.getIsActive());
 
@@ -111,6 +114,37 @@ public class ItemDescriptionActivity extends AppCompatActivity {
         }
         return list;
     }
+
+
+    ArrayList<MealAvailabilityModel> getDietary() {
+
+        ArrayList<MealAvailabilityModel> list = new ArrayList<>();
+        for (int i = 0; i < data.getMealAvailability().size(); i++) {
+            try{
+                if (data.getMealAvailability().get(i).getValue().equals("true")) {
+                    list.add(data.getMealAvailability().get(i));
+                }
+            }catch (Exception e){}
+
+        }
+        return list;
+    }
+    ArrayList<DietryLabelModel> getDietaryLabel() {
+
+        ArrayList<DietryLabelModel> list = new ArrayList<>();
+        for (int i = 0; i < data.getDietaryLabels().size(); i++) {
+            try{
+                if (data.getDietaryLabels().get(i).getValue().equals("true")) {
+                    list.add(data.getDietaryLabels().get(i));
+                }
+            }catch (Exception e){}
+
+        }
+        return list;
+    }
+
+
+
 
     void initMenu() {
         popup = new PopupMenu(ItemDescriptionActivity.this, binder.ivThreeDot);

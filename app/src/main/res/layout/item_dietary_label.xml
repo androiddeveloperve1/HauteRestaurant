@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/_5_px"
-        android:background="@drawable/rounded_gray"
+        android:background="@drawable/rounded_green"
         android:fontStyleName="@{`Roboto_Regular.ttf`}"
         android:paddingLeft="@dimen/_10_px"
         android:paddingTop="@dimen/_5_px"
