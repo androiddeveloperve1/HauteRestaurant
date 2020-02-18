@@ -69,7 +69,7 @@ public class ResponseDialog {
         termAndConditionDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         termAndConditionDialog.getWindow().setLayout(mContext.getResources().getDimensionPixelOffset(R.dimen._250_px), LinearLayout.LayoutParams.WRAP_CONTENT);
         termAndConditionDialog.getWindow().setGravity(Gravity.CENTER);
-        termAndConditionDialog.setCancelable(true);
+        termAndConditionDialog.setCancelable(false);
         termAndConditionDialog.show();
         return termAndConditionDialog;
     }

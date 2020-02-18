@@ -188,11 +188,12 @@ public class ItemModificationActivity extends ImageUploadingActivity {
                     foodAvailModelArrayList.get(i).setHasSelect(true);
                     foodAvailModelArrayList.get(i).setValue("true");
                     foodavailability.append(foodAvailModelArrayList.get(i).getName()).append(",");
+                    break;
                 } else {
                     foodAvailModelArrayList.get(i).setHasSelect(false);
                     foodAvailModelArrayList.get(i).setValue("false");
                 }
-                break;
+
             }
         }
         try {
