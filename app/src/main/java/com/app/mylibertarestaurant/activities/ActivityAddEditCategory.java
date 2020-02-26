@@ -212,7 +212,10 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
     }
 
     void initEditableValue() {
-        new DownloadImage().execute(editableRestaurantCategoryModel.getImage());
+        try {
+            new DownloadImage().execute(editableRestaurantCategoryModel.getImage());
+        } catch (Exception e) {
+        }
         binder.etDescription.setText(editableRestaurantCategoryModel.getDescription());
         binder.etName.setText(editableRestaurantCategoryModel.getName());
     }
