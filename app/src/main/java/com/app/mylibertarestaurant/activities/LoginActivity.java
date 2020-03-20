@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.app.mylibertarestaurant.R;
+import com.app.mylibertarestaurant.constants.Constants;
 import com.app.mylibertarestaurant.databinding.ActivityLoginBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.RestaurantDetailModel;
@@ -93,15 +94,16 @@ public class LoginActivity extends AppCompatActivity {
         public void doContinue(View v) {
             if (binder.etId.getText().toString().trim().length() > 0) {
                 //if (AppUtils.eMailValidation(binder.etId.getText().toString().trim())) {
-                    if (binder.etPass.getText().toString().trim().length() > 0) {
-                        HashMap<String, String> param = new HashMap<>();
-                        param.put("email", binder.etId.getText().toString().trim());
-                        param.put("password", binder.etPass.getText().toString().trim());
-                        getDataFromServer(param);
-
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Please enter the passsword", Toast.LENGTH_SHORT).show();
-                    }
+                if (binder.etPass.getText().toString().trim().length() > 0) {
+                    HashMap<String, String> param = new HashMap<>();
+                    param.put("email", binder.etId.getText().toString().trim());
+                    param.put("password", binder.etPass.getText().toString().trim());
+                    param.put("deviceId", MySharedPreference.getInstance(LoginActivity.this).getFCM());
+                    param.put("deviceType", Constants.ANDROID_KEY);
+                    getDataFromServer(param);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Please enter the passsword", Toast.LENGTH_SHORT).show();
+                }
 
                 /*} else {
                     Toast.makeText(LoginActivity.this, "Please enter the valid email id", Toast.LENGTH_SHORT).show();
@@ -114,7 +116,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         public void contactNow(View v) {
-
         }
 
         public void forgot(View v) {
@@ -134,7 +135,5 @@ public class LoginActivity extends AppCompatActivity {
                 isPasswordShow = false;
             }
         }
-
-
     }
 }

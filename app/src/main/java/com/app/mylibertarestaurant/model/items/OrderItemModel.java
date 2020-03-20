@@ -22,10 +22,14 @@ public class OrderItemModel extends BaseObservable {
     private String item_name;
     private String price;
     private String item_type;
+    private String user_note;
     private String _id;
     private ItemDataModel item_id;
     private ArrayList<MainOptionModel> options;
-
+@Bindable
+    public String getUser_note() {
+        return user_note;
+    }
 
     @Bindable
     public String getDescription() {
@@ -107,5 +111,8 @@ public class OrderItemModel extends BaseObservable {
         this.notifyPropertyChanged(BR.item_id);
     }
 
-
+    public void setUser_note(String user_note) {
+        this.user_note = user_note;
+        this.notifyPropertyChanged(BR.user_note);
+    }
 }

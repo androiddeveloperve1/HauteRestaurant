@@ -83,8 +83,10 @@ public interface APIInterface {
                                                @Part("pincode") RequestBody pincode,
                                                @Part("deliverykm") RequestBody deliverykm,
                                                @Part("restaurant_id") RequestBody restaurant_id, @Part("latitude") RequestBody latitude,
-                                               @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime
-            , @Part("deliveryfees") RequestBody deliveryfees);
+                                               @Part("longitude") RequestBody longitude, @Part("maxdeliverytime") RequestBody maxdeliverytime,
+                                               @Part("deliveryfees") RequestBody deliveryfees,
+                                               @Part("open_time") RequestBody open_time,
+                                               @Part("close_time") RequestBody close_time);
 
     @Multipart
     @POST(UrlConstants.ADD_UPDATE_MENU_ITEM)

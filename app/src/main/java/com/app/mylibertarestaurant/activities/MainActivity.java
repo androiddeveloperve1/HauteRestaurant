@@ -1,9 +1,13 @@
 package com.app.mylibertarestaurant.activities;
 
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tv_on_off_line;
     private ImageView img_restaurant;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         earningFragment = new EarningFragment();
         helpFragment = new HelpFragment();
         initView();
-
 
     }
 
@@ -79,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
         nav_view = findViewById(R.id.nav_view);
         navigationIteminitializer();
     }
-
 
     public void navigationClick() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -117,8 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setupNavigation()
-    {
+    public void setupNavigation() {
         try {
 
             restaurantDetailModel = MySharedPreference.getInstance(MainActivity.this).getUser();
@@ -290,5 +292,4 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }

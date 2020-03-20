@@ -2,6 +2,7 @@ package com.app.mylibertarestaurant.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -64,6 +66,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
     private LatLng mlaLatLng;
     private int range;
     private Bitmap profilePic;
+
 
     private Target getTarget(final String url) {
         Target target = new Target() {
@@ -136,10 +139,13 @@ public class EditProfileActivity extends ImageUploadingActivity {
         RequestBody longitude = RequestBody.create(MediaType.parse("text/plain"), "" + mlaLatLng.longitude);
         RequestBody deliveryTime = RequestBody.create(MediaType.parse("text/plain"), binder.tvDeliveryTime.getText().toString().trim());
         RequestBody deliveryFee = RequestBody.create(MediaType.parse("text/plain"), binder.tvDeliveryFee.getText().toString().trim());
+        RequestBody open_time = RequestBody.create(MediaType.parse("text/plain"), binder.tvOpenTime.getText().toString().trim());
+        RequestBody close_time = RequestBody.create(MediaType.parse("text/plain"), binder.tvCloseTime.getText().toString().trim());
 
+        Log.e("@@@@@@@@",""+binder.tvOpenTime.getText().toString().trim()+"--"+binder.tvCloseTime.getText().toString().trim());
         final Dialog progressDialog = ResponseDialog.showProgressDialog(EditProfileActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(EditProfileActivity.this);
-        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime, deliveryFee)
+        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime, deliveryFee,open_time,close_time)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -173,6 +179,8 @@ public class EditProfileActivity extends ImageUploadingActivity {
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
         binder.tvDeliveryFee.setText(restaurantDetailModel.getRestaurants().getDeliveryfees());
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime());
+        binder.tvOpenTime.setText(restaurantDetailModel.getRestaurants().getOpen_time().split(" ")[0]);
+        binder.tvCloseTime.setText(restaurantDetailModel.getRestaurants().getClose_time().split(" ")[0]);
         mlaLatLng = new LatLng(restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(0), restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(1));
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
         try {
@@ -189,6 +197,63 @@ public class EditProfileActivity extends ImageUploadingActivity {
         public void onClose(View v) {
             finish();
         }
+
+        public void selectOpenTime(View v) {
+            String arr[] = binder.tvOpenTime.getText().toString().split(":");
+            new TimePickerDialog(EditProfileActivity.this, (view, hourOfDay, minutes) -> {
+                String hours = "00";
+                String mins = "00";
+                if (hourOfDay < 10) {
+                    hours = "0" + hourOfDay;
+                } else {
+                    hours = "" + hourOfDay;
+                }
+                if (minutes < 10) {
+                    mins = "0" + minutes;
+                } else {
+                    mins = "" + minutes;
+                }
+
+                binder.tvOpenTime.setText(hours + ":" + mins);
+                binder.tvCloseTime.setText("00:00");
+            }, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), true).show();
+        }
+
+        public void selectCloseTime(View v) {
+            String arr[] = binder.tvCloseTime.getText().toString().split(":");
+            new TimePickerDialog(EditProfileActivity.this, (view, hourOfDay, minutes) -> {
+                String arr2[] = binder.tvOpenTime.getText().toString().split(":");
+                if (Integer.parseInt(arr2[0]) > hourOfDay) {
+                    Toast.makeText(EditProfileActivity.this, "Close time can not be later from Open time", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    if (Integer.parseInt(arr2[0]) == hourOfDay) {
+                        if (Integer.parseInt(arr2[1]) > minutes) {
+                            Toast.makeText(EditProfileActivity.this, "Close time can not be later from Open time", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                }
+                String hours = "00";
+                String mins = "00";
+                if (hourOfDay < 10) {
+                    hours = "0" + hourOfDay;
+                } else {
+                    hours = "" + hourOfDay;
+                }
+                if (minutes < 10) {
+                    mins = "0" + minutes;
+                } else {
+                    mins = "" + minutes;
+                }
+
+
+                binder.tvCloseTime.setText(hours + ":" + mins);
+
+            }, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), true).show();
+        }
+
 
         public void onSave(View v) {
             if (profilePic == null) {
@@ -267,5 +332,6 @@ public class EditProfileActivity extends ImageUploadingActivity {
         }
 
     }
+
 
 }

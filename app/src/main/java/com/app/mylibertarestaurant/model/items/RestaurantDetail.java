@@ -31,6 +31,8 @@ public class RestaurantDetail extends BaseObservable {
     private String deliveryfees;
     private String deliverykm;
     private String pincode;
+    private String open_time="09:00";
+    private String close_time="18:00";
     private Location location;
     private ArrayList<TimeModel> openForService;
     private CommisionModel comm;
@@ -194,5 +196,23 @@ public class RestaurantDetail extends BaseObservable {
     public void setImages(ArrayList<String> images) {
         this.images = images;
         this.notifyPropertyChanged(BR.images);
+    }
+    @Bindable
+    public String getOpen_time() {
+        return open_time;
+    }
+
+    public void setOpen_time(String open_time) {
+        this.open_time = open_time;
+        this.notifyPropertyChanged(BR.open_time);
+    }
+    @Bindable
+    public String getClose_time() {
+        return close_time;
+    }
+
+    public void setClose_time(String close_time) {
+        this.close_time = close_time;
+        this.notifyPropertyChanged(BR.close_time);
     }
 }

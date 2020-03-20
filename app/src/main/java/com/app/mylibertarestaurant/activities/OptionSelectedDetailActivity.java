@@ -28,8 +28,9 @@ public class OptionSelectedDetailActivity extends AppCompatActivity {
         binder.setClick(new ClickHandler());
         data = new Gson().fromJson(getIntent().getStringExtra("data"), OrderItemModel.class);
         binder.tvName.setText(data.getItem_name());
+        binder.tvNote.setText(data.getUser_note());
         binder.tvDescription.setText(data.getDescription());
-        binder.tvPrice.setText("$"+AppUtils.getDecimalFormat(data.getPrice()));
+        binder.tvPrice.setText("$" + AppUtils.getDecimalFormat(data.getPrice()));
         initData();
 
 

@@ -103,19 +103,62 @@
             android:fontStyleName="@{`Roboto_Regular.ttf`}"
             android:textColor="@color/gray_text"
             android:textSize="@dimen/_14_px"
-            app:layout_constraintRight_toRightOf="@+id/tv_price"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/tv_price"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10_px"
+            android:layout_marginRight="@dimen/_10_px"
+            android:layout_marginTop="@dimen/_10_px"
+            android:background="@drawable/rect_border"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/tv_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_description">
+
+
+            <TextView
+                android:id="@+id/tv_notetxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:fontStyleName="@{`Roboto_Bold.ttf`}"
+                android:padding="@dimen/_5_px"
+                android:text="Special Note:"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14_px"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/tv_price"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+            <TextView
+                android:id="@+id/tv_note"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontStyleName="@{`Roboto_Regular.ttf`}"
+                android:padding="@dimen/_5_px"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12_px"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/tv_price"
+                app:layout_constraintTop_toBottomOf="@+id/tv_notetxt" />
+
+        </LinearLayout>
 
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_5_px"
+            android:layout_marginTop="@dimen/_10_px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description">
+            app:layout_constraintTop_toBottomOf="@+id/ll_note">
 
             <LinearLayout
                 android:id="@+id/items"
