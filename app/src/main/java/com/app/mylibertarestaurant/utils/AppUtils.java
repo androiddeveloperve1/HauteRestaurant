@@ -183,7 +183,6 @@ public class AppUtils {
         DayOfWeekModel day = null;
 
 
-
         day = new DayOfWeekModel();
         day.setLabel("Monday");
         day.setValue("true");
@@ -227,5 +226,6 @@ public class AppUtils {
         return weekList;
 
     }
+
 
 }

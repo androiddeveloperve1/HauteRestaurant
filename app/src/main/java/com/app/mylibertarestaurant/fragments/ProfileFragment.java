@@ -307,8 +307,11 @@ public class ProfileFragment extends Fragment {
         binder.tvDeliveryRange.setText(restaurantDetailModel.getRestaurants().getDeliverykm() + " Mi.");
         binder.tvDeliveryFee.setText("$ " + restaurantDetailModel.getRestaurants().getDeliveryfees());
         binder.tvEmail.setText(restaurantDetailModel.getRestaurants().getUser_id().getEmail());
-        binder.tvOpenTime.setText(restaurantDetailModel.getRestaurants().getOpen_time().split(" ")[0]);
-        binder.tvCloseTime.setText(restaurantDetailModel.getRestaurants().getClose_time().split(" ")[0]);
+
+        binder.tvOpenTime.setText(AppUtils.get12HoursTimeFormat(restaurantDetailModel.getRestaurants().getOpen_time().split(" ")[0]));
+        binder.tvCloseTime.setText(AppUtils.get12HoursTimeFormat(restaurantDetailModel.getRestaurants().getClose_time().split(" ")[0]));
+
+
         if (restaurantDetailModel.getRestaurants().getComm() != null) {
             binder.tvTax.setText(restaurantDetailModel.getRestaurants().getComm().getTaxrate() + "%");
             binder.tvFee.setText("$" + restaurantDetailModel.getRestaurants().getComm().getAdmincom());

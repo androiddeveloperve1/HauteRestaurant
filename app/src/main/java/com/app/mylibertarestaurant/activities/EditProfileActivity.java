@@ -31,6 +31,7 @@ import com.app.mylibertarestaurant.permission.PermissionConstants;
 import com.app.mylibertarestaurant.permission.PermissionHandlerListener;
 import com.app.mylibertarestaurant.permission.PermissionUtils;
 import com.app.mylibertarestaurant.prefes.MySharedPreference;
+import com.app.mylibertarestaurant.utils.AppUtils;
 import com.app.mylibertarestaurant.utils.MultipartUtils;
 import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.android.gms.maps.model.LatLng;
@@ -179,8 +180,8 @@ public class EditProfileActivity extends ImageUploadingActivity {
         binder.tvReatsurantAddress.setText(restaurantDetailModel.getRestaurants().getAddress());
         binder.tvDeliveryFee.setText(restaurantDetailModel.getRestaurants().getDeliveryfees());
         binder.tvDeliveryTime.setText(restaurantDetailModel.getRestaurants().getMaxdeliverytime());
-        binder.tvOpenTime.setText(restaurantDetailModel.getRestaurants().getOpen_time().split(" ")[0]);
-        binder.tvCloseTime.setText(restaurantDetailModel.getRestaurants().getClose_time().split(" ")[0]);
+        binder.tvOpenTime.setText(AppUtils.get12HoursTimeFormat(restaurantDetailModel.getRestaurants().getOpen_time().split(" ")[0]));
+        binder.tvCloseTime.setText(AppUtils.get12HoursTimeFormat(restaurantDetailModel.getRestaurants().getClose_time().split(" ")[0]));
         mlaLatLng = new LatLng(restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(0), restaurantDetailModel.getRestaurants().getLocation().getCoordinates().get(1));
         binder.tvZip.setText(restaurantDetailModel.getRestaurants().getPincode());
         try {
@@ -199,7 +200,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
         }
 
         public void selectOpenTime(View v) {
-            String arr[] = binder.tvOpenTime.getText().toString().split(":");
+            String arr[] = AppUtils.get24HoursTimeFormat(binder.tvOpenTime.getText().toString()).split(":");
             new TimePickerDialog(EditProfileActivity.this, (view, hourOfDay, minutes) -> {
                 String hours = "00";
                 String mins = "00";
@@ -214,15 +215,17 @@ public class EditProfileActivity extends ImageUploadingActivity {
                     mins = "" + minutes;
                 }
 
-                binder.tvOpenTime.setText(hours + ":" + mins);
-                binder.tvCloseTime.setText("00:00");
-            }, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), true).show();
+                binder.tvOpenTime.setText(AppUtils.get12HoursTimeFormat(hours + ":" + mins));
+                binder.tvCloseTime.setText("00:00 AM");
+            }, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), false).show();
         }
 
         public void selectCloseTime(View v) {
-            String arr[] = binder.tvCloseTime.getText().toString().split(":");
+            String arr[] = AppUtils.get24HoursTimeFormat(binder.tvCloseTime.getText().toString()).split(":");
+            //String arr[] = binder.tvCloseTime.getText().toString().split(":");
             new TimePickerDialog(EditProfileActivity.this, (view, hourOfDay, minutes) -> {
-                String arr2[] = binder.tvOpenTime.getText().toString().split(":");
+                //String arr2[] = binder.tvOpenTime.getText().toString().split(":");
+                String arr2[] = AppUtils.get24HoursTimeFormat(binder.tvOpenTime.getText().toString()).split(":");
                 if (Integer.parseInt(arr2[0]) > hourOfDay) {
                     Toast.makeText(EditProfileActivity.this, "Close time can not be later from Open time", Toast.LENGTH_SHORT).show();
                     return;
@@ -249,9 +252,9 @@ public class EditProfileActivity extends ImageUploadingActivity {
                 }
 
 
-                binder.tvCloseTime.setText(hours + ":" + mins);
+                binder.tvCloseTime.setText(AppUtils.get12HoursTimeFormat(hours + ":" + mins));
 
-            }, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), true).show();
+            }, Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), false).show();
         }
 
 
