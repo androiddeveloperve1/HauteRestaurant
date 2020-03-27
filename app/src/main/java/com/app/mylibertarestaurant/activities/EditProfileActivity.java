@@ -140,8 +140,8 @@ public class EditProfileActivity extends ImageUploadingActivity {
         RequestBody longitude = RequestBody.create(MediaType.parse("text/plain"), "" + mlaLatLng.longitude);
         RequestBody deliveryTime = RequestBody.create(MediaType.parse("text/plain"), binder.tvDeliveryTime.getText().toString().trim());
         RequestBody deliveryFee = RequestBody.create(MediaType.parse("text/plain"), binder.tvDeliveryFee.getText().toString().trim());
-        RequestBody open_time = RequestBody.create(MediaType.parse("text/plain"), binder.tvOpenTime.getText().toString().trim());
-        RequestBody close_time = RequestBody.create(MediaType.parse("text/plain"), binder.tvCloseTime.getText().toString().trim());
+        RequestBody open_time = RequestBody.create(MediaType.parse("text/plain"), AppUtils.get24HoursTimeFormat(binder.tvOpenTime.getText().toString().trim()));
+        RequestBody close_time = RequestBody.create(MediaType.parse("text/plain"), AppUtils.get24HoursTimeFormat(binder.tvCloseTime.getText().toString().trim()));
 
         Log.e("@@@@@@@@",""+binder.tvOpenTime.getText().toString().trim()+"--"+binder.tvCloseTime.getText().toString().trim());
         final Dialog progressDialog = ResponseDialog.showProgressDialog(EditProfileActivity.this);
