@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class RequestOrderItemAdapter extends RecyclerView.Adapter<RequestOrderItemAdapter.MyViewHolder> {
     RecycleItemClickListener listenr;
     private int tag;
-    private ArrayList<OrderDetailsModel> order;
+    private ArrayList<OrderDetailsModel>  order;
 
     public RequestOrderItemAdapter(ArrayList<OrderDetailsModel> order, RecycleItemClickListener listenr, int tag) {
         this.listenr = listenr;
