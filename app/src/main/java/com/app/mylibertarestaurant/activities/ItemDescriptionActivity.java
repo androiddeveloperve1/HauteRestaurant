@@ -10,13 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -24,8 +22,6 @@ import com.app.mylibertarestaurant.R;
 import com.app.mylibertarestaurant.adapter.AvailibilityDayAdapter;
 import com.app.mylibertarestaurant.adapter.DietaryLabelAdapter;
 import com.app.mylibertarestaurant.adapter.FoodTypeAvailabilityAdapter;
-import com.app.mylibertarestaurant.constants.Constants;
-import com.app.mylibertarestaurant.customui.Utils;
 import com.app.mylibertarestaurant.databinding.ActivityItemDescriptionBinding;
 import com.app.mylibertarestaurant.model.ApiResponseModel;
 import com.app.mylibertarestaurant.model.newP.DayOfWeekModel;
@@ -39,8 +35,6 @@ import com.app.mylibertarestaurant.utils.ResponseDialog;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.zip.Inflater;
 
 import javax.inject.Inject;
 
@@ -221,19 +215,19 @@ public class ItemDescriptionActivity extends AppCompatActivity {
 
     void initOptionAndSubOption() {
         binder.llOption.removeAllViews();
-        if (data.getOptionsResult() != null) {
-            for (int i = 0; i < data.getOptionsResult().size(); i++) {
+        if (data.getOptions() != null) {
+            for (int i = 0; i < data.getOptions().size(); i++) {
                 View mainOption = getLayoutInflater().inflate(R.layout.item_option_show, null);
                 mainOption.setId(i);
                 TextView tv = mainOption.findViewById(R.id.tv_text);
-                MainOptionModel mainOptionModel = data.getOptionsResult().get(i);
+                MainOptionModel mainOptionModel = data.getOptions().get(i);
                 tv.setText(mainOptionModel.getName());
                 LinearLayout ll_sub_option = mainOption.findViewById(R.id.ll_sub_option);
-                for (int j = 0; j < mainOptionModel.getSubOptionsResult().size(); j++) {
+                for (int j = 0; j < mainOptionModel.getSuboptions().size(); j++) {
                     View subOption = getLayoutInflater().inflate(R.layout.item_sub_option_show, null);
                     subOption.setId(j);
                     TextView tv_name = subOption.findViewById(R.id.tv_name);
-                    tv_name.setText(mainOptionModel.getSubOptionsResult().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSubOptionsResult().get(j).getBestPrice()) + ")");
+                    tv_name.setText(mainOptionModel.getSuboptions().get(j).getName() + " ($" + AppUtils.getDecimalFormat(mainOptionModel.getSuboptions().get(j).getBestPrice()) + ")");
                     ll_sub_option.addView(subOption);
                 }
                 binder.llOption.addView(mainOption);

@@ -25,7 +25,6 @@ public class MainOptionModel extends BaseObservable {
     private String category_id;
     private String restaurent_id;
     private String item_id;
-    private ArrayList<SubOptionModel> subOptionsResult;
     private ArrayList<SubOptionModel> suboptions;
     private String description;
     private boolean hasSelect1;
@@ -180,13 +179,5 @@ public class MainOptionModel extends BaseObservable {
         this.notifyPropertyChanged(BR.item_id);
     }
 
-    @Bindable
-    public ArrayList<SubOptionModel> getSubOptionsResult() {
-        return subOptionsResult;
-    }
-
-    public void setSubOptionsResult(ArrayList<SubOptionModel> subOptionsResult) {
-        this.subOptionsResult = subOptionsResult;
-        this.notifyPropertyChanged(BR.subOptionsResult);
-    }
+   
 }

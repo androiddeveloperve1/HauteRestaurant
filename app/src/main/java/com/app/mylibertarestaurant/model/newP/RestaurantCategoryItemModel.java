@@ -34,16 +34,16 @@ public class RestaurantCategoryItemModel extends BaseObservable {
     private ArrayList<DayOfWeekModel> daysOfWeek;
     private ArrayList<DietryLabelModel> dietaryLabels;
     private ArrayList<TagModel> tags;
-    private ArrayList<MainOptionModel> optionsResult;
+    private ArrayList<MainOptionModel> options;
 
     @Bindable
-    public ArrayList<MainOptionModel> getOptionsResult() {
-        return optionsResult;
+    public ArrayList<MainOptionModel> getOptions() {
+        return options;
     }
 
-    public void setOptionsResult(ArrayList<MainOptionModel> optionsResult) {
-        this.optionsResult = optionsResult;
-        this.notifyPropertyChanged(BR.optionsResult);
+    public void setOptions(ArrayList<MainOptionModel> options) {
+        this.options = options;
+        this.notifyPropertyChanged(BR.options);
     }
 
     @Bindable
