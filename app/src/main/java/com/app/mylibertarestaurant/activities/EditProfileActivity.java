@@ -2,6 +2,7 @@ package com.app.mylibertarestaurant.activities;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -39,10 +40,13 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +73,48 @@ public class EditProfileActivity extends ImageUploadingActivity {
     private Bitmap profilePic;
 
 
-    private Target getTarget(final String url) {
+
+    private class DownloadTask extends AsyncTask<URL, Void, Bitmap> {
+        ProgressDialog mProgressDialog;
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(EditProfileActivity.this);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.setMessage("Image Loading...");
+            mProgressDialog.show();
+        }
+
+        protected Bitmap doInBackground(URL... urls) {
+            URL url = urls[0];
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                return BitmapFactory.decodeStream(bufferedInputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        // When all async task done
+        protected void onPostExecute(Bitmap result) {
+            // Hide the progress dialog
+            Log.e("@@@@@@@@Image Loaded", "" + result);
+            mProgressDialog.dismiss();
+            if (result != null) {
+                profilePic = result;
+                binder.ivProfile.setImageBitmap(profilePic);
+            } else {
+                profilePic = result;
+                Toast.makeText(EditProfileActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+/*    private Target getTarget(final String url) {
         Target target = new Target() {
             @Override
             public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -90,7 +135,7 @@ public class EditProfileActivity extends ImageUploadingActivity {
             }
         };
         return target;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,10 +188,10 @@ public class EditProfileActivity extends ImageUploadingActivity {
         RequestBody open_time = RequestBody.create(MediaType.parse("text/plain"), AppUtils.get24HoursTimeFormat(binder.tvOpenTime.getText().toString().trim()));
         RequestBody close_time = RequestBody.create(MediaType.parse("text/plain"), AppUtils.get24HoursTimeFormat(binder.tvCloseTime.getText().toString().trim()));
 
-        Log.e("@@@@@@@@",""+binder.tvOpenTime.getText().toString().trim()+"--"+binder.tvCloseTime.getText().toString().trim());
+        Log.e("@@@@@@@@", "" + binder.tvOpenTime.getText().toString().trim() + "--" + binder.tvCloseTime.getText().toString().trim());
         final Dialog progressDialog = ResponseDialog.showProgressDialog(EditProfileActivity.this);
         ((MyApplication) getApplication()).getConfiguration().inject(EditProfileActivity.this);
-        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime, deliveryFee,open_time,close_time)
+        apiInterface.updateProfile(image, name, address, pincode, deliverykm, restaurant_id, latitude, longitude, deliveryTime, deliveryFee, open_time, close_time)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ApiResponseModel>() {
@@ -190,7 +235,13 @@ public class EditProfileActivity extends ImageUploadingActivity {
             range = 0;
         }
         binder.tvRange.setText("" + range);
-        Picasso.with(EditProfileActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(getTarget(restaurantDetailModel.getRestaurants().getImages().get(0)));
+        Picasso.with(EditProfileActivity.this).load(restaurantDetailModel.getRestaurants().getImages().get(0)).resize(200, 200).onlyScaleDown().placeholder(R.drawable.placeholder_squre).into(binder.ivProfile);
+        try {
+            new DownloadTask().execute(new URL(restaurantDetailModel.getRestaurants().getImages().get(0)));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public class Myclick {

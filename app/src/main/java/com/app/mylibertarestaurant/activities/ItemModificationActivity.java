@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +42,11 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -102,7 +110,8 @@ public class ItemModificationActivity extends ImageUploadingActivity {
         binder.tvDesc.setText(data.getDescription());
         binder.etProductPrice.setText(data.getPrice());
         try {
-            Picasso.with(this).load(data.getImage()).into(getTarget());
+            Picasso.with(this).load(data.getImage()).placeholder(R.drawable.placeholder_squre).into(binder.imgPic);
+            new DownloadTask().execute(new URL(data.getImage()));
         } catch (Exception e) {
         }
         if (data.getIsActive().equalsIgnoreCase("true")) {
@@ -203,7 +212,49 @@ public class ItemModificationActivity extends ImageUploadingActivity {
 
     }
 
-    private Target getTarget() {
+
+    private class DownloadTask extends AsyncTask<URL, Void, Bitmap> {
+        ProgressDialog mProgressDialog;
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(ItemModificationActivity.this);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.setMessage("Image Loading...");
+            mProgressDialog.show();
+        }
+
+        protected Bitmap doInBackground(URL... urls) {
+            URL url = urls[0];
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+                return BitmapFactory.decodeStream(bufferedInputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        // When all async task done
+        protected void onPostExecute(Bitmap result) {
+            // Hide the progress dialog
+            Log.e("@@@@@@@@Image Loaded", "" + result);
+            mProgressDialog.dismiss();
+            if (result != null) {
+                restaurantImage = result;
+                binder.imgPic.setImageBitmap(restaurantImage);
+            } else {
+                restaurantImage = null;
+                // Notify user that an error occurred while downloading image
+                Toast.makeText(ItemModificationActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+  /*  private Target getTarget() {
         Target target = new Target() {
             @Override
             public void onBitmapLoaded(final Bitmap result, Picasso.LoadedFrom from) {
@@ -224,7 +275,7 @@ public class ItemModificationActivity extends ImageUploadingActivity {
             }
         };
         return target;
-    }
+    }*/
 
 
     private void getFoodAvailibility() {

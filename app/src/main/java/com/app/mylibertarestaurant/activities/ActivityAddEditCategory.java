@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -265,6 +266,15 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
     private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
         private String TAG = "___________";
 
+        ProgressDialog mProgressDialog;
+        protected void onPreExecute() {
+            mProgressDialog = new ProgressDialog(ActivityAddEditCategory.this);
+            mProgressDialog.setIndeterminate(true);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressDialog.setMessage("Image Loading...");
+            mProgressDialog.show();
+        }
+
         private Bitmap downloadImageBitmap(String sUrl) {
             Bitmap bitmap = null;
             try {
@@ -284,6 +294,7 @@ public class ActivityAddEditCategory extends ImageUploadingActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
+            mProgressDialog.dismiss();
             menuItemImage = result;
             if (menuItemImage != null) {
                 showCaptureView();
